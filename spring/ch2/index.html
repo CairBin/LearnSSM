@@ -1,0 +1,1237 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+      
+      
+      
+      
+        <link rel="prev" href="../ch1/">
+      
+      
+        <link rel="next" href="../ch3/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+    
+    
+      
+        <title>控制反转IoC与依赖注入DI - LearnSSM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#iocdi" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LearnSSM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              控制反转IoC与依赖注入DI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    LearnSSM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    目录
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            目录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            开发环境搭建
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MacOS环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring初步
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Spring初步
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解Spring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      依赖注入
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="依赖注入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造器注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setter注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入与自动扫描
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入与其它注入混合使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#di" class="md-nav__link">
+    <span class="md-ellipsis">
+      对比几种DI的方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对比几种DI的方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造器注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setter注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      结束
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工厂模式、核心容器与Spring Bean
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MyBatis入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MyBatis入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      依赖注入
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="依赖注入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造器注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setter注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入与自动扫描
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入与其它注入混合使用
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#di" class="md-nav__link">
+    <span class="md-ellipsis">
+      对比几种DI的方式
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="对比几种DI的方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      构造器注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setter_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setter注入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      属性注入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      结束
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="iocdi">控制反转IoC与依赖注入DI</h1>
+<h2 id="_1">概念</h2>
+<p>提到Spring首先想到的肯定是Spring的IoC容器了。在了解Spring的用法之前我们必须了解什么是<strong>控制反转IoC</strong>和<strong>依赖注入DI</strong>。</p>
+<p><strong>控制反转（Inversion of Control）</strong>是面向对象编程中的一种设计原则，它建议将不需要的职责移出类，让类专注于核心职责，从而提供松散耦合，提高优化软件程序设计。</p>
+<p>简单一点来说，我原来需要一个对象需要自己手动去new，我必须知道哪些类实现了相应的接口，而有了控制反转，我只需要向框架的容器要一个，由它实现装配，对对象组件的控制权也就由代码转移到了外部容器。</p>
+<p>控制反转有多种实现方式：</p>
+<ul>
+<li>依赖注入（Dependency Injection）</li>
+<li>依赖查找（Dependency Lookup）</li>
+</ul>
+<p>其中依赖查找又可以分为<strong>依赖拖拽</strong>和<strong>上下文依赖查找</strong>。</p>
+<h2 id="_2">依赖注入</h2>
+<p>我们这里主要来探讨<strong>依赖注入</strong>，它的基本原则是<strong>应用组件不应该负责查找资源或者其他依赖对象，配置对象的工作由IoC容器负责，即组件不做定位查询，只提供常规的Java方法让容器去决定依赖关系。</strong></p>
+<p>Spring实现DI有四种方式：构造器注入、setter注入、接口注入和属性注入。接口注入Spring3.x的特性，Spring4.x已经被废弃掉了，我们就着重探讨另外三者。</p>
+<p>我们还是在原来的test1项目上进行演示。首先，我们创建一个接口，其名称<code>ITest</code>。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403190240774.png" /></p>
+<p><img alt="" src="http://img.cairbin.top/img/202403190242063.png" /></p>
+<p>我们在接口中声明一个方法<code>void say()</code>。</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+public interface ITest {
+    void say();
+}
+</code></pre>
+<p>接下来我们定义一个实现<code>ITest</code>接口的类<code>Test</code>。这里不给出操作图片，请仿照之前的自行创建一个<code>Test.java</code>文件，下文同理。</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+public class Test implements ITest{
+    @Override
+    public void say() {
+        System.out.println(&quot;Hi&quot;);
+    }
+}
+</code></pre>
+<p>我们创建一个调用者类<code>User</code>，它需要一个实现了<code>ITest</code>接口的对象。</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+public class User {
+    private ITest test;
+
+    public void testSay() {
+        test.say();
+    }
+}
+</code></pre>
+<p>我们尝试在<code>App</code>中去实例化这个对象并调用<code>void testSay()</code>这个方法。</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        User user = new User();
+        user.testSay();
+    }
+}
+</code></pre>
+<p>接下来运行，发现了一堆报错。这很显然，因为我们没有给定<code>User</code>类中对应<code>ITest</code>类型的属性的实现。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403190257012.png" /></p>
+<p>我们接下来尝试使用依赖注入来解决这个报错。</p>
+<p>先创建一个与<code>src</code>平级的文件夹，名称叫做<code>resources</code>
+<img alt="" src="http://img.cairbin.top/img/202403190332322.png" /></p>
+<p>然后对这个文件夹右键，点击<code>Build Path</code>里的<code>Use as Source Folder</code></p>
+<p><img alt="" src="http://img.cairbin.top/img/202403190334177.png" /></p>
+<p>我们要告诉IoC容器谁实现了<code>ITest</code>接口，于是我们在<code>resources</code>目录下创建一个<code>AppCtx.xml</code>文件。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403190336145.png" /></p>
+<p>在文件中写入如下内容</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;bean id=&quot;test&quot; class=&quot;top.cairbin.test1.Test&quot;&gt;&lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<p>我们还要告诉Spring去加载这个xml配置文件，于是在<code>App</code>类中（注意新引入的两个包）</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;AppCtx.xml&quot;);
+        User user = (User)applicationContext.getBean(&quot;user&quot;);
+        user.testSay();
+    }
+}
+</code></pre>
+<h3 id="_3">构造器注入</h3>
+<p>构造器注入是<strong>SpringFramework</strong>推荐的一种方式，它要求提供有参数的构造方法。</p>
+<p>我们对类<code>User</code>进行改造</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+public class User {
+    private final ITest test;
+
+    public User(ITest test) {
+        this.test = test;
+    }
+
+    public void testSay() {
+        test.say();
+    }
+}
+</code></pre>
+<p>然后修改<code>AppCtx.xml</code>，告诉Spring类<code>User</code>构造器对应的参数</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;bean id=&quot;test&quot; class=&quot;top.cairbin.test1.Test&quot;&gt;&lt;/bean&gt;
+    &lt;bean id=&quot;user&quot; class=&quot;top.cairbin.test1.User&quot;&gt;
+        &lt;constructor-arg ref=&quot;test&quot;&gt;&lt;/constructor-arg&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<p>在这个xml文件中，我们告诉Spring类<code>User</code>构造器所需参数类型。这里的<code>user</code>对应<code>top.cairbin.test1.User</code>，而且与<code>Main</code>函数中的<code>getBean("user")</code>参数一致。</p>
+<p>点击<strong>运行</strong>，发现控制台能够正常输出了</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403190339683.png" /></p>
+<h3 id="setter">Setter注入</h3>
+<p>类<code>User</code>内容</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+public class User {
+    private ITest test;
+
+    public void setTest(ITest test) {
+        this.test = test;
+    }
+
+    public void testSay() {
+        test.say();
+    }
+
+}
+</code></pre>
+<p><code>AppCtx.xml</code>内容</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;bean id=&quot;test&quot; class=&quot;top.cairbin.test1.Test&quot;&gt;&lt;/bean&gt;
+    &lt;bean id=&quot;user&quot; class=&quot;top.cairbin.test1.User&quot;&gt;
+        &lt;property name=&quot;test&quot; ref=&quot;test&quot;/&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<h3 id="_4">属性注入</h3>
+<p>属性注入，又或者说是字段注入，实际上并不是新的注入类型，它实际上通过注解实现，底层利用反射机制来设置值。</p>
+<p>我们在<code>AppCtx.xml</code>文件中修改内容如下</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;bean id=&quot;test&quot; class=&quot;top.cairbin.test1.Test&quot;&gt;&lt;/bean&gt;
+    &lt;bean id=&quot;user&quot; class=&quot;top.cairbin.test1.User&quot; autowire=&quot;byName&quot;&gt;
+    &lt;/bean&gt;
+
+&lt;/beans&gt;
+</code></pre>
+<p>然后修改<code>User</code>类，给属性加一个注解<code>@Autowired</code>并设置一个<code>public void setTest(ITest test)</code>方法。</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class User {
+    @Autowired
+    private ITest test;
+
+    public void setTest(ITest test) {
+        this.test = test;
+    }
+
+    public void testSay() {
+        test.say();
+    }
+}
+</code></pre>
+<p>点击<strong>运行</strong>按钮我们能看到控制台能够正常输出。</p>
+<h3 id="_5">属性注入与自动扫描</h3>
+<p>我们想扔掉讨厌的setter方法，并且不再写这么麻烦的XML文件，有一个好方法那就是<strong>自动扫描</strong>。</p>
+<p>我们修改<code>AppCtx.xml</code>里开启自动扫描。</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+    &lt;context:component-scan base-package=&quot;top.cairbin.test1&quot; /&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>注意这里的<code>base-package</code>属性，为你要扫描的包！！！</p>
+<p>然后将<code>Test</code>类注册为Bean，实际上就添加一个<code>@Component</code>注解</p>
+<pre><code class="language-java">@Component
+public class Test implements ITest{
+    @Override
+    public void say() {
+        System.out.println(&quot;Hi&quot;);
+    }
+}
+</code></pre>
+<p>同理，在<code>User</code>类上也添加一个<code>@Component</code>注解，在需要注入的字段上添加<code>@Autowired</code>注解</p>
+<pre><code class="language-java">package top.cairbin.test1;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class User {
+    @Autowired
+    private ITest test;
+
+    public void testSay() {
+        test.say();
+    }
+}
+</code></pre>
+<p>保存后，点击<strong>运行</strong>就能看到控制台输出。</p>
+<p>这里对<code>@Component</code>注解进行说明，它就相当于我们在<code>AppCtx.xml</code>里添加了一个<code>&lt;bean&gt;&lt;/bean&gt;</code>标签，其id为<strong>首字母小写的类名</strong>，例如类名为<code>TestDi</code>，则对应id就是<code>testDi</code>。</p>
+<p>如果你想要自定义这个id，只需要这样写注解即可<code>@Component("testDi")</code>。</p>
+<h3 id="_6">属性注入与其它注入混合使用</h3>
+<p>问题来了，当属性注入和其它注入方式混合使用会怎么样。</p>
+<p>在Spring4.3之前，需要添加<code>@Autowired</code>注解在构造函数上；在Spring4.3之后，如果只存在一个构造函数，则不用添加<code>@Autowired</code>，如果存在多个构造函数，则必须指定哪个来注入以来项，即在上面添加<code>@Autowired</code>。</p>
+<p>当属性注入与Setter注入同时使用时，例如下方代码：</p>
+<pre><code class="language-java">public class Example {
+
+    @Autowired
+    private Bean1 bean1;
+
+    @Autowired
+    public void setBean1(Bean1 bean1) {
+        this.bean1 = bean1;
+    }  
+}
+</code></pre>
+<p><strong>Spring会优先使用Setter注入！！！</strong></p>
+<p><strong>上述只是举例，在实际项目编写不要使用混合的注入方式，因为这会降低代码可读性！！</strong></p>
+<h2 id="di">对比几种DI的方式</h2>
+<h3 id="_7">构造器注入</h3>
+<p>对于构造器注入，类的依赖关系在构造器中很明显，所有的依赖项在构造方法中，所以所有的依赖项都第一时间被注入到类中，且无法更改，即构造的对象是不可变的。</p>
+<p><strong>为什么Spring推荐这种方式？因为它可以使代码更健壮，可以防止空指针异常。</strong></p>
+<p>但是构造器注入也并不完美，它缺乏灵活性，不可能更改对象的依赖关系，在重构代码的时候比较麻烦。甚至有可能产生循环依赖。</p>
+<h3 id="setter_1">Setter注入</h3>
+<p>Setter注入是一种灵活的方式，但是在多线程环境中可能变得不安全。另外Setter注入需要进行Null检查，否则可能报错，这影响了代码的健壮性。</p>
+<h3 id="_8">属性注入</h3>
+<p>快速方便，与IoC容器耦合，但会带来额外的性能开销和兼容问题，同时也打破了封装这一特性，不利于面向对象编程。同时它也可能存在空指针异常，不利于代码的健壮性。</p>
+<h2 id="_9">结束</h2>
+<p>本文到此结束，看完这一章你对依赖注入应该有了一个大致的了解，但是也应该会有很多疑问。Bean是什么？注解到底帮助我们实现了什么？我们将在下一节来探究这个问题。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024-Now CairBin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

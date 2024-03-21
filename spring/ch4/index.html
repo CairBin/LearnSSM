@@ -1,0 +1,1221 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+      
+      
+      
+      
+        <link rel="prev" href="../ch3/">
+      
+      
+        <link rel="next" href="../ch5/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+    
+    
+      
+        <title>Spring AOP与AspectJ - LearnSSM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spring-aopaspectj" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LearnSSM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spring AOP与AspectJ
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    LearnSSM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    目录
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            目录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            开发环境搭建
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MacOS环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring初步
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Spring初步
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解Spring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工厂模式、核心容器与Spring Bean
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aop" class="md-nav__link">
+    <span class="md-ellipsis">
+      AOP的实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AOP的实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      JDK动态代理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cglib" class="md-nav__link">
+    <span class="md-ellipsis">
+      CGLib动态代理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aspectj" class="md-nav__link">
+    <span class="md-ellipsis">
+      AspectJ静态代理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MyBatis入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MyBatis入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aop" class="md-nav__link">
+    <span class="md-ellipsis">
+      AOP的实现
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AOP的实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      JDK动态代理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cglib" class="md-nav__link">
+    <span class="md-ellipsis">
+      CGLib动态代理
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aspectj" class="md-nav__link">
+    <span class="md-ellipsis">
+      AspectJ静态代理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="spring-aopaspectj">Spring AOP与AspectJ</h1>
+<h2 id="_1">概念</h2>
+<p><strong>AOP</strong>的全称为<strong>Aspect-Oriented Programming</strong>，即面向切面编程。</p>
+<p>想象你是汉堡店的厨师，每一份汉堡都有好几层，这每一层都可以视作一个切面。现在有一位顾客想要品尝到不同风味肉馅的汉堡，如果按照传统的方式，你需要做多个汉堡，每个汉堡只有肉馅是不一样的，但是你每做一个汉堡都要重新制作面包。而聪明的厨师只需做一个汉堡，仅将肉饼那一层分成不同口味的几个区域，这样你就不需要再重复制作面包了。</p>
+<p>对于程序员也是一样的，有多少个接口就要写或复制多少代码那一定是无法忍受的，我们只想关心不同的那部分。</p>
+<p>尽管想通俗来讲，但是还是要去熟悉专业的概念：</p>
+<ul>
+<li><code>Aspect</code>：切面，类似于Java类声明，里面会有<code>Pointcut</code>和<code>Advice</code></li>
+<li><code>Joint point</code>：连接点，在程序执行过程中某个阶段点</li>
+<li><code>Pointcut</code>：切入点，切面与程序流的交叉点，往往此处需要处理</li>
+<li><code>Advice</code>：通知或增强，在切入点处所要执行的代码。可以理解为切面类中的方法。</li>
+<li><code>Target object</code>：目标对象，指所有被通知的对象。</li>
+<li><code>Proxy</code>：代理，将通知应用到目标对象后，被动态创建的对象。</li>
+<li><code>Weaving</code>：织入，将切面代码插到目标对象上，从而生成代理对象的过程。</li>
+</ul>
+<p>别担心，我们之后会通过代码来慢慢理解。</p>
+<h2 id="aop">AOP的实现</h2>
+<p>AOP的实现主要分为<strong>静态代理</strong>和<strong>动态代理</strong>，在本教程中静态代理我们用<code>AspectJ</code>，而动态代理用<code>Spring AOP</code>。</p>
+<p>静态代理在编译期就确定了代理类，而动态代理需要靠反射机制动态生成代理类。</p>
+<p>Spring AOP动态代理有两种实现方式：一种是<strong>JDK动态代理</strong>，这种方式需要接口；另一种是<strong>CGLib动态代理</strong>，这种方式不依赖接口。</p>
+<p>有了以上的知识，我们开始写代码，首先新创建一个<strong>Maven项目</strong><code>top.cairbin.test2</code>，如果你不会请回去看之前的章节。</p>
+<p>然后在<code>pom.xml</code>的<code>&lt;dependencies&gt;&lt;/dependencies&gt;</code>之间添加依赖包</p>
+<pre><code class="language-xml">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-context --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+    &lt;version&gt;5.3.16&lt;/version&gt;
+&lt;/dependency&gt;       
+&lt;!-- https://mvnrepository.com/artifact/cglib/cglib --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;cglib&lt;/groupId&gt;
+    &lt;artifactId&gt;cglib&lt;/artifactId&gt;
+    &lt;version&gt;3.3.0&lt;/version&gt;
+&lt;/dependency&gt;       
+&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
+    &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
+    &lt;version&gt;1.9.4&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>我们去实现一个<code>IUser</code>接口，要求接口内有两个方法<code>void addUser()</code>和<code>void deleteUser()</code></p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+public interface IUser {
+    void addUser();
+    void deleteUser();
+}
+</code></pre>
+<p>接下来定义一个实现该接口的<code>User</code>类</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+public class User implements IUser{
+    @Override
+    public void addUser() {
+        System.out.println(&quot;进行增加用户操作！&quot;);
+    }
+
+    @Override
+    public void deleteUser() {
+        System.out.println(&quot;进行删除用户操作!&quot;);
+    }
+}
+</code></pre>
+<p>我们定义一个切面类，该类中的两个方法<code>void check()</code>和<code>void log()</code>分别模拟权限检查和日志记录功能。</p>
+<p>切面类如下所示</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+public class MyAspect {
+    public void check() {
+        System.out.println(&quot;正在模拟权限认证&quot;);
+    }
+
+    public void log() {
+        System.out.println(&quot;正在模拟日志记录&quot;);
+    }
+}
+</code></pre>
+<h3 id="jdk">JDK动态代理</h3>
+<p>接下来创建代理类<code>JdkProxy</code>，这个类实现了JDK动态代理的<code>InvocationHandler</code>接口，并实现代理方法。</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+
+public class JdkProxy implements InvocationHandler{
+    private final IUser user;
+
+    public JdkProxy(IUser user) {
+        this.user = user;
+    }
+
+    public static Object createProxy(IUser user) {
+        ClassLoader classLoader = JdkProxy.class.getClassLoader();
+        // 被代理对象实现的所有接口
+        Class[] clazz = user.getClass().getInterfaces();
+        // 使用代理类，进行增强，返回的是代理后的对象
+        return  Proxy.newProxyInstance(classLoader,clazz,new JdkProxy(user));
+    }
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        // 声明切面
+        MyAspect myAspect = new MyAspect();
+        // 前增强
+        myAspect.check();
+        // 在目标类上调用方法，并传入参数
+        Object obj = method.invoke(user, args);
+        // 后增强
+        myAspect.log();
+
+        return obj;
+    }
+
+}
+</code></pre>
+<p>然后尝试在<code>App.java</code>的<code>main</code>方法中使用它们</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        // 创建目标对象
+        IUser user= new User();
+        // 创建代理，并从代理中获取增强后的目标对象
+        IUser user2 = (IUser)JdkProxy.createProxy(user);
+        // 执行方法
+        user2.addUser();
+        user2.deleteUser();
+
+    }
+}
+</code></pre>
+<p>输出结果如下图所示
+<img alt="" src="http://img.cairbin.top/img/202403200225898.png" /></p>
+<h3 id="cglib">CGLib动态代理</h3>
+<p>我们不妨尝试使用CGLib来玩一下</p>
+<p>创建一个新的类，名称为<code>CglibProxy</code>，并实现接口<code>MethodInterceptor</code>以及相应的方法</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+import java.lang.reflect.Method;
+import org.springframework.cglib.proxy.Enhancer;
+import org.springframework.cglib.proxy.MethodInterceptor;
+import org.springframework.cglib.proxy.MethodProxy;
+
+public class CglibProxy implements MethodInterceptor {
+     public static Object createProxy(Object target){
+        Enhancer enhancer = new Enhancer();  
+        enhancer.setSuperclass(target.getClass());  
+        enhancer.setCallback(new CglibProxy()); 
+        return enhancer.create();
+ }
+    @Override
+    public Object intercept(Object obj, Method method,  Object[] args, MethodProxy proxy) throws Throwable {
+        // 声明切面
+        MyAspect myAspect = new MyAspect();
+        // 前增强
+        myAspect.check();
+        //获取增强后的目标对象
+        Object target = proxy.invokeSuper(obj, args);
+        // 后增强
+        myAspect.log();
+        return target;
+    }
+}
+</code></pre>
+<p>尝试调用下</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        IUser user = (IUser)CglibProxy.createProxy (new User());
+        user.addUser();
+        user.deleteUser();
+    }
+}
+</code></pre>
+<p>不出所料，果然成功了
+<img alt="" src="http://img.cairbin.top/img/202403200234740.png" /></p>
+<p>我们仔细观察CGLib的这几段代码，在<code>CglibProxy</code>类中我们并没有用到<code>IUser</code>这个接口，而是返回Object，然后外面也就是调用者那里强制转换为<code>IUser</code>类型！</p>
+<p>不妨再“懒”一些，我们借助Spring的依赖注入，从Spring的容器中直接返回增强后的实现了<code>IUser</code>接口的对象试一试。</p>
+<p>首先在<code>resources/AppCtx.xml</code>中编写Bean的配置（这里有坑，如果行不通回前面的文章看看）</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd&quot;&gt;
+    &lt;!-- 目标类 --&gt;
+    &lt;bean id=&quot;user&quot; class=&quot;top.cairbin.test2.User&quot; /&gt;
+    &lt;!-- 切面类 --&gt;
+    &lt;bean id=&quot;myAspect&quot; class=&quot;top.cairbin.test2.MyAspect&quot; /&gt;
+    &lt;!-- 使用Spring代理工厂定义一个名称为userProxy的代理对象 --&gt;
+    &lt;bean id=&quot;userProxy&quot; 
+            class=&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;&gt;
+        &lt;!-- 指定代理实现的接口--&gt;
+        &lt;property name=&quot;proxyInterfaces&quot; 
+                      value=&quot;top.cairbin.test2.IUser&quot; /&gt;
+        &lt;!-- 指定目标对象 --&gt;
+        &lt;property name=&quot;target&quot; ref=&quot;user&quot; /&gt;
+        &lt;!-- 指定切面,织入环绕通知 --&gt;
+        &lt;property name=&quot;interceptorNames&quot; value=&quot;myAspect&quot; /&gt;
+        &lt;!-- 指定代理方式，true：使用cglib，false(默认)：使用jdk动态代理 --&gt;
+        &lt;property name=&quot;proxyTargetClass&quot; value=&quot;true&quot; /&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>修改下<code>MyAspect</code>类，并实现接口<code>MethodInterceptor</code></p>
+<pre><code class="language-java">package top.cairbin.test2;
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+
+public class MyAspect implements MethodInterceptor {
+    @Override
+    public Object invoke(MethodInvocation mi) throws Throwable {
+        this.check();
+        // 执行目标方法
+        Object obj = mi.proceed();
+        this.log();
+        return obj;
+    }
+
+    public void check() {
+        System.out.println(&quot;正在模拟权限认证&quot;);
+    }
+
+    public void log() {
+        System.out.println(&quot;正在模拟日志记录&quot;);
+    }
+}
+</code></pre>
+<p><code>App</code>类中的<code>main</code>方法调用如下</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext app = new ClassPathXmlApplicationContext(&quot;AppCtx.xml&quot;);
+        IUser user = (IUser)app.getBean(&quot;userProxy&quot;);
+        user.addUser();
+        user.deleteUser();
+    }
+}
+</code></pre>
+<p>点击<strong>运行</strong>得到结果
+<img alt="" src="http://img.cairbin.top/img/202403200258702.png" /></p>
+<h3 id="aspectj">AspectJ静态代理</h3>
+<p>使用AspectJ静态代理，我们重新设计下<code>MyAspect</code>切面类</p>
+<pre><code class="language-java">package top.cairbin.test2;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+/**
+ * 切面类，在此类中编写通知
+ */
+@Aspect
+@Component
+public class MyAspect {
+    // 定义切入点表达式
+    @Pointcut(&quot;execution(* top.cairbin.test2.*.*(..))&quot;)
+    // 使用一个返回值为void、方法体为空的方法来命名切入点
+    private void myPointCut(){}
+    // 前置通知
+    @Before(&quot;myPointCut()&quot;)
+    public void myBefore(JoinPoint joinPoint) {
+        System.out.print(&quot;前置通知 ：模拟执行权限检查...,&quot;);
+        System.out.print(&quot;目标类是：&quot;+joinPoint.getTarget() );
+        System.out.println(&quot;,被织入增强处理的目标方法为：&quot;
+                       +joinPoint.getSignature().getName());
+    }
+    // 后置通知
+    @AfterReturning(value=&quot;myPointCut()&quot;)
+    public void myAfterReturning(JoinPoint joinPoint) {
+        System.out.print(&quot;后置通知：模拟记录日志...,&quot; );
+        System.out.println(&quot;被织入增强处理的目标方法为：&quot;
+                      + joinPoint.getSignature().getName());
+    }
+    // 环绕通知 
+    @Around(&quot;myPointCut()&quot;)
+    public Object myAround(ProceedingJoinPoint proceedingJoinPoint) 
+            throws Throwable {
+        // 开始
+        System.out.println(&quot;环绕开始：执行目标方法之前，模拟开启事务...&quot;);
+        // 执行当前目标方法
+        Object obj = proceedingJoinPoint.proceed();
+        // 结束
+        System.out.println(&quot;环绕结束：执行目标方法之后，模拟关闭事务...&quot;);
+        return obj;
+    }
+    // 异常通知
+    @AfterThrowing(value=&quot;myPointCut()&quot;,throwing=&quot;e&quot;)
+    public void myAfterThrowing(JoinPoint joinPoint, Throwable e) {
+        System.out.println(&quot;异常通知：&quot; + &quot;出错了&quot; + e.getMessage());
+    }
+    // 最终通知
+    @After(&quot;myPointCut()&quot;)
+    public void myAfter() {
+        System.out.println(&quot;最终通知：模拟方法结束后的释放资源...&quot;);
+    }
+}
+</code></pre>
+<p>对于切入点注解<code>@Pointcut("execution(* top.cairbin.test2.*.*(..))")</code>表示对<code>top.cairbin.test2</code>这个包下的所有类的所有方法生效。</p>
+<p>我们再来看看Spring中的<code>Advice</code>的几种类型：</p>
+<ul>
+<li><code>org.springframework.aop.MethodBeforeAdvice</code>，前置通知，目标方法执行前实施，可用于权限管理。</li>
+<li><code>org.springframework.aop.AfterReturningAdvice</code>，后置通知，在目标方法执行后实施，用于关闭文件流、上传文件、删除临时文件等。</li>
+<li><code>org.aopalliance.intercept.MethodInterceptor</code>，环绕通知，在目标方法实施前后，一般用于日志或事务管理。</li>
+<li><code>org.springframework.aop.ThrowsAdvice</code>，异常抛出通知，在抛出异常后实施。</li>
+<li><code>org.springframework.aop.IntroductionInterceptor</code>，引介通知，在目标类中添加新方法和属性，可以应用于修改老版本程序。</li>
+</ul>
+<p>我们还要实现自动扫描和依赖注入，看看我们的<code>User</code>类</p>
+<pre><code class="language-java">package top.cairbin.test2;
+import org.springframework.stereotype.Component;
+
+@Component
+public class User implements IUser{
+    @Override
+    public void addUser() {
+        System.out.println(&quot;进行增加用户操作！&quot;);
+    }
+
+    @Override
+    public void deleteUser() {
+        System.out.println(&quot;进行删除用户操作!&quot;);
+    }
+}
+</code></pre>
+<p>自然也少不了<code>AppCtx.xml</code>的配置</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+  xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
+  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+  http://www.springframework.org/schema/aop 
+  http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context-4.3.xsd&quot;&gt;
+      &lt;!-- 指定需要扫描的包，使注解生效 --&gt;
+      &lt;context:component-scan base-package=&quot;top.cairbin.test2&quot; /&gt;
+      &lt;!-- 启动基于注解的声明式AspectJ支持 --&gt;
+      &lt;aop:aspectj-autoproxy /&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>在<code>main</code>方法中测试下，为了清楚，我这里仅调用了<code>addUser</code>一个方法</p>
+<pre><code class="language-java">package top.cairbin.test2;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext app = new ClassPathXmlApplicationContext(&quot;AppCtx.xml&quot;);
+        IUser user = (IUser)app.getBean(&quot;user&quot;);
+        user.addUser();
+    }
+}
+</code></pre>
+<p><img alt="" src="http://img.cairbin.top/img/202403200318638.png" /></p>
+<p><strong>我们发现当环绕通知与前置通知和后置通知同时使用的时候，优先级如下：</strong></p>
+<ul>
+<li>环绕通知开始</li>
+<li>前置通知</li>
+<li>方法执行</li>
+<li>后置通知</li>
+<li>环绕通知结束</li>
+</ul>
+<p>想必到了这里，你对AspectJ的使用有了一定的了解，但是对于相应的注解还是不太清楚，请仔细阅读下方图片中的表格，结合一开始的术语体会下：</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403200322816.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024-Now CairBin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

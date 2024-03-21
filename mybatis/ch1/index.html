@@ -1,0 +1,1308 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+      
+      
+      
+      
+        <link rel="prev" href="../../spring/ch7/">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+    
+    
+      
+        <title>了解MyBatis - LearnSSM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mybatis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LearnSSM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              了解MyBatis
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    LearnSSM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    目录
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            目录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            开发环境搭建
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MacOS环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring初步
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Spring初步
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解Spring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工厂模式、核心容器与Spring Bean
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring/ch7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MyBatis入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MyBatis入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mybatis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是MyBatis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mybatisorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyBatis是不是ORM？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mybatis_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyBatis工作原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mybatis_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用MyBatis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用MyBatis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建数据库与表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建项目
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mybatis_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是MyBatis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mybatisorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyBatis是不是ORM？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mybatis_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyBatis工作原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mybatis_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      使用MyBatis
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="使用MyBatis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建数据库与表
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建项目
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="mybatis">了解MyBatis</h1>
+<h2 id="mybatis_1">什么是MyBatis</h2>
+<p>MyBatis 是一款优秀的持久层框架，它支持自定义 SQL、存储过程以及高级映射。MyBatis 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。MyBatis 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 Java POJO（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。</p>
+<p><a href="https://mybatis.net.cn/">MyBatis中文文档</a> 可参考 <a href="https://mybatis.net.cn/">https://mybatis.net.cn/</a>。</p>
+<h2 id="mybatisorm">MyBatis是不是ORM？</h2>
+<p>什么是ORM？即Object-Relationl Mapping，它的作用是在关系型数据库和对象之间作一个映射，这样，我们在具体的操作数据库的时候，就不需要再去写复杂的SQL语句。</p>
+<p>JPA是orm框架标准，MyBatis没有实现JPA，和orm框架的设计思路完全不一样。MyBatis是拥抱sql，而orm则更靠近面向对象。Mybatis是sql mapping框架而不是orm框架，当然orm和Mybatis都是持久层框架。</p>
+<h2 id="mybatis_2">MyBatis工作原理</h2>
+<p><img alt="" src="http://img.cairbin.top/img/202403211303961.png" /></p>
+<h2 id="mybatis_3">使用MyBatis</h2>
+<p>废话不多说，我们直接上手用下。</p>
+<h3 id="_1">创建数据库与表</h3>
+<p>我们来创建一个名称为<code>db_mybatis</code>的数据库</p>
+<p>还是老样子，我这里以终端为例，你可以用<code>sqlyog</code>等工具。</p>
+<pre><code class="language-shell">mysql -uroot
+</code></pre>
+<p>有密码的话</p>
+<pre><code class="language-shell">mysql -u root -p
+</code></pre>
+<p>执行SQL语句创建数据库</p>
+<pre><code class="language-sql">CREATE DATABASE db_mybatis;
+</code></pre>
+<p>创建管理该数据库的用户<code>db_mybatis</code>，密码为<code>db_mybatis</code>，访问主机为本机可访问<code>localhost</code>，如果远程访问请改为<code>%</code>。</p>
+<pre><code class="language-sql">CREATE USER 'db_mybatis'@'localhost' IDENTIFIED BY 'db_mybatis';
+</code></pre>
+<p>给它管理<code>db_mybatis</code>的所有权限</p>
+<pre><code class="language-sql">GRANT ALL ON db_mybatis.* TO 'db_mybatis'@'localhost';
+</code></pre>
+<p>刷新权限</p>
+<pre><code class="language-sql">flush privileges;
+</code></pre>
+<p>如果你用的MySQL8.0及以上版本，客户端版本较老，由于加密算法问题需要追加以下语句：</p>
+<pre><code class="language-sql">ALERT USER 'db_mybatis'@'localhost' IDENTIFIED WITH mysql_native_password by 'db_mybatis';
+</code></pre>
+<p>退出MySQL控制台，返回PC终端</p>
+<pre><code class="language-sql">exit;
+</code></pre>
+<p>我们用刚创建的用户连接下mysql</p>
+<pre><code class="language-sql">mysql -u db_mybatis -p
+</code></pre>
+<p>然后出现提示，输入密码<code>db_mybatis</code>敲击回车，如果密码跟我不一样，这里与你上面的设置一致。</p>
+<p>切换数据库到<code>db_mybatis</code></p>
+<pre><code class="language-sql">USE db_mybatis;
+</code></pre>
+<p>如果表名称已经存在，会影响我们创建，如果你之前不太重要的话就直接删了，如果想要保留那么新建的表就要修改名字</p>
+<pre><code class="language-sql">DROP TABLE IF EXISTS `customer`;
+</code></pre>
+<p>我们创建一张表，名称为<code>customer</code>，主键为<code>id</code></p>
+<p>如果用标准的SQL语句来写的话，我这里版本为MySQL5.7，可能会报错</p>
+<p>如果报错，就替换成以下语句</p>
+<pre><code class="language-sql">CREATE TABLE customer
+(
+    id int(32) AUTO_INCREMENT,
+    username varchar(50) DEFAULT NULL,
+    jobs varchar(50) DEFAULT NULL,
+    phone varchar(16) DEFAULT NULL,
+    PRIMARY KEY(`id`)
+);
+</code></pre>
+<p>我们插入条数据（这里的电话号码是我瞎编的）</p>
+<pre><code class="language-sql">INSERT INTO customer(id,username,jobs,phone) VALUES(1,'joy','doctor','15544433322');
+</code></pre>
+<p>通过<code>SELECT</code>语句查看下，看来是成功的</p>
+<pre><code class="language-sql">SELECT * FROM customer;
+</code></pre>
+<p><img alt="" src="http://img.cairbin.top/img/202403211342924.png" /></p>
+<h3 id="_2">创建项目</h3>
+<p>我们创建一个<strong>Maven项目</strong>，不会的请回Spring初步部分看看。</p>
+<p>项目名称为<code>top.cairbin.test4</code>，然后修改<code>pom.xml</code>添加依赖项</p>
+<pre><code class="language-xml">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+  &lt;groupId&gt;top.cairbin&lt;/groupId&gt;
+  &lt;artifactId&gt;test4&lt;/artifactId&gt;
+  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+  &lt;packaging&gt;jar&lt;/packaging&gt;
+
+  &lt;name&gt;test4&lt;/name&gt;
+  &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+  &lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+  &lt;/properties&gt;
+
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
+            &lt;version&gt;3.5.5&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;8.0.33&lt;/version&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.mybatis.generator&lt;/groupId&gt;
+            &lt;artifactId&gt;mybatis-generator-core&lt;/artifactId&gt;
+            &lt;version&gt;1.4.0&lt;/version&gt;
+        &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/project&gt;
+</code></pre>
+<p>我们创建一个<code>resources</code>文件夹，并<code>use as source folder</code></p>
+<p>在里面创建一个<code>log4j.properties</code></p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211412967.png" /></p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211415900.png" /></p>
+<pre><code class="language-properties"># Global logging configuration
+log4j.rootLogger=ERROR, stdout
+# MyBatis logging configuration...
+log4j.logger.top.cairbin.test4=DEBUG
+# Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+</code></pre>
+<p>在<code>src/main/java</code>下的<code>top.cairbin.test4</code>包下创建一个持久化类<code>Customer</code></p>
+<pre><code class="language-java">package top.cairbin.test4;
+
+public class Customer {
+    private Integer id;       // 主键id
+    private String username; // 客户名称
+    private String jobs;      // 职业
+    private String phone;     // 电话
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setJobs(String jobs) {
+        this.jobs = jobs;
+    }
+
+    public String getJobs() {
+        return this.jobs;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    //为了方便测试时输出结果，建议生成toString()方法。
+    @Override
+    public String toString() {
+         return &quot;Customer [id=&quot; + id + &quot;, username=&quot; + username + 
+                      &quot;, jobs=&quot; + jobs + &quot;, phone=&quot; + phone + &quot;]&quot;;
+    }
+}
+</code></pre>
+<p>在<code>top.cairbin.test4</code>下创建一个映射文件<code>CustomerMapper.xml</code>，注意<code>&lt;mapper&gt;</code>标签的<code>namespace</code>属性。</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;!-- namespace表示命名空间 --&gt;
+&lt;mapper namespace=&quot;top.cairbin.test4.CustomerMapper&quot;&gt;
+    &lt;!--根据客户编号获取客户信息（如果使用的生成类MBGTest.java生成的映射文件，可以不用添加如下内容，直接使用里面的selectByPrimaryKey方法。） --&gt;
+    &lt;select id=&quot; findCustomerById&quot; parameterType=&quot;Integer&quot;
+        resultType=&quot;top.cairbin.test4.Customer&quot;&gt;
+        select * from customer where id = #{id}
+    &lt;/select&gt;
+&lt;/mapper&gt;
+</code></pre>
+<p>在<code>resources</code>文件夹里新建一个mybatis核心配置文件<code>mybatis-config.xml</code></p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;!DOCTYPE configuration PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
+    &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
+&lt;configuration&gt;
+    &lt;settings&gt;
+        &lt;setting name=&quot;mapUnderscoreToCamelCase&quot; value=&quot;true&quot; /&gt;
+        &lt;setting name=&quot;logImpl&quot; value=&quot;STDOUT_LOGGING&quot; /&gt;
+    &lt;/settings&gt;
+    &lt;!--1.配置环境 ，默认的环境id为mysql --&gt;
+    &lt;environments default=&quot;mysql&quot;&gt;
+        &lt;!--1.2.配置id为mysql的数据库环境 --&gt;
+        &lt;environment id=&quot;mysql&quot;&gt;
+            &lt;!-- 使用JDBC的事务管理 --&gt;
+            &lt;transactionManager type=&quot;JDBC&quot; /&gt;
+            &lt;!--数据库连接池 --&gt;
+            &lt;dataSource type=&quot;POOLED&quot;&gt;
+                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+                &lt;property name=&quot;url&quot;
+                    value=&quot;jdbc:mysql://localhost:3306/db_mybatis&quot; /&gt;
+                &lt;property name=&quot;username&quot; value=&quot;db_mybatis&quot; /&gt;
+                &lt;property name=&quot;password&quot; value=&quot;db_mybatis&quot; /&gt;
+            &lt;/dataSource&gt;
+        &lt;/environment&gt;
+    &lt;/environments&gt;
+    &lt;!--2.配置Mapper的位置 --&gt;
+    &lt;mappers&gt;
+        &lt;mapper resource=&quot;top/cairbin/test4/CustomerMapper.xml&quot; /&gt;
+    &lt;/mappers&gt;
+
+&lt;/configuration&gt;
+</code></pre>
+<p>注意这里的位置</p>
+<pre><code class="language-xml">&lt;mappers&gt;
+    &lt;mapper resource=&quot;top/cairbin/test4/CustomerMapper.xml&quot; /&gt;
+&lt;/mappers&gt;
+</code></pre>
+<p>我们在<code>src/test/java</code>目录下创建测试类<code>MyBatisTest</code></p>
+<pre><code class="language-java">package top.cairbin.test4;
+
+import java.io.InputStream;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+import top.cairbin.test4.*;
+
+public class MyBatisTest {
+    /**
+     * 根据客户编号查询客户信息
+     */
+    @Test
+    public void findCustomerByIdTest() throws Exception {
+        // 1、读取配置文件
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = 
+                     Resources.getResourceAsStream(resource);
+        // 2、根据配置文件构建SqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = 
+                     new SqlSessionFactoryBuilder().build(inputStream);
+        // 3、通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 4、SqlSession执行映射文件中定义的SQL，并返回映射结果
+        Customer customer = sqlSession.selectOne(&quot;top.cairbin.test4&quot;  + &quot;.CustomerMapper. findCustomerById&quot;, 1);
+        // 打印输出结果，Customer类中记得生成toString()方法。
+        System.out.println(customer.toString());
+        // 5、关闭SqlSession
+        sqlSession.close();
+    }
+}
+</code></pre>
+<p>点击运行看到输出结果</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211446583.png" /></p>
+<p>在<code>CustomerMapper.xml</code>映射文件中添加模糊查询,添加,更新和删除的配置,在测试类中添加对应的测试方法,然后进行测试.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
+    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
+&lt;!-- namespace表示命名空间 --&gt;
+&lt;mapper namespace=&quot;top.cairbin.test4.CustomerMapper&quot;&gt;
+    &lt;!--根据客户编号获取客户信息（如果使用的生成类MBGTest.java生成的映射文件，可以不用添加如下内容，直接使用里面的selectByPrimaryKey方法。） --&gt;
+    &lt;select id=&quot; findCustomerById&quot; parameterType=&quot;Integer&quot;
+        resultType=&quot;top.cairbin.test4.Customer&quot;&gt;
+        select * from customer where id = #{id}
+    &lt;/select&gt;
+
+    &lt;!--根据客户名模糊查询客户信息列表--&gt;
+    &lt;select id=&quot;findCustomerByName&quot; parameterType=&quot;String&quot;
+        resultType=&quot;top.cairbin.test4.Customer&quot;&gt;
+        &lt;!-- select * from customer where username like '%${value}%' --&gt;
+        select * from customer where username like concat('%',#{value},'%')
+    &lt;/select&gt;
+
+    &lt;insert id=&quot;addCustomer&quot; parameterType=&quot;top.cairbin.test4.Customer&quot;&gt;
+        insert into customer(username,jobs,phone)
+        values(#{username},#{jobs},#{phone})
+    &lt;/insert&gt;
+
+    &lt;update id=&quot;updateCustomer&quot; parameterType=&quot;top.cairbin.test4.Customer&quot;&gt;
+        update customer set
+        username=#{username},jobs=#{jobs},phone=#{phone}
+        where id=#{id}
+    &lt;/update&gt;
+
+    &lt;delete id=&quot;deleteCustomer&quot; parameterType=&quot;Integer&quot;&gt;
+        delete from customer where id=#{id}
+    &lt;/delete&gt;
+&lt;/mapper&gt;
+</code></pre>
+<p>同样的测试类修改为（请注意代码中的包名）</p>
+<pre><code class="language-java">package top.cairbin.test4;
+
+import java.io.InputStream;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.junit.Test;
+import top.cairbin.test4.*;
+
+public class MyBatisTest {
+    /**
+     * 根据客户编号查询客户信息
+     */
+    @Test
+    public void findCustomerByIdTest() throws Exception {
+        // 1、读取配置文件
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = 
+                     Resources.getResourceAsStream(resource);
+        // 2、根据配置文件构建SqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = 
+                     new SqlSessionFactoryBuilder().build(inputStream);
+        // 3、通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 4、SqlSession执行映射文件中定义的SQL，并返回映射结果
+        Customer customer = sqlSession.selectOne(&quot;top.cairbin.test4&quot;  + &quot;.CustomerMapper. findCustomerById&quot;, 1);
+        // 打印输出结果，Customer类中记得生成toString()方法。
+        System.out.println(customer.toString());
+        // 5、关闭SqlSession
+        sqlSession.close();
+    }
+
+    /**
+     * 根据用户名称来模糊查询用户信息列表
+     */
+    @Test
+    public void findCustomerByNameTest() throws Exception{  
+        // 1、读取配置文件
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        // 2、根据配置文件构建SqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = 
+    new SqlSessionFactoryBuilder().build(inputStream);
+        // 3、通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 4、SqlSession执行映射文件中定义的SQL，并返回映射结果
+        List&lt;Customer&gt; customers = sqlSession.selectList(&quot;top.cairbin.test4&quot;
+                    + &quot;.CustomerMapper.findCustomerByName&quot;, &quot;j&quot;);
+        for (Customer customer : customers) {
+            //打印输出结果集
+            System.out.println(customer);
+        }
+        // 5、关闭SqlSession
+        sqlSession.close();
+    }
+
+    /**
+     * 添加客户
+     */
+    @Test
+    public void addCustomerTest() throws Exception{     
+        // 1、读取配置文件
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        // 2、根据配置文件构建SqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = 
+                new SqlSessionFactoryBuilder().build(inputStream);
+        // 3、通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 4、SqlSession执行添加操作
+        // 4.1创建Customer对象，并向对象中添加数据
+        Customer customer = new Customer();
+        customer.setUsername(&quot;rose&quot;);
+        customer.setJobs(&quot;student&quot;);
+        customer.setPhone(&quot;13333533092&quot;);
+        // 4.2执行SqlSession的插入方法，返回的是SQL语句影响的行数
+        int rows = sqlSession.insert(&quot;top.cairbin.test4&quot;
+                    + &quot;.CustomerMapper.addCustomer&quot;, customer);
+        // 4.3通过返回结果判断插入操作是否执行成功
+        if(rows &gt; 0){
+            System.out.println(&quot;您成功插入了&quot;+rows+&quot;条数据！&quot;);
+        }else{
+            System.out.println(&quot;执行插入操作失败！！！&quot;);
+        }
+        // 4.4提交事务
+        sqlSession.commit();
+        // 5、关闭SqlSession
+        sqlSession.close();
+    }
+
+    /**
+     * 更新客户
+     */
+    @Test
+    public void updateCustomerTest() throws Exception{      
+        // 1、读取配置文件
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        // 2、根据配置文件构建SqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = 
+                new SqlSessionFactoryBuilder().build(inputStream);
+        // 3、通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 4、SqlSession执行更新操作
+        // 4.1创建Customer对象，对对象中的数据进行模拟更新
+        Customer customer = new Customer();
+        customer.setId(2); //注意该id必须是你数据库中已有的id.
+        customer.setUsername(&quot;rose&quot;);
+        customer.setJobs(&quot;programmer&quot;);
+        customer.setPhone(&quot;13311111111&quot;);
+        // 4.2执行SqlSession的更新方法，返回的是SQL语句影响的行数
+        int rows = sqlSession.update(&quot;top.cairbin.test4&quot;
+                + &quot;.CustomerMapper.updateCustomer&quot;, customer);
+        // 4.3通过返回结果判断更新操作是否执行成功
+        if(rows &gt; 0){
+            System.out.println(&quot;您成功修改了&quot;+rows+&quot;条数据！&quot;);
+        }else{
+            System.out.println(&quot;执行修改操作失败！！！&quot;);
+        }
+        // 4.4提交事务
+        sqlSession.commit();
+        // 5、关闭SqlSession
+        sqlSession.close();
+    }
+
+    /**
+     * 删除客户
+     */
+    @Test
+    public void deleteCustomerTest() throws Exception{      
+        // 1、读取配置文件
+        String resource = &quot;mybatis-config.xml&quot;;
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        // 2、根据配置文件构建SqlSessionFactory
+        SqlSessionFactory sqlSessionFactory = 
+                new SqlSessionFactoryBuilder().build(inputStream);
+        // 3、通过SqlSessionFactory创建SqlSession
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 4、SqlSession执行删除操作
+        // 4.1执行SqlSession的删除方法，返回的是SQL语句影响的行数
+        int rows = sqlSession.delete(&quot;top.cairbin.test4&quot;
+                + &quot;.CustomerMapper.deleteCustomer&quot;, 2); //注意该id必须是你数据库中已有的id.
+        // 4.2通过返回结果判断删除操作是否执行成功
+        if(rows &gt; 0){
+            System.out.println(&quot;您成功删除了&quot;+rows+&quot;条数据！&quot;);
+        }else{
+            System.out.println(&quot;执行删除操作失败！！！&quot;);
+        }
+        // 4.3提交事务
+        sqlSession.commit();
+        // 5、关闭SqlSession
+        sqlSession.close();
+    }
+
+}
+</code></pre>
+<p>运行，然后测试即可。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211456060.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024-Now CairBin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>
