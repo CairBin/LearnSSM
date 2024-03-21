@@ -1,0 +1,1251 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+      
+      
+      
+      
+        <link rel="prev" href="../ch5/">
+      
+      
+        <link rel="next" href="../ch7/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+    
+    
+      
+        <title>Spring JDBC - LearnSSM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spring-jdbc" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LearnSSM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spring JDBC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    LearnSSM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    目录
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            目录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            开发环境搭建
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MacOS环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring初步
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Spring初步
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解Spring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工厂模式、核心容器与Spring Bean
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spring-jdbc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spring JDBC实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spring JDBC实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据库创建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      项目创建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      编写测试
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#springtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      关于SpringTest
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MyBatis入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MyBatis入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spring-jdbc_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Spring JDBC实践
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spring JDBC实践">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据库创建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      项目创建
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      编写测试
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#springtest" class="md-nav__link">
+    <span class="md-ellipsis">
+      关于SpringTest
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="spring-jdbc">Spring JDBC</h1>
+<h2 id="_1">概念</h2>
+<p>Spring的JDBC模块负责数据库资源管理和错误处理，简化了开发人员对数据库的操作。</p>
+<p>Spring JDBC通过<strong>配置数据源</strong>和<strong>JDBC模板</strong>来配置。</p>
+<p>针对数据库操作，Spring框架提供了<code>JdbcTemplate</code>类，它是Spring框架数据抽象层的基础，是Spring JDBC的核心类。</p>
+<p><img alt="SpringTemplate" src="http://img.cairbin.top/img/202403200351203.png" /></p>
+<p><code>JdbcAccessor</code>提供了访问数据库使用的公共属性，例如Data Source，DataSource主要功能是获取数据库连接，还可以引入对数据库连接的缓冲池和分布式事务的支持；<code>JdbcOperations</code>定义了可以使用的操作集合，例如增删改查（CURD）。</p>
+<p>Spring JDBC模块由4个包组成：
+<img alt="Spring JDBC package" src="http://img.cairbin.top/img/202403200357548.png" /></p>
+<p>下面我们真正来用一下。</p>
+<h2 id="spring-jdbc_1">Spring JDBC实践</h2>
+<h3 id="_2">数据库创建</h3>
+<p>首先我们在MySQL中创建一个数据库，由于我是Mac环境，所以我直接在终端中执行SQL语句来完成。</p>
+<p>如果你没有修改过密码，执行以下命令</p>
+<pre><code class="language-shell">mysql -uroot
+</code></pre>
+<p>如果修改过密码请执行以下命令，根据提示输入密码，输入的时候看不见</p>
+<pre><code class="language-shell">mysql -u root -p
+</code></pre>
+<p>如果你是Windows可以通过<code>sqlyog</code>连接。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403200420264.png" /></p>
+<p>以下部分通用：</p>
+<p>执行SQL语句创建数据库</p>
+<pre><code class="language-sql">CREATE DATABASE db_javaee;
+</code></pre>
+<p>我们接下来为这个数据库创建一个单独的用户来管理它，用户名为<code>db_javaee</code>，密码是<code>dbjavaeepassword</code>。</p>
+<pre><code class="language-sql">CREATE USER 'db_javaee'@'localhost' IDENTIFIED BY 'dbjavaeepassword';
+</code></pre>
+<p>这里有必要说明下，如果数据库与你开发环境在同一台机器上，这里可写<code>'localhost'</code>，如果是远程的数据库要改为<code>'%'</code>，即（以下同理）</p>
+<pre><code class="language-sql">CREATE USER 'db_javaee'@'%' IDENTIFIED BY 'dbjavaeepassword';
+</code></pre>
+<p>给这个用户授予权限，如果是远程别忘了改成<code>'%'</code></p>
+<pre><code class="language-sql">GRANT ALL ON db_javaee.* TO 'db_javaee'@'localhost';
+</code></pre>
+<p>刷新权限</p>
+<pre><code class="language-sql">flush privileges;
+</code></pre>
+<p>这里有个问题得注意下，如果你的MySQL版本是5.7到这里就没啥问题了。如果是MySQL8.0以及更高，则加密算法由原来的sha256_password改成了caching_sha2_password，导致连接新版本数据库报错。</p>
+<p>新版本用户需要追加</p>
+<pre><code class="language-sql">ALERT USER 'db_javaee'@'localhost' IDENTIFIED WITH mysql_native_password by 'dbjavaeepassword';
+</code></pre>
+<p>如果你root用户登陆不上也有可能是因为这个原因，这时候你就要像Mac用户一样到终端里连接，并将此处的<code>db_javaee</code>改为<code>root</code>才能在旧版<code>sqlyog</code>里或者<code>navcat</code>里连接。</p>
+<h3 id="_3">项目创建</h3>
+<p>我们还是创建一个Maven项目，名称为<code>top.cairbin.test3</code>，然后在<code>pom.xml</code>里添加依赖包</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+    &lt;version&gt;5.1.5.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;5.1.5.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;mysql&lt;/groupId&gt;
+    &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;version&gt;8.0.33&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-test&lt;/artifactId&gt;
+    &lt;version&gt;5.1.5.RELEASE&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>注意这里的<code>mysql-connector-java</code>请用较新的，我之前用<code>5.1.47</code>会报错。</p>
+<p>同样创建与<code>src</code>平级的<code>resources</code>目录并<code>use as source folder</code>，在里面创建<code>app.xml</code>（跟我们之前的<code>AppCtx.xml</code>一样，名称不固定随你便，不过在main中的必须与这里的文件名一致），并写入如下内容</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+    xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+    &lt;!-- 指定需要扫描的包，使注解生效 --&gt;
+    &lt;context:component-scan
+        base-package=&quot;top.cairbin.test3&quot; /&gt;
+    &lt;!-- 配置dataSource --&gt;
+    &lt;bean id=&quot;dataSource&quot;
+        class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;!--数据库驱动 --&gt;
+        &lt;property name=&quot;driverClassName&quot;
+            value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+        &lt;!--连接数据库的url --&gt;
+        &lt;property name=&quot;url&quot;
+            value=&quot;jdbc:mysql://localhost:3306/db_javaee&quot; /&gt;
+        &lt;!--连接数据库的用户名 --&gt;
+        &lt;property name=&quot;username&quot; value=&quot;db_javaee&quot; /&gt;
+        &lt;!--连接数据库的密码 --&gt;
+        &lt;property name=&quot;password&quot; value=&quot;dbjavaeepassword&quot; /&gt;
+    &lt;/bean&gt;
+    &lt;!-- 配置JDBC模板 --&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot;
+        class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;!-- 默认必须使用数据源 --&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>如果你数据库用户名和密码设置与我不一样，记得修改这里的<code>value</code>属性。</p>
+<p>在<code>App.java</code>中测试</p>
+<pre><code class="language-java">package top.cairbin.test3;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(&quot;app.xml&quot;);
+                // 获取JdbcTemplate实例
+                JdbcTemplate jdTemplate = 
+                       (JdbcTemplate) applicationContext.getBean(&quot;jdbcTemplate&quot;);
+                // 使用execute()方法执行SQL语句，创建用户账户管理表account
+                jdTemplate.execute(&quot;create table account(&quot; + 
+                                     &quot;id int primary key auto_increment,&quot; +
+                                     &quot;username varchar(50),&quot; + 
+                                     &quot;balance double)&quot;);
+                System.out.println(&quot;账户表account创建成功！&quot;);
+
+    }
+}
+</code></pre>
+<p>点击<strong>运行</strong>按钮后就可以看到表创建成功了</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403200500223.png" /></p>
+<h3 id="_4">编写测试</h3>
+<p>我们创建一个<code>Account</code>测试类</p>
+<pre><code class="language-java">package top.cairbin.test3;
+
+public class Account {
+    private int id;       // 账户id
+    private String username; // 用户名
+    private double balance;  // 账户余额
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public Double getBalance() {
+        return balance;
+    }
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+    public String toString() {
+        return &quot;Account [id=&quot; + id + &quot;, &quot;
+                + &quot;username=&quot; + username + 
+                &quot;, balance=&quot; + balance + &quot;]&quot;;
+    }
+}
+</code></pre>
+<p>再建立一个<code>IAccountDao</code>接口</p>
+<pre><code class="language-java">package top.cairbin.test3;
+
+import java.util.List;
+
+public interface IAccountDao {
+    // 添加
+    public int addAccount(Account account);
+    // 更新
+    public int updateAccount(Account account);
+    // 删除
+    public int deleteAccount(int id);   
+    // 通过id查询
+    public Account findAccountById(int id);
+    // 查询所有账户
+    public List&lt;Account&gt; findAllAccount();
+}
+</code></pre>
+<p>然后定义<code>AccountDao</code>类实现这个接口</p>
+<pre><code class="language-java">package top.cairbin.test3;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
+
+@Repository(&quot;accountDao&quot;)
+public class AccountDao implements IAccountDao {
+    // 声明JdbcTemplate属性并添加注解
+    @Autowired
+private JdbcTemplate jdbcTemplate;
+    // 添加账户
+    public int addAccount(Account account) {
+        // 定义SQL
+        String sql = &quot;insert into account(username,balance) value(?,?)&quot;;
+        // 定义数组来存放SQL语句中的参数
+        Object[] obj = new Object[] { 
+                           account.getUsername(), 
+                           account.getBalance() 
+         };
+        // 执行添加操作，返回的是受SQL语句影响的记录条数
+        int num = this.jdbcTemplate.update(sql, obj);
+        return num;
+    }
+    // 更新账户
+    public int updateAccount(Account account) {
+        // 定义SQL
+        String sql = &quot;update account set username=?,balance=? where id = ?&quot;;
+        // 定义数组来存放SQL语句中的参数
+        Object[] params = new Object[] { 
+                               account.getUsername(), 
+                               account.getBalance(), 
+                               account.getId() 
+          };
+        // 执行添加操作，返回的是受SQL语句影响的记录条数
+        int num = this.jdbcTemplate.update(sql, params);
+        return num;
+    }
+    // 删除账户
+    public int deleteAccount(int id) {
+        // 定义SQL
+        String sql = &quot;delete from account where id = ? &quot;;
+        // 执行添加操作，返回的是受SQL语句影响的记录条数
+        int num = this.jdbcTemplate.update(sql, id);
+        return num;
+    }
+
+    // 通过id查询账户数据信息
+    public Account findAccountById(int id) {
+        //定义SQL语句
+        String sql = &quot;select * from account where id = ?&quot;;
+        // 创建一个新的BeanPropertyRowMapper对象
+        RowMapper&lt;Account&gt; rowMapper = 
+    new BeanPropertyRowMapper&lt;Account&gt;(Account.class);
+        // 将id绑定到SQL语句中，并通过RowMapper返回一个Object类型的单行记录
+        return this.jdbcTemplate.queryForObject(sql, rowMapper, id);
+    }
+    // 查询所有账户信息
+    public List&lt;Account&gt; findAllAccount() {
+        // 定义SQL语句
+        String sql = &quot;select * from account&quot;;
+        // 创建一个新的BeanPropertyRowMapper对象
+        RowMapper&lt;Account&gt; rowMapper = 
+    new BeanPropertyRowMapper&lt;Account&gt;(Account.class);
+        // 执行静态的SQL查询，并通过RowMapper返回结果
+        return this.jdbcTemplate.query(sql, rowMapper);
+    }
+
+}
+</code></pre>
+<p>创建测试类<code>SpringJdbcTest</code>，编写测试单元</p>
+<pre><code class="language-java">package top.cairbin.test3;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class SpringJdbcTest {
+    @Test
+    public void mainTest() {
+        // 加载配置文件
+        ApplicationContext applicationContext = 
+                new ClassPathXmlApplicationContext(&quot;app.xml&quot;);
+        // 获取JdbcTemplate实例
+        JdbcTemplate jdTemplate = 
+                (JdbcTemplate) applicationContext.getBean(&quot;jdbcTemplate&quot;);
+        // 使用execute()方法执行SQL语句，创建用户账户管理表account
+        jdTemplate.execute(&quot;create table account(&quot; + 
+                               &quot;id int primary key auto_increment,&quot; +
+                               &quot;username varchar(50),&quot; + 
+                               &quot;balance double)&quot;);
+        System.out.println(&quot;账户表account创建成功！&quot;);
+    }
+
+    @Test
+    public void addAccountTest() {
+        // 加载配置文件
+        ApplicationContext applicationContext = 
+                new ClassPathXmlApplicationContext(&quot;app.xml&quot;);
+        // 获取AccountDao实例
+        IAccountDao accountDao = 
+                (IAccountDao) applicationContext.getBean(&quot;accountDao&quot;);
+        // 创建Account对象，并向Account对象中添加数据
+        Account account = new Account();
+        account.setUsername(&quot;tom&quot;);
+        account.setBalance(1000.00);
+        // 执行addAccount()方法，并获取返回结果
+        int num = accountDao.addAccount(account);
+        if (num &gt; 0) {
+            System.out.println(&quot;成功插入了&quot; + num + &quot;条数据！&quot;);
+        } else {
+            System.out.println(&quot;插入操作执行失败！&quot;);
+        }
+    }
+
+    @Test
+    public void updateAccountTest() {
+        // 加载配置文件
+        ApplicationContext applicationContext = 
+                new ClassPathXmlApplicationContext(&quot;applicationContext.xml&quot;);
+        // 获取AccountDao实例
+        IAccountDao accountDao = 
+                (IAccountDao) applicationContext.getBean(&quot;accountDao&quot;);
+        // 创建Account对象，并向Account对象中添加数据
+        Account account = new Account();
+        account.setId(1);
+        account.setUsername(&quot;tom&quot;);
+        account.setBalance(2000.00);
+        // 执行updateAccount()方法，并获取返回结果
+        int num = accountDao.updateAccount(account);
+        if (num &gt; 0) {
+            System.out.println(&quot;成功修改了&quot; + num + &quot;条数据！&quot;);
+        } else {
+            System.out.println(&quot;修改操作执行失败！&quot;);
+        }
+    }
+
+    @Test
+    public void deleteAccountTest() {
+        // 加载配置文件
+        ApplicationContext applicationContext = 
+                new ClassPathXmlApplicationContext(&quot;app.xml&quot;);
+        // 获取AccountDao实例
+        IAccountDao accountDao = 
+                (IAccountDao) applicationContext.getBean(&quot;accountDao&quot;);
+        // 执行deleteAccount()方法，并获取返回结果
+        int num = accountDao.deleteAccount(1);
+        if (num &gt; 0) {
+            System.out.println(&quot;成功删除了&quot; + num + &quot;条数据！&quot;);
+        } else {
+            System.out.println(&quot;删除操作执行失败！&quot;);
+        }
+    }
+}
+</code></pre>
+<p>在<strong>Eclipse</strong>中<code>src/main/java</code>使用<code>@Test</code>注解需要进行配置：右键项目-&gt; properties -&gt; Java Build Path -&gt; Libraries -&gt; Add Library -&gt; JUint </p>
+<p><img alt="" src="http://img.cairbin.top/img/202403200534568.png" /></p>
+<p><img alt="" src="http://img.cairbin.top/img/202403200535644.png" /></p>
+<p>添加完成后导入包<code>import java.util.List;</code>就能用了。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403200536737.png" /></p>
+<p>点击运行，我这里已经测试了多次了，结果可能跟你的不一样
+<img alt="" src="http://img.cairbin.top/img/202403200540405.png" /></p>
+<p>从图中左侧可以看到两个方法成功了，两个方法失败了。失败的方法图标又个红色的叉号。</p>
+<p>我们再创建一个<code>JdbcTemplateTest</code>类，测试下查询方法</p>
+<pre><code class="language-java">package top.cairbin.test3;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+public class JdbcTemplateTest {
+    @Test
+    public void findAccountByIdTest() {
+        // 加载配置文件
+        ApplicationContext applicationContext = 
+                new ClassPathXmlApplicationContext(&quot;app.xml&quot;);
+        // 获取AccountDao实例
+        IAccountDao accountDao = 
+                (IAccountDao) applicationContext.getBean(&quot;accountDao&quot;);
+        // 执行findAccountById()方法
+        Account account = accountDao.findAccountById(1);
+        System.out.println(account);
+    }
+
+    @Test
+    public void findAllAccountTest() {
+        // 加载配置文件
+        ApplicationContext applicationContext = 
+                new ClassPathXmlApplicationContext(&quot;app.xml&quot;);
+        // 获取AccountDao实例
+        IAccountDao accountDao = 
+                (IAccountDao) applicationContext.getBean(&quot;accountDao&quot;);
+        // 执行findAllAccount()方法,获取Account对象的集合
+        List&lt;Account&gt; account = accountDao.findAllAccount();
+        // 循环输出集合中的对象
+        for (Account act : account) {
+            System.out.println(act);
+        }
+    }
+}
+</code></pre>
+<p><img alt="" src="http://img.cairbin.top/img/202403200542153.png" /></p>
+<h2 id="springtest">关于SpringTest</h2>
+<p>在Spring中使用Junit测试，每一个测试方法都会初始化Spring容器，导致容器被初始化多次，需要通过<code>ctx.getBean()</code>获取测试Bean。</p>
+<p>SpringTest可以解决上面的问题，通过在类之上添加注解即可</p>
+<pre><code class="language-java">@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations=&quot;classpath:applicationContext.xml&quot;)
+</code></pre>
+<p>这里的Junit版本为<code>4.12</code>，需要修改<code>pom.xml</code>。
+此处不对该功能过多解释。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024-Now CairBin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

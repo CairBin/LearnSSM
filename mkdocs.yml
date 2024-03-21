@@ -1,0 +1,20 @@
+site_name: LearnSSM
+site_description: 对JavaEE SSM框架应用简单的学习
+copyright: Copyright © 2024-Now CairBin
+theme: material
+nav:
+  - 主页: index.md
+  - 目录: 
+    - 开发环境搭建: 
+      - MacOS环境搭建: environment/mac.md
+      - Windows环境搭建: environment/windows.md
+    - Spring初步: 
+      - 了解Spring: spring/ch1.md
+      - 控制反转IoC与依赖注入DI: spring/ch2.md
+      - 工厂模式、核心容器与Spring Bean: spring/ch3.md
+      - Spring AOP与AspectJ: spring/ch4.md
+      - SQL语句入门: spring/ch5.md
+      - Spring JDBC: spring/ch6.md
+      - Spring事务管理: spring/ch7.md
+    - MyBatis入门: 
+      - 了解MyBatis: mybatis/ch1.md

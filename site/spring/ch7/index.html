@@ -1,0 +1,1027 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+      
+      
+      
+      
+        <link rel="prev" href="../ch6/">
+      
+      
+        <link rel="next" href="../../mybatis/ch1/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+    
+    
+      
+        <title>Spring事务管理 - LearnSSM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#spring" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LearnSSM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Spring事务管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    LearnSSM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    目录
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            目录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            开发环境搭建
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MacOS环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring初步
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Spring初步
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解Spring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工厂模式、核心容器与Spring Bean
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      声明式事务管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="声明式事务管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于XML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于注解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      结束
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MyBatis入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MyBatis入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概念
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      声明式事务管理
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="声明式事务管理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于XML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于注解
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      结束
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="spring">Spring事务管理</h1>
+<h2 id="_1">概念</h2>
+<p><strong>事务（Transaction）</strong>是访问并可能操作各种数据项的一个数据库操作序列，这些操作<strong>要么全部执行，要么都不执行，是一个不可分割的工作单元</strong>。</p>
+<p>事务有如下特性：</p>
+<ul>
+<li>原子性</li>
+<li>隔离性</li>
+<li>一致性</li>
+<li>持久性</li>
+</ul>
+<p>如果多个事务同时操作同一批数据，则会引发并发异常，设置不同的隔离级别可以解决这些问题。事务的隔离级别如下
+<img alt="" src="http://img.cairbin.top/img/202403200602616.png" /></p>
+<p>隔离界别从小到大，安全性越高，但效率就越低。</p>
+<p>事务的传播行为是指在同一个方法中，不同操作前后所使用的事务。传播行为可以控制是否需要创建事务以及如何创建事务，Spring默认传播行为是REQUIRED。
+<img alt="" src="http://img.cairbin.top/img/202403200614154.png" /></p>
+<p>事务的管理方式主要分为两种：</p>
+<ul>
+<li>编程式事务管理：通过编写代码实现的事务管理，包括定义事务的开始、正常执行后的事务提交和异常时的事务回滚</li>
+<li>声明式事务管理：通过AOP技术实现的事务管理，主要思想是将事务作为一个“切面”代码单独编写，然后通过AOP技术将事务管理的“切面”植入到业务目标类中</li>
+</ul>
+<p>为了解耦，我们一般用后者。</p>
+<h2 id="_2">声明式事务管理</h2>
+<h3 id="xml">基于XML</h3>
+<p>Spring的声明式事务管理可以通过两种方式来实现，一种是基于XML的方式，另一种是基于注解的方式。</p>
+<p>基于XML方式的声明式事务是在配置文件中通过<code>&lt;tx:advice&gt;</code>元素配置事务规则来实现的。当配置了事务的增强处理后，就可以通过编写的AOP配置，让Spring自动对目标生成代理。其属性如下。
+<img alt="" src="http://img.cairbin.top/img/202403200619213.png" /></p>
+<h3 id="_3">基于注解</h3>
+<p>我们更关心基于注解的方式，下面用代码来了解下</p>
+<p>我们用之前的<code>top.cairbin.test3</code>项目</p>
+<p><code>app.xml</code>文件内容如下</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
+  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+  xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
+  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/tx
+  http://www.springframework.org/schema/tx/spring-tx.xsd
+  http://www.springframework.org/schema/context 
+  http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+
+    &lt;!-- 指定需要扫描的包，使注解生效 --&gt;
+    &lt;context:component-scan
+        base-package=&quot;top.cairbin.test3&quot; /&gt;
+    &lt;!-- 配置dataSource --&gt;
+    &lt;bean id=&quot;dataSource&quot;
+        class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
+        &lt;!--数据库驱动 --&gt;
+        &lt;property name=&quot;driverClassName&quot;
+            value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
+        &lt;!--连接数据库的url --&gt;
+        &lt;property name=&quot;url&quot;
+            value=&quot;jdbc:mysql://localhost:3306/db_javaee&quot; /&gt;
+        &lt;!--连接数据库的用户名 --&gt;
+        &lt;property name=&quot;username&quot; value=&quot;db_javaee&quot; /&gt;
+        &lt;!--连接数据库的密码 --&gt;
+        &lt;property name=&quot;password&quot; value=&quot;dbjavaeepassword&quot; /&gt;
+    &lt;/bean&gt;
+    &lt;!-- 2配置JDBC模板 --&gt;
+    &lt;bean id=&quot;jdbcTemplate&quot;
+        class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+        &lt;!-- 默认必须使用数据源 --&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+    &lt;/bean&gt;
+
+
+    &lt;bean id=&quot;transactionManager&quot; class=
+     &quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
+        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
+    &lt;/bean&gt; 
+    &lt;!-- 注册事务管理器驱动 --&gt;
+    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>在<code>IAccountDao</code>中声明方法</p>
+<pre><code class="language-java">public void transfer(String outUser,String inUser,Double money);
+</code></pre>
+<p>在<code>AccountDao</code>类中添加方法及注解</p>
+<pre><code class="language-java">@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
+public void transfer(String outUser, String inUser, Double money) {
+    // 收款时，收款用户的余额=现有余额+所汇金额
+    this.jdbcTemplate.update(&quot;update account set balance = balance +? &quot;
+            + &quot;where username = ?&quot;,money, inUser);
+    // 模拟系统运行时的突发性问题
+    int i = 1/0;
+    // 汇款时，汇款用户的余额=现有余额-所汇金额
+    this.jdbcTemplate.update(&quot;update account set balance = balance-? &quot;
+            + &quot;where username = ?&quot;,money, outUser);
+}
+</code></pre>
+<p>在<code>JdbcTemplateTest</code>测试类中添加测试方法</p>
+<pre><code class="language-java">@Test
+public void transTest(){        
+    accountDao.transfer(&quot;lisi&quot;, &quot;zhangsan&quot;, 100.0);
+    // 输出提示信息
+    System.out.println(&quot;转账成功！&quot;);
+}
+</code></pre>
+<p>运行程序前向数据库中插入两条记录，我们使用终端或者<code>sqlyog</code>连接数据库，我这里以Mac的终端为例</p>
+<pre><code class="language-sql">mysql -u db_javaee -p
+</code></pre>
+<p>注意这里，我们用的不再是<code>root</code>账户，而是之前创建的<code>db_javaee</code></p>
+<p>输入密码<code>dbjavaeepassword</code>，如果你之前设置的与我不一样这里换成你的密码</p>
+<p>输入密码的时候是不显示密码内容的，敲击回车，如果界面跟我下面差不多就说明成功了</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211157300.png" /></p>
+<p>后面来写SQL语句，首先把数据库切换到<code>db_javaee</code>下面</p>
+<pre><code class="language-sql">USE db_javaee;
+</code></pre>
+<p>如果出现<code>Database changed</code>提示则表示成功。</p>
+<p>我们先来查看下之前创建的<code>Account</code>表</p>
+<pre><code class="language-sql">SELECT * FROM account;
+</code></pre>
+<p>这是我的表里面的内容，你的应该与我不太一样，不过不影响接下来的操作。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211203501.png" /></p>
+<p>我们使用一下语句来插入两条数据</p>
+<pre><code class="language-SQL">INSERT INTO account(id,username,balance) VALUES(17,'zhangsan',100);
+INSERT INTO account(id,username,balance) VALUES(18,'lisi',200);
+</code></pre>
+<p>成功的话会有提示
+<img alt="" src="http://img.cairbin.top/img/202403211208001.png" /></p>
+<p>来看下目前表里的数据</p>
+<pre><code class="language-sql">SELECT * FROM account;
+</code></pre>
+<p><img alt="" src="http://img.cairbin.top/img/202403211209163.png" /></p>
+<p>接下来我们回到<strong>Eclipse IDE</strong>，运行我们的代码
+<img alt="" src="http://img.cairbin.top/img/202403211210424.png" /></p>
+<p>运行结果如下
+<img alt="" src="http://img.cairbin.top/img/202403211211898.png" /></p>
+<p>不出意外的话该出意外了，注意看左边的<code>transTest()</code>方法竟然报错，那是正常的，因为我们<code>public void transfer(String outUser, String inUser, Double money);</code>代码写了<code>int i = 1/0;</code>这种语句来模拟报错。</p>
+<p>我们到数据库中查看数据</p>
+<pre><code class="language-sql">SELECT * FROM account;
+</code></pre>
+<p><img alt="" src="http://img.cairbin.top/img/202403211213178.png" /></p>
+<p>很显然数据没有啥变化，我们将<code>transfer</code>方法中的<code>int i = 1/0;</code>删掉试试。注意方法名称，别搞错了。
+<img alt="" src="http://img.cairbin.top/img/202403211216318.png" /></p>
+<pre><code class="language-java">@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
+public void transfer(String outUser, String inUser, Double money) {
+    // 收款时，收款用户的余额=现有余额+所汇金额
+    this.jdbcTemplate.update(&quot;update account set balance = balance +? &quot;
+            + &quot;where username = ?&quot;,money, inUser);
+    // 模拟系统运行时的突发性问题
+    // int i = 1/0;
+    // 汇款时，汇款用户的余额=现有余额-所汇金额
+    this.jdbcTemplate.update(&quot;update account set balance = balance-? &quot;
+            + &quot;where username = ?&quot;,money, outUser);
+}
+</code></pre>
+<p>运行一下，发现控制台输出<code>转账成功！</code>。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211218529.png" /></p>
+<p>回到数据库查看下</p>
+<pre><code class="language-sql">SELECT * FROM account;
+</code></pre>
+<p>下图是操作前后两次的对比，上面是转账成功之前的，后面是转账成功之后的。</p>
+<p><img alt="" src="http://img.cairbin.top/img/202403211219210.png" /></p>
+<p>数据显然是发生变化了！</p>
+<h2 id="_4">问题</h2>
+<p>到了这里，你可能会有疑问，敲了这么多的代码，我们还不断地进行测试、查看数据库，到底是想干什么。</p>
+<pre><code class="language-java">@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
+public void transfer(String outUser, String inUser, Double money) {
+    // 收款时，收款用户的余额=现有余额+所汇金额
+    this.jdbcTemplate.update(&quot;update account set balance = balance +? &quot;
+            + &quot;where username = ?&quot;,money, inUser);
+    // 模拟系统运行时的突发性问题
+    int i = 1/0;
+    // 汇款时，汇款用户的余额=现有余额-所汇金额
+    this.jdbcTemplate.update(&quot;update account set balance = balance-? &quot;
+            + &quot;where username = ?&quot;,money, outUser);
+}
+</code></pre>
+<p>我们看看上方的代码。<strong>在前面提到过事务的特性是原子的，也就是不可分割的。</strong>倘若我们没有事务，当<code>this.jdbcTemplate.update(...);</code>这条语句执行的时候，数据库就已经更新了，而<code>int i = 1/0;</code>却出现了一个突发性问题，按理来说我们转账<code>transfer</code>这一方法不应该成立才对，而数据库中的记录的确发生了变动。</p>
+<p>如果你是一个恶意用户，然后你发现了这一漏洞，向银行存款，每次存款失败代码异常银行都退回你钱，然后你不断重复这个操作就可以使你的账户余额不断增加，然而你实际上并没有存一分钱进去，这显然是不合理的！</p>
+<p>然而我们有了事务，就不会发生这种情况了，因为对于<code>transfer</code>这一操作是不可分割成小操作的，也就是说对于方法里面的东西要么全成功，要么全失败回滚，不可能出现部分成功部分失败这种情况。</p>
+<h2 id="_5">结束</h2>
+<p><strong>Spring初步</strong>这一部分就到此为止了，你会发现对于数据库操作在代码里嵌入SQL语句是很麻烦而且不可靠的，如果不做好过滤，用户提交一段包含SQL语句的字符串就有可能利用你的权限操作数据库，还会有安全问题，所以接下来我们将学习<strong>MyBatis</strong>这个框架。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024-Now CairBin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>

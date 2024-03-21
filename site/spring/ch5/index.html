@@ -1,0 +1,1456 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+      
+      
+      
+      
+        <link rel="prev" href="../ch4/">
+      
+      
+        <link rel="next" href="../ch6/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.14">
+    
+    
+      
+        <title>SQL语句入门 - LearnSSM</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LearnSSM
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SQL语句入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    LearnSSM
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    主页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    目录
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            目录
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发环境搭建
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            开发环境搭建
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/mac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MacOS环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../environment/windows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows环境搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring初步
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Spring初步
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解Spring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    控制反转IoC与依赖注入DI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    工厂模式、核心容器与Spring Bean
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring AOP与AspectJ
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    SQL语句入门
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL介绍
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL语句入门
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL语句入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      增加与删除属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      查询
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      单关系查询
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      多关系查询
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      更名运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      字符串运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      排序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#between" class="md-nav__link">
+    <span class="md-ellipsis">
+      between谓词
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      集合运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚集函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#having" class="md-nav__link">
+    <span class="md-ellipsis">
+      having子句
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据库修改
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库修改">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      插入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      更新
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      结束
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ch7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring事务管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    MyBatis入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            MyBatis入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    了解MyBatis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL介绍
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL语句入门
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL语句入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      创建关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除关系
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      增加与删除属性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      查询
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="查询">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      单关系查询
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      多关系查询
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      更名运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      字符串运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      排序
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#between" class="md-nav__link">
+    <span class="md-ellipsis">
+      between谓词
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      集合运算
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      聚集函数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#having" class="md-nav__link">
+    <span class="md-ellipsis">
+      having子句
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据库修改
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据库修改">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      删除
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      插入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      更新
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      结束
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="sql">SQL语句入门</h1>
+<h2 id="_1">概述</h2>
+<p>我们接下来要学习Spring的数据库开发，在此之前请让我们回顾下标准的SQL语句。</p>
+<p>文章摘自 <a href="https://cairbin.top/index.php/archives/147/">CairBin's Blog——SQL语句入门</a></p>
+<h2 id="sql_1">SQL介绍</h2>
+<p>SQL最早版本是由IBM开发的，一直发展到至今。</p>
+<p>SQL语言有如下几个部分：</p>
+<ul>
+<li>数据定义语言DDL：提供定义关系模式、删除关系以及修改关系模式的命令</li>
+<li>数据操纵语言DML：提供从数据库中查询信息以及在数据库中插入元组、删除元组以及修改元组的能力</li>
+<li>完整性：SQL DDL包括定义完整性的约束命令</li>
+<li>视图定义：SQL DDL包括定义视图的命令</li>
+<li>事务控制：SQL包括定义事务的开始点和结束点命令</li>
+<li>嵌入式SQL和动态SQL：定义如何嵌入如C++等这样的编程语言</li>
+<li>授权：SQL DDL包括定义对关系和视图的访问权限的命令</li>
+</ul>
+<p>SQL标准支持多种固有类型：</p>
+<ul>
+<li>char(n) 具有用户指定长度为n的字符串</li>
+<li>varchar(n) 最大长度为n的可变长字符串</li>
+<li>int 整数</li>
+<li>smallint 小正数(依赖于机器的整数类型的子集)</li>
+<li>numeric(p,d) 指定精度的定点数。此数字有p位(加上一个符号位)小数点右边有p位数中的d位数字</li>
+<li>real 单精度</li>
+<li>double 双精度</li>
+<li>float(n) 精度至少为n的浮点数</li>
+</ul>
+<h2 id="sql_2">SQL语句入门</h2>
+<p>首先说明一下，SQL语句后面的分号是可选的。</p>
+<h3 id="_2">创建关系</h3>
+<pre><code class="language-sql">CREATE TABLE student
+(
+    Sname VARCHAR(20),
+    Sid INT,
+    PRIMARY KEY(Sid)
+);
+</code></pre>
+<p>上述语句会创建一个student的关系(表)，它包含学生姓名和学生id号码。其中，Sname学生姓名的最大长度不超过20个字符，Sid为整型，并且<code>PRIMARY KEY(Sid)</code>对关系进行了完整性约束，说明学号作为主键，也就是说同一个学生他的id号码是唯一的。</p>
+<p>SQL还支持许多完整性约束，例如外码与非空，下面仅对这两种进行介绍：</p>
+<p>外码声明关系中的任意元组在属性上的取值必须对应于另外的某个关系的某元组在主码属性上的取值，其形式为<code>foreign key(A,B,C)references X</code>，其中A B C为属性，X为指定的关系</p>
+<p>非空完整性约束表示某个属性的取值不能为空，其形式<code>A INT not null</code>表示类型为整型名为A的属性不能为空</p>
+<p>下面我们创建一个与课程相关的表，要求主键(主码)为课程id且不为空，外码为上面student关系的学生姓名属性来做演示：</p>
+<pre><code class="language-sql">CREATE TABLE course
+(
+    Cid INT NOT NULL,
+    Sname VARCHAR(20),
+    Cname VARCHAR(20),
+    PRIMARY KEY(Cid),
+    FOREIGN KEY(Sname) REFERENCES student
+);
+</code></pre>
+<p>此时Sname的取值必须是student关系的Sname中的的一个取值。</p>
+<h3 id="_3">删除关系</h3>
+<p>删除操作有两种：</p>
+<p>下方这条语句会删除名为course的关系</p>
+<pre><code class="language-sql">DROP TABLE course;
+</code></pre>
+<p>而</p>
+<pre><code class="language-sql">DELETE FROM course;
+</code></pre>
+<p>则会删除course关系中的所有元组（数据），但该关系保留</p>
+<p>说白一点就是前者连表带数据一块删除，后者只剩一个空表</p>
+<h3 id="_4">增加与删除属性</h3>
+<p>有时候会向关系中添加一个新的属性，则需要用到以下语句</p>
+<pre><code class="language-sql">ALTER TABLE student ADD Sage INT;
+</code></pre>
+<p>该语句向student中添加了一个名为Sage，类型为整型的属性，用于表示学生的年龄</p>
+<p>在student中原有的元组在Sage的取值都将为空，即null（意思就是老数据原来没有年龄，现在新建了年龄这一列，之前的老数据该列上的取值都为空）</p>
+<p>删除属性就很简单了，我们删除student关系中的Sage属性为例，语句如下</p>
+<pre><code class="language-sql">ALTER TABLE student DROP Sage;
+</code></pre>
+<p><strong>但是注意，很多数据库都不支持这一点，执行该语句可能会报错。</strong></p>
+<h3 id="_5">查询</h3>
+<p>SQL查询结构由三个子居构成<code>select</code>，<code>from</code>，<code>where</code></p>
+<p>查询以在<code>from</code>子句列出的关系作为输入，并在这些关系上进行<code>where</code>和<code>select</code>子句中的指定运算，然后产生一个关系作为结果。</p>
+<p>为方便演示，先向student表中插入如下几条数据</p>
+<pre><code class="language-sql">INSERT INTO student VALUES('CairBin',1);
+INSERT INTO student VALUES('Bob',2);
+INSERT INTO student VALUES('Alice',3);
+INSERT INTO student VALUES('Alice',4);
+</code></pre>
+<pre><code class="language-sql">INSERT INTO course VALUES(4,'Alex','chemistry');
+INSERT INTO course VALUES(1,'CairBin','math');
+INSERT INTO course VALUES(2,'CairBin','chemistry');
+INSERT INTO course VALUES(3,'Alice','chemistry');
+</code></pre>
+<h4 id="_6">单关系查询</h4>
+<p>我们现在想要获取student关系中的所有学生的姓名，也就是Sname属性列下的所有数据，则可以使用如下语句</p>
+<pre><code class="language-sql">SELECT Sname FROM student;
+</code></pre>
+<p>当然可以跟随多个属性，例如输出学生姓名和id</p>
+<pre><code class="language-sql">SELECT Sname,Sid FROM student;
+</code></pre>
+<p>另外，在关系模型的形式化数学定义中，关系是一个集合，因此重复的元组不会出现在集合中。但是对于实际操作来讲，去重是相当费时的，所以SQL允许在数据库关系和数据库表达式的结果中出现重复。</p>
+<p>（但是包含主码声明的关系中不可以，因为这回违背主码的完整性约束。例如上方的student关系，它不允许两个名为<code>Alice</code>的学生的id号码相同）</p>
+<p>我么执行下方语句</p>
+<pre><code class="language-sql">SELECT Sname FROM student;
+</code></pre>
+<p>结果如下</p>
+<table>
+<thead>
+<tr>
+<th>Sname</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CairBin</td>
+</tr>
+<tr>
+<td>Bob</td>
+</tr>
+<tr>
+<td>Alice</td>
+</tr>
+<tr>
+<td>Alice</td>
+</tr>
+</tbody>
+</table>
+<p>这在SQL表达式结果中出现重复，如果想要强行去重，则需要用到关键字<code>distinct</code></p>
+<p>我们对该语句进行变形</p>
+<pre><code class="language-sql">SELECT DISTINCT Sname FROM student;
+</code></pre>
+<p>查看结果发现两个<code>Alice</code>只剩下一个了</p>
+<p><code>select</code>子句中还可含有加减乘除运算符<code>+ - * /</code></p>
+<p>例如查询每个学生的id，并输出它们各自乘10的结果</p>
+<pre><code class="language-sql">SELECT Sid*10 FROM student;
+</code></pre>
+<p><code>where</code>子句会筛选处那些在<code>from</code>子句所指定关系中满足特定条件的元组，并且<code>where</code>子句允许使用如下逻辑连词以及运算符</p>
+<table>
+<thead>
+<tr>
+<th>逻辑连词以及运算符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>and</td>
+<td>且</td>
+</tr>
+<tr>
+<td>not</td>
+<td>非</td>
+</tr>
+<tr>
+<td>or</td>
+<td>或</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+</tr>
+<tr>
+<td>&lt;=</td>
+<td>小于等于</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>大于</td>
+</tr>
+<tr>
+<td>&gt;=</td>
+<td>大于等于</td>
+</tr>
+<tr>
+<td>=</td>
+<td>等于</td>
+</tr>
+<tr>
+<td>&lt;&gt;</td>
+<td>不等于</td>
+</tr>
+</tbody>
+</table>
+<p>例如我们要输出student中id大于1的学生姓名</p>
+<pre><code class="language-sql">Select Sname from student where Sid&gt;1;
+</code></pre>
+<p>这里应当注意，以下语句是不符合SQL标准的，对于一些数据库或者它们的早期版本会报错（例如MySQL，尽管在后来版本进行了支持，<strong>但是不要这样做</strong>）</p>
+<pre><code class="language-sql">SELECT Sname FROM student WHERE 1&lt;Sid;
+</code></pre>
+<h4 id="_7">多关系查询</h4>
+<p>例如我们要输出course中Sname属性与student的Sname属性取值相同的课程名和学生名：</p>
+<pre><code class="language-sql">SELECT Cname,student.Sname FROM course,student WHERE course.Sname = student.Sname;
+</code></pre>
+<h3 id="_8">更名运算</h3>
+<p>更名运算用到了<code>as</code>子句，它既可以出现在<code>from</code>中也可以出现在<code>select</code>中，作用是重新命名</p>
+<p>（由于早期SQL没有<code>as</code>关键字，在像Oracle这样的数据库中，不允许form出现<code>as</code>关键字，如果要做别名，则需将<code>oldName as newName</code>改成<code>oldName newName</code>）</p>
+<p>我们先看看原语句效果</p>
+<pre><code class="language-sql">Select Sid from student where Sname = 'Alice';
+</code></pre>
+<p><img alt="" src="https://img.cairbin.top/img/20221008160752.png" /></p>
+<p>使用<code>as</code>子句</p>
+<pre><code class="language-sql">Select Sid as 学号 from student where Sname = 'Alice';
+</code></pre>
+<p><img alt="" src="https://img.cairbin.top/img/20221008160835.png" /></p>
+<p>当然还有<code>as</code>在<code>from</code>中的情况，这种情况是为了方便指代关系名</p>
+<p>例如</p>
+<pre><code class="language-sql">SELECT course.Cname,student.Sname FROM course,student WHERE course.Sname = student.Sname;
+</code></pre>
+<p>利用<code>as</code>可以这样写</p>
+<pre><code class="language-sql">SELECT c.Cname,s.Sname FROM course AS c,student AS s WHERE c.Sname = s.Sname;
+</code></pre>
+<p>看到这里可能会有人问，这有什么意义？当然，对于简短的语句效果不太明显，但是对于下方这种语句你就能看到它的好处了</p>
+<pre><code class="language-sql">SELECT s FROM(
+    SELECT Sname AS s, Sid AS id FROM student
+) AS T
+WHERE T.id&gt;1;
+</code></pre>
+<h3 id="_9">字符串运算</h3>
+<p>SQL标准是对字符串大小写敏感的，但是在一些数据库系统如MySQL、SQL Server中是不区分大小写的。</p>
+<p>SQL还允许对字符串进行函数操作，如<code>upper()</code>将字符串转大写，<code>lower()</code>转小写，<code>trim()</code>去掉字符串后面的空格。不同数据库系统提供的函数可能会不同。</p>
+<p>在字符串上可使用<code>like</code>运算符来实现模式匹配，模式是大小写敏感的（但MySQL中，或在PostgreSQL中使用<code>ilike</code>时例外）</p>
+<p>一般用两个特殊字符来描述模式，一个是百分号<code>%</code>，另外一个是下划线<code>_</code></p>
+<p>前者是个通配符，也就是说表示某个字符后面所有的位；后者是个占位符，仅表示某个字符后的一位，下面举例</p>
+<pre><code class="language-sql">SELECT Sname FROM student WHERE Sname LIKE 'C%';
+</code></pre>
+<p>输出结果是<code>CairBin</code></p>
+<pre><code class="language-sql">SELECT Sname FROM student WHERE Sname LIKE 'C_';
+</code></pre>
+<p>输出结果是一张空表</p>
+<p>前者会查找Sname列所有以C开头的数据，后者会查找Sname列所有以C开头但C后面仅有一位（也就是说总长度为两字符）的数据</p>
+<p>当然，SQL允许使用转义字符来表示特殊字符</p>
+<pre><code class="language-sql">SELECT Sname FROM student WHERE Sname LIKE 'C/%%' ESCAPE '/';
+</code></pre>
+<p>该语句会用<code>/</code>来表示转义字符，作用是查找以C和百分号开头的数据。在语句中<code>/%%</code>应当分成<code>/%</code>和<code>%</code>来看，前者是个转义字符，表示普通的百分号，后者是个通配符表示后面的任意位为任意数字。</p>
+<h3 id="_10">排序</h3>
+<p>SQL为用户提供了对关系中元组显示次序的一些控制，<code>order by</code>子句可以让查询结果中的元组按排列顺序显示。</p>
+<p>例如，升序输出student关系中的学生id</p>
+<pre><code class="language-sql">SELECT Sid FROM student ORDER BY Sid;
+</code></pre>
+<p>该子句还有两个关键字，<code>asc</code>表示升序，<code>desc</code>表示降序</p>
+<p>接下来进行降序输出</p>
+<pre><code class="language-sql">SELECT Sid FROM student ORDER BY Sid DESC;
+</code></pre>
+<h3 id="between">between谓词</h3>
+<p><code>X between a and b</code>表示X属性列中取大于等于a小于等于b的值</p>
+<pre><code class="language-sql">SELECT * FROM student WHERE Sid BETWEEN 1 AND 3;
+</code></pre>
+<p>该语句相当于下方语句</p>
+<pre><code class="language-sql">SELECT * FROM student WHERE Sid &gt;= 1 AND Sid &lt;= 3;
+</code></pre>
+<h3 id="_11">集合运算</h3>
+<p>SQL的<code>union</code>、<code>intersect</code>、<code>except</code>对应数学上集合的交集、并集、差集运算</p>
+<p>例如student表中学号小于2与学号大于3的学生信息元组组成的集合的并集</p>
+<pre><code class="language-sql">(SELECT * FROM student where Sid &lt;2) union (select * from student where Sid&gt;3);
+</code></pre>
+<p>注意：MySQL不支持<code>except</code></p>
+<h3 id="_12">聚集函数</h3>
+<p>聚集函数是以值集为输入并返回单个值的函数。SQL标准提供了五个固有的聚集函数：</p>
+<ul>
+<li>平均值 <code>avg()</code></li>
+<li>最小值 <code>min()</code></li>
+<li>最大值 <code>max()</code></li>
+<li>求和 <code>sum()</code></li>
+<li>计数 <code>count()</code></li>
+</ul>
+<p>基本聚集操作比较简单，例如要求student关系中所有学生id的平均值</p>
+<pre><code class="language-sql">SELECT AVG(Sid) FROM student;
+</code></pre>
+<p>还有一种操作是分组聚集，它可以将聚集函数作用在一组元组集上</p>
+<p>例如求student中每组同名学生的id之和</p>
+<pre><code class="language-sql">SELECT Sname,SUM(sid) FROM student GROUP BY Sname;
+</code></pre>
+<p>在有些时候，某属性的取值可能为空，但需要对该属性列进行聚集，但SQL聚集函数并不认为结果为<code>null</code>，而是认为应该跳过该值。</p>
+<p>另外，在SQL:1999中引入了布尔类型，它可以取<code>true</code>、<code>false</code>、<code>unknown</code>，聚集函数<code>some()</code>和<code>every()</code>可应用于布尔值的集合，并分别计算这些值的<strong>析取(or)</strong>和<strong>合取(and)</strong></p>
+<h3 id="having">having子句</h3>
+<p>有些时候我们对分组有限定条件要求，例如求student中每组同名学生的id之和，但是要求和在5以上的，这种操作需要利用<code>having</code>子句</p>
+<pre><code class="language-sql">SELECT Sname,SUM(sid) FROM student GROUP BY Sname HAVING SUM(sid)&gt;5;
+</code></pre>
+<p>注意，任何出现在having子句中但是没被聚集的属性都需要出现在<code>group by</code>子句中</p>
+<h3 id="_13">数据库修改</h3>
+<h4 id="_14">删除</h4>
+<p>删除与查询类似，例如删除student中id为1的学生信息</p>
+<pre><code class="language-sql">DELETE FROM student WHERE Sid = 1;
+</code></pre>
+<h4 id="_15">插入</h4>
+<p>例如我们向student插入一个名为<code>Alex</code>且id为<code>5</code>的一条数据，最简单的一条<code>insert</code>语句如下：</p>
+<pre><code class="language-sql">INSERT INTO student VALUES('Alex',5);
+</code></pre>
+<p>这种情况<code>values</code>后的括号中的值的顺序与关系中属性的顺序一致。</p>
+<p>还有一种情况是指定属性和顺序，如下：</p>
+<pre><code class="language-sql">INSERT INTO student(Sid,Sname) VALUES(5,'Alex');
+</code></pre>
+<p>该语句指定了两个属性，第一个值对应的属性为id，第二个值对应的属性为学生名。</p>
+<h4 id="_16">更新</h4>
+<p>某些情况下，我们不想改变元组的所有值，但是要改变元组的局部值，这就需要用到<code>update</code>语句</p>
+<p>如我们将之前插入的名为<code>Alex</code>id为<code>5</code>的学生姓名改为<code>CairBin</code></p>
+<pre><code class="language-sql">UPDATE student SET Sname='CairBin' WHERE Sid = 5;
+</code></pre>
+<p>SQL提供<code>case</code>结构，它在单条<code>update</code>语句中执行多条更新。</p>
+<p>例如我们将course关系中所有为<code>chemistry</code>的学科改成<code>math</code>，<code>math</code>改成<code>chemistry</code></p>
+<pre><code class="language-sql">UPDATE course SET Cname=
+CASE Cname
+    WHEN 'math' THEN 'chemistry'
+    WHEN 'chemistry' THEN 'math'
+END;
+</code></pre>
+<p>当然该语句还支持<code>else</code>，当所有when的条件都不符合时就会取<code>else</code>后的值</p>
+<pre><code class="language-sql">UPDATE course SET Cname=
+CASE Cname
+    WHEN 'math' THEN 'chemistry'
+    WHEN 'chemistry' THEN 'math'
+ELSE
+    'English'
+END;
+</code></pre>
+<h2 id="_17">结束</h2>
+<p>本文章并没有给出专门介绍SQL嵌套子查询相关的部分，这是因为我认为嵌套子查询基本上是原有语句的组合并且在举例的时候也用到过。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2024-Now CairBin
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
+      
+    
+  </body>
+</html>
