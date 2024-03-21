@@ -667,6 +667,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    动态SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyBatis关联映射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -795,301 +837,301 @@
 <p>静态代理在编译期就确定了代理类，而动态代理需要靠反射机制动态生成代理类。</p>
 <p>Spring AOP动态代理有两种实现方式：一种是<strong>JDK动态代理</strong>，这种方式需要接口；另一种是<strong>CGLib动态代理</strong>，这种方式不依赖接口。</p>
 <p>有了以上的知识，我们开始写代码，首先新创建一个<strong>Maven项目</strong><code>top.cairbin.test2</code>，如果你不会请回去看之前的章节。</p>
-<p>然后在<code>pom.xml</code>的<code>&lt;dependencies&gt;&lt;/dependencies&gt;</code>之间添加依赖包</p>
-<pre><code class="language-xml">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-context --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-context&lt;/artifactId&gt;
-    &lt;version&gt;5.3.16&lt;/version&gt;
-&lt;/dependency&gt;       
-&lt;!-- https://mvnrepository.com/artifact/cglib/cglib --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;cglib&lt;/groupId&gt;
-    &lt;artifactId&gt;cglib&lt;/artifactId&gt;
-    &lt;version&gt;3.3.0&lt;/version&gt;
-&lt;/dependency&gt;       
-&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.aspectj&lt;/groupId&gt;
-    &lt;artifactId&gt;aspectjweaver&lt;/artifactId&gt;
-    &lt;version&gt;1.9.4&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-<p>我们去实现一个<code>IUser</code>接口，要求接口内有两个方法<code>void addUser()</code>和<code>void deleteUser()</code></p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-public interface IUser {
-    void addUser();
-    void deleteUser();
-}
-</code></pre>
-<p>接下来定义一个实现该接口的<code>User</code>类</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-public class User implements IUser{
-    @Override
-    public void addUser() {
-        System.out.println(&quot;进行增加用户操作！&quot;);
-    }
-
-    @Override
-    public void deleteUser() {
-        System.out.println(&quot;进行删除用户操作!&quot;);
-    }
-}
-</code></pre>
+<p>然后在<code>pom.xml</code>的<code>&lt;dependencies&gt;&lt;/dependencies&gt;</code>之间添加依赖包
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cm">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-context --&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">&lt;dependency&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.springframework<span class="nt">&lt;/groupId&gt;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>spring-context<span class="nt">&lt;/artifactId&gt;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="nt">&lt;version&gt;</span>5.3.16<span class="nt">&lt;/version&gt;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">&lt;/dependency&gt;</span><span class="w">       </span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="cm">&lt;!-- https://mvnrepository.com/artifact/cglib/cglib --&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">&lt;dependency&gt;</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>cglib<span class="nt">&lt;/groupId&gt;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>cglib<span class="nt">&lt;/artifactId&gt;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&lt;version&gt;</span>3.3.0<span class="nt">&lt;/version&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nt">&lt;/dependency&gt;</span><span class="w">       </span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="cm">&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&gt;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="nt">&lt;dependency&gt;</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>org.aspectj<span class="nt">&lt;/groupId&gt;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>aspectjweaver<span class="nt">&lt;/artifactId&gt;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="nt">&lt;version&gt;</span>1.9.4<span class="nt">&lt;/version&gt;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></p>
+<p>我们去实现一个<code>IUser</code>接口，要求接口内有两个方法<code>void addUser()</code>和<code>void deleteUser()</code>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">IUser</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">addUser</span><span class="p">();</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteUser</span><span class="p">();</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>接下来定义一个实现该接口的<code>User</code>类
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">IUser</span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;进行增加用户操作！&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;进行删除用户操作!&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">}</span>
+</code></pre></div></p>
 <p>我们定义一个切面类，该类中的两个方法<code>void check()</code>和<code>void log()</code>分别模拟权限检查和日志记录功能。</p>
-<p>切面类如下所示</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-public class MyAspect {
-    public void check() {
-        System.out.println(&quot;正在模拟权限认证&quot;);
-    }
-
-    public void log() {
-        System.out.println(&quot;正在模拟日志记录&quot;);
-    }
-}
-</code></pre>
+<p>切面类如下所示
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyAspect</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">check</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;正在模拟权限认证&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;正在模拟日志记录&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p">}</span>
+</code></pre></div></p>
 <h3 id="jdk">JDK动态代理</h3>
-<p>接下来创建代理类<code>JdkProxy</code>，这个类实现了JDK动态代理的<code>InvocationHandler</code>接口，并实现代理方法。</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
-
-
-public class JdkProxy implements InvocationHandler{
-    private final IUser user;
-
-    public JdkProxy(IUser user) {
-        this.user = user;
-    }
-
-    public static Object createProxy(IUser user) {
-        ClassLoader classLoader = JdkProxy.class.getClassLoader();
-        // 被代理对象实现的所有接口
-        Class[] clazz = user.getClass().getInterfaces();
-        // 使用代理类，进行增强，返回的是代理后的对象
-        return  Proxy.newProxyInstance(classLoader,clazz,new JdkProxy(user));
-    }
-
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        // 声明切面
-        MyAspect myAspect = new MyAspect();
-        // 前增强
-        myAspect.check();
-        // 在目标类上调用方法，并传入参数
-        Object obj = method.invoke(user, args);
-        // 后增强
-        myAspect.log();
-
-        return obj;
-    }
-
-}
-</code></pre>
-<p>然后尝试在<code>App.java</code>的<code>main</code>方法中使用它们</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-public class App 
-{
-    public static void main( String[] args )
-    {
-        // 创建目标对象
-        IUser user= new User();
-        // 创建代理，并从代理中获取增强后的目标对象
-        IUser user2 = (IUser)JdkProxy.createProxy(user);
-        // 执行方法
-        user2.addUser();
-        user2.deleteUser();
-
-    }
-}
-</code></pre>
+<p>接下来创建代理类<code>JdkProxy</code>，这个类实现了JDK动态代理的<code>InvocationHandler</code>接口，并实现代理方法。
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.InvocationHandler</span><span class="p">;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Proxy</span><span class="p">;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">JdkProxy</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">InvocationHandler</span><span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">JdkProxy</span><span class="p">(</span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="p">;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">createProxy</span><span class="p">(</span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">        </span><span class="n">ClassLoader</span><span class="w"> </span><span class="n">classLoader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JdkProxy</span><span class="p">.</span><span class="na">class</span><span class="p">.</span><span class="na">getClassLoader</span><span class="p">();</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">        </span><span class="c1">// 被代理对象实现的所有接口</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="n">Class</span><span class="o">[]</span><span class="w"> </span><span class="n">clazz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">getClass</span><span class="p">().</span><span class="na">getInterfaces</span><span class="p">();</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">        </span><span class="c1">// 使用代理类，进行增强，返回的是代理后的对象</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">        </span><span class="k">return</span><span class="w">  </span><span class="n">Proxy</span><span class="p">.</span><span class="na">newProxyInstance</span><span class="p">(</span><span class="n">classLoader</span><span class="p">,</span><span class="n">clazz</span><span class="p">,</span><span class="k">new</span><span class="w"> </span><span class="n">JdkProxy</span><span class="p">(</span><span class="n">user</span><span class="p">));</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>
+<a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">proxy</span><span class="p">,</span><span class="w"> </span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="p">,</span><span class="w"> </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">        </span><span class="c1">// 声明切面</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">        </span><span class="n">MyAspect</span><span class="w"> </span><span class="n">myAspect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyAspect</span><span class="p">();</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">        </span><span class="c1">// 前增强</span>
+<a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">        </span><span class="n">myAspect</span><span class="p">.</span><span class="na">check</span><span class="p">();</span>
+<a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">        </span><span class="c1">// 在目标类上调用方法，并传入参数</span>
+<a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">method</span><span class="p">.</span><span class="na">invoke</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+<a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a><span class="w">        </span><span class="c1">// 后增强</span>
+<a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a><span class="w">        </span><span class="n">myAspect</span><span class="p">.</span><span class="na">log</span><span class="p">();</span>
+<a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>
+<a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+<a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>
+<a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>然后尝试在<code>App.java</code>的<code>main</code>方法中使用它们
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">App</span><span class="w"> </span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">{</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="c1">// 创建目标对象</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">();</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="c1">// 创建代理，并从代理中获取增强后的目标对象</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">        </span><span class="n">IUser</span><span class="w"> </span><span class="n">user2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">IUser</span><span class="p">)</span><span class="n">JdkProxy</span><span class="p">.</span><span class="na">createProxy</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">        </span><span class="c1">// 执行方法</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">        </span><span class="n">user2</span><span class="p">.</span><span class="na">addUser</span><span class="p">();</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">        </span><span class="n">user2</span><span class="p">.</span><span class="na">deleteUser</span><span class="p">();</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="p">}</span>
+</code></pre></div></p>
 <p>输出结果如下图所示
 <img alt="" src="http://img.cairbin.top/img/202403200225898.png" /></p>
 <h3 id="cglib">CGLib动态代理</h3>
 <p>我们不妨尝试使用CGLib来玩一下</p>
 <p>创建一个新的类，名称为<code>CglibProxy</code>，并实现接口<code>MethodInterceptor</code>以及相应的方法</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-import java.lang.reflect.Method;
-import org.springframework.cglib.proxy.Enhancer;
-import org.springframework.cglib.proxy.MethodInterceptor;
-import org.springframework.cglib.proxy.MethodProxy;
-
-public class CglibProxy implements MethodInterceptor {
-     public static Object createProxy(Object target){
-        Enhancer enhancer = new Enhancer();  
-        enhancer.setSuperclass(target.getClass());  
-        enhancer.setCallback(new CglibProxy()); 
-        return enhancer.create();
- }
-    @Override
-    public Object intercept(Object obj, Method method,  Object[] args, MethodProxy proxy) throws Throwable {
-        // 声明切面
-        MyAspect myAspect = new MyAspect();
-        // 前增强
-        myAspect.check();
-        //获取增强后的目标对象
-        Object target = proxy.invokeSuper(obj, args);
-        // 后增强
-        myAspect.log();
-        return target;
-    }
-}
-</code></pre>
-<p>尝试调用下</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-public class App 
-{
-    public static void main( String[] args )
-    {
-        IUser user = (IUser)CglibProxy.createProxy (new User());
-        user.addUser();
-        user.deleteUser();
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.lang.reflect.Method</span><span class="p">;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.cglib.proxy.Enhancer</span><span class="p">;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.cglib.proxy.MethodInterceptor</span><span class="p">;</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.cglib.proxy.MethodProxy</span><span class="p">;</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CglibProxy</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">MethodInterceptor</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">     </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">createProxy</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">target</span><span class="p">){</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="n">Enhancer</span><span class="w"> </span><span class="n">enhancer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Enhancer</span><span class="p">();</span><span class="w">  </span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">        </span><span class="n">enhancer</span><span class="p">.</span><span class="na">setSuperclass</span><span class="p">(</span><span class="n">target</span><span class="p">.</span><span class="na">getClass</span><span class="p">());</span><span class="w">  </span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="n">enhancer</span><span class="p">.</span><span class="na">setCallback</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">CglibProxy</span><span class="p">());</span><span class="w"> </span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">enhancer</span><span class="p">.</span><span class="na">create</span><span class="p">();</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">intercept</span><span class="p">(</span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">Method</span><span class="w"> </span><span class="n">method</span><span class="p">,</span><span class="w">  </span><span class="n">Object</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">MethodProxy</span><span class="w"> </span><span class="n">proxy</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">        </span><span class="c1">// 声明切面</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">        </span><span class="n">MyAspect</span><span class="w"> </span><span class="n">myAspect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyAspect</span><span class="p">();</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">        </span><span class="c1">// 前增强</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">        </span><span class="n">myAspect</span><span class="p">.</span><span class="na">check</span><span class="p">();</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">        </span><span class="c1">//获取增强后的目标对象</span>
+<a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">proxy</span><span class="p">.</span><span class="na">invokeSuper</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="c1">// 后增强</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">        </span><span class="n">myAspect</span><span class="p">.</span><span class="na">log</span><span class="p">();</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">target</span><span class="p">;</span>
+<a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="p">}</span>
+</code></pre></div>
+<p>尝试调用下
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">App</span><span class="w"> </span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">{</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">        </span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">IUser</span><span class="p">)</span><span class="n">CglibProxy</span><span class="p">.</span><span class="na">createProxy</span><span class="w"> </span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">User</span><span class="p">());</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="n">user</span><span class="p">.</span><span class="na">addUser</span><span class="p">();</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="n">user</span><span class="p">.</span><span class="na">deleteUser</span><span class="p">();</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">}</span>
+</code></pre></div></p>
 <p>不出所料，果然成功了
 <img alt="" src="http://img.cairbin.top/img/202403200234740.png" /></p>
 <p>我们仔细观察CGLib的这几段代码，在<code>CglibProxy</code>类中我们并没有用到<code>IUser</code>这个接口，而是返回Object，然后外面也就是调用者那里强制转换为<code>IUser</code>类型！</p>
 <p>不妨再“懒”一些，我们借助Spring的依赖注入，从Spring的容器中直接返回增强后的实现了<code>IUser</code>接口的对象试一试。</p>
 <p>首先在<code>resources/AppCtx.xml</code>中编写Bean的配置（这里有坑，如果行不通回前面的文章看看）</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
-    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd&quot;&gt;
-    &lt;!-- 目标类 --&gt;
-    &lt;bean id=&quot;user&quot; class=&quot;top.cairbin.test2.User&quot; /&gt;
-    &lt;!-- 切面类 --&gt;
-    &lt;bean id=&quot;myAspect&quot; class=&quot;top.cairbin.test2.MyAspect&quot; /&gt;
-    &lt;!-- 使用Spring代理工厂定义一个名称为userProxy的代理对象 --&gt;
-    &lt;bean id=&quot;userProxy&quot; 
-            class=&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;&gt;
-        &lt;!-- 指定代理实现的接口--&gt;
-        &lt;property name=&quot;proxyInterfaces&quot; 
-                      value=&quot;top.cairbin.test2.IUser&quot; /&gt;
-        &lt;!-- 指定目标对象 --&gt;
-        &lt;property name=&quot;target&quot; ref=&quot;user&quot; /&gt;
-        &lt;!-- 指定切面,织入环绕通知 --&gt;
-        &lt;property name=&quot;interceptorNames&quot; value=&quot;myAspect&quot; /&gt;
-        &lt;!-- 指定代理方式，true：使用cglib，false(默认)：使用jdk动态代理 --&gt;
-        &lt;property name=&quot;proxyTargetClass&quot; value=&quot;true&quot; /&gt;
-    &lt;/bean&gt;
-&lt;/beans&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nt">&lt;beans</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans </span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="s">    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="cm">&lt;!-- 目标类 --&gt;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;user&quot;</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;top.cairbin.test2.User&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="cm">&lt;!-- 切面类 --&gt;</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">    </span><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;myAspect&quot;</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;top.cairbin.test2.MyAspect&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="cm">&lt;!-- 使用Spring代理工厂定义一个名称为userProxy的代理对象 --&gt;</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;userProxy&quot;</span><span class="w"> </span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">            </span><span class="na">class=</span><span class="s">&quot;org.springframework.aop.framework.ProxyFactoryBean&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">        </span><span class="cm">&lt;!-- 指定代理实现的接口--&gt;</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;proxyInterfaces&quot;</span><span class="w"> </span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">                      </span><span class="na">value=</span><span class="s">&quot;top.cairbin.test2.IUser&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">        </span><span class="cm">&lt;!-- 指定目标对象 --&gt;</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;target&quot;</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;user&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">        </span><span class="cm">&lt;!-- 指定切面,织入环绕通知 --&gt;</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;interceptorNames&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;myAspect&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">        </span><span class="cm">&lt;!-- 指定代理方式，true：使用cglib，false(默认)：使用jdk动态代理 --&gt;</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;proxyTargetClass&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">    </span><span class="nt">&lt;/bean&gt;</span>
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="nt">&lt;/beans&gt;</span>
+</code></pre></div>
 <p>修改下<code>MyAspect</code>类，并实现接口<code>MethodInterceptor</code></p>
-<pre><code class="language-java">package top.cairbin.test2;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
-
-public class MyAspect implements MethodInterceptor {
-    @Override
-    public Object invoke(MethodInvocation mi) throws Throwable {
-        this.check();
-        // 执行目标方法
-        Object obj = mi.proceed();
-        this.log();
-        return obj;
-    }
-
-    public void check() {
-        System.out.println(&quot;正在模拟权限认证&quot;);
-    }
-
-    public void log() {
-        System.out.println(&quot;正在模拟日志记录&quot;);
-    }
-}
-</code></pre>
-<p><code>App</code>类中的<code>main</code>方法调用如下</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-public class App 
-{
-    public static void main( String[] args )
-    {
-        ApplicationContext app = new ClassPathXmlApplicationContext(&quot;AppCtx.xml&quot;);
-        IUser user = (IUser)app.getBean(&quot;userProxy&quot;);
-        user.addUser();
-        user.deleteUser();
-    }
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aopalliance.intercept.MethodInterceptor</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aopalliance.intercept.MethodInvocation</span><span class="p">;</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyAspect</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">MethodInterceptor</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">invoke</span><span class="p">(</span><span class="n">MethodInvocation</span><span class="w"> </span><span class="n">mi</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">check</span><span class="p">();</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">        </span><span class="c1">// 执行目标方法</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mi</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">log</span><span class="p">();</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">check</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;正在模拟权限认证&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">log</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;正在模拟日志记录&quot;</span><span class="p">);</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>App</code>类中的<code>main</code>方法调用如下
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.ApplicationContext</span><span class="p">;</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="p">;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">App</span><span class="w"> </span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">{</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">        </span><span class="n">ApplicationContext</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;AppCtx.xml&quot;</span><span class="p">);</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">        </span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">IUser</span><span class="p">)</span><span class="n">app</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;userProxy&quot;</span><span class="p">);</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">        </span><span class="n">user</span><span class="p">.</span><span class="na">addUser</span><span class="p">();</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">        </span><span class="n">user</span><span class="p">.</span><span class="na">deleteUser</span><span class="p">();</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="p">}</span>
+</code></pre></div></p>
 <p>点击<strong>运行</strong>得到结果
 <img alt="" src="http://img.cairbin.top/img/202403200258702.png" /></p>
 <h3 id="aspectj">AspectJ静态代理</h3>
-<p>使用AspectJ静态代理，我们重新设计下<code>MyAspect</code>切面类</p>
-<pre><code class="language-java">package top.cairbin.test2;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Component;
-/**
- * 切面类，在此类中编写通知
- */
-@Aspect
-@Component
-public class MyAspect {
-    // 定义切入点表达式
-    @Pointcut(&quot;execution(* top.cairbin.test2.*.*(..))&quot;)
-    // 使用一个返回值为void、方法体为空的方法来命名切入点
-    private void myPointCut(){}
-    // 前置通知
-    @Before(&quot;myPointCut()&quot;)
-    public void myBefore(JoinPoint joinPoint) {
-        System.out.print(&quot;前置通知 ：模拟执行权限检查...,&quot;);
-        System.out.print(&quot;目标类是：&quot;+joinPoint.getTarget() );
-        System.out.println(&quot;,被织入增强处理的目标方法为：&quot;
-                       +joinPoint.getSignature().getName());
-    }
-    // 后置通知
-    @AfterReturning(value=&quot;myPointCut()&quot;)
-    public void myAfterReturning(JoinPoint joinPoint) {
-        System.out.print(&quot;后置通知：模拟记录日志...,&quot; );
-        System.out.println(&quot;被织入增强处理的目标方法为：&quot;
-                      + joinPoint.getSignature().getName());
-    }
-    // 环绕通知 
-    @Around(&quot;myPointCut()&quot;)
-    public Object myAround(ProceedingJoinPoint proceedingJoinPoint) 
-            throws Throwable {
-        // 开始
-        System.out.println(&quot;环绕开始：执行目标方法之前，模拟开启事务...&quot;);
-        // 执行当前目标方法
-        Object obj = proceedingJoinPoint.proceed();
-        // 结束
-        System.out.println(&quot;环绕结束：执行目标方法之后，模拟关闭事务...&quot;);
-        return obj;
-    }
-    // 异常通知
-    @AfterThrowing(value=&quot;myPointCut()&quot;,throwing=&quot;e&quot;)
-    public void myAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        System.out.println(&quot;异常通知：&quot; + &quot;出错了&quot; + e.getMessage());
-    }
-    // 最终通知
-    @After(&quot;myPointCut()&quot;)
-    public void myAfter() {
-        System.out.println(&quot;最终通知：模拟方法结束后的释放资源...&quot;);
-    }
-}
-</code></pre>
+<p>使用AspectJ静态代理，我们重新设计下<code>MyAspect</code>切面类
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.JoinPoint</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.ProceedingJoinPoint</span><span class="p">;</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.After</span><span class="p">;</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.AfterReturning</span><span class="p">;</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.AfterThrowing</span><span class="p">;</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.Around</span><span class="p">;</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.Aspect</span><span class="p">;</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.Before</span><span class="p">;</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.aspectj.lang.annotation.Pointcut</span><span class="p">;</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="cm">/**</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="cm"> * 切面类，在此类中编写通知</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="cm"> */</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="nd">@Aspect</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="nd">@Component</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyAspect</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="c1">// 定义切入点表达式</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span><span class="nd">@Pointcut</span><span class="p">(</span><span class="s">&quot;execution(* top.cairbin.test2.*.*(..))&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="c1">// 使用一个返回值为void、方法体为空的方法来命名切入点</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myPointCut</span><span class="p">(){}</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">    </span><span class="c1">// 前置通知</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span><span class="nd">@Before</span><span class="p">(</span><span class="s">&quot;myPointCut()&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myBefore</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;前置通知 ：模拟执行权限检查...,&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;目标类是：&quot;</span><span class="o">+</span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getTarget</span><span class="p">()</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;,被织入增强处理的目标方法为：&quot;</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">                       </span><span class="o">+</span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="w">    </span><span class="c1">// 后置通知</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">    </span><span class="nd">@AfterReturning</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;myPointCut()&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myAfterReturning</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">print</span><span class="p">(</span><span class="s">&quot;后置通知：模拟记录日志...,&quot;</span><span class="w"> </span><span class="p">);</span>
+<a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;被织入增强处理的目标方法为：&quot;</span>
+<a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a><span class="w">                      </span><span class="o">+</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span>
+<a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a><span class="w">    </span><span class="c1">// 环绕通知 </span>
+<a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a><span class="w">    </span><span class="nd">@Around</span><span class="p">(</span><span class="s">&quot;myPointCut()&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Object</span><span class="w"> </span><span class="nf">myAround</span><span class="p">(</span><span class="n">ProceedingJoinPoint</span><span class="w"> </span><span class="n">proceedingJoinPoint</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a><span class="w">            </span><span class="kd">throws</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a><span class="w">        </span><span class="c1">// 开始</span>
+<a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;环绕开始：执行目标方法之前，模拟开启事务...&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a><span class="w">        </span><span class="c1">// 执行当前目标方法</span>
+<a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a><span class="w">        </span><span class="n">Object</span><span class="w"> </span><span class="n">obj</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">proceedingJoinPoint</span><span class="p">.</span><span class="na">proceed</span><span class="p">();</span>
+<a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a><span class="w">        </span><span class="c1">// 结束</span>
+<a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;环绕结束：执行目标方法之后，模拟关闭事务...&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">obj</span><span class="p">;</span>
+<a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a><span class="w">    </span><span class="c1">// 异常通知</span>
+<a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a><span class="w">    </span><span class="nd">@AfterThrowing</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;myPointCut()&quot;</span><span class="p">,</span><span class="n">throwing</span><span class="o">=</span><span class="s">&quot;e&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myAfterThrowing</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">,</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;异常通知：&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;出错了&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span>
+<a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a><span class="w">    </span><span class="c1">// 最终通知</span>
+<a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a><span class="w">    </span><span class="nd">@After</span><span class="p">(</span><span class="s">&quot;myPointCut()&quot;</span><span class="p">)</span>
+<a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">myAfter</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-57" name="__codelineno-11-57" href="#__codelineno-11-57"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;最终通知：模拟方法结束后的释放资源...&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-58" name="__codelineno-11-58" href="#__codelineno-11-58"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-11-59" name="__codelineno-11-59" href="#__codelineno-11-59"></a><span class="p">}</span>
+</code></pre></div></p>
 <p>对于切入点注解<code>@Pointcut("execution(* top.cairbin.test2.*.*(..))")</code>表示对<code>top.cairbin.test2</code>这个包下的所有类的所有方法生效。</p>
 <p>我们再来看看Spring中的<code>Advice</code>的几种类型：</p>
 <ul>
@@ -1099,58 +1141,58 @@ public class MyAspect {
 <li><code>org.springframework.aop.ThrowsAdvice</code>，异常抛出通知，在抛出异常后实施。</li>
 <li><code>org.springframework.aop.IntroductionInterceptor</code>，引介通知，在目标类中添加新方法和属性，可以应用于修改老版本程序。</li>
 </ul>
-<p>我们还要实现自动扫描和依赖注入，看看我们的<code>User</code>类</p>
-<pre><code class="language-java">package top.cairbin.test2;
-import org.springframework.stereotype.Component;
-
-@Component
-public class User implements IUser{
-    @Override
-    public void addUser() {
-        System.out.println(&quot;进行增加用户操作！&quot;);
-    }
-
-    @Override
-    public void deleteUser() {
-        System.out.println(&quot;进行删除用户操作!&quot;);
-    }
-}
-</code></pre>
-<p>自然也少不了<code>AppCtx.xml</code>的配置</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
-  xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot;
-  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
-  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
-  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-  http://www.springframework.org/schema/aop 
-  http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-  http://www.springframework.org/schema/context 
-  http://www.springframework.org/schema/context/spring-context-4.3.xsd&quot;&gt;
-      &lt;!-- 指定需要扫描的包，使注解生效 --&gt;
-      &lt;context:component-scan base-package=&quot;top.cairbin.test2&quot; /&gt;
-      &lt;!-- 启动基于注解的声明式AspectJ支持 --&gt;
-      &lt;aop:aspectj-autoproxy /&gt;
-&lt;/beans&gt;
-</code></pre>
-<p>在<code>main</code>方法中测试下，为了清楚，我这里仅调用了<code>addUser</code>一个方法</p>
-<pre><code class="language-java">package top.cairbin.test2;
-
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-public class App 
-{
-    public static void main( String[] args )
-    {
-        ApplicationContext app = new ClassPathXmlApplicationContext(&quot;AppCtx.xml&quot;);
-        IUser user = (IUser)app.getBean(&quot;user&quot;);
-        user.addUser();
-    }
-}
-</code></pre>
-<p><img alt="" src="http://img.cairbin.top/img/202403200318638.png" /></p>
+<p>我们还要实现自动扫描和依赖注入，看看我们的<code>User</code>类
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.stereotype.Component</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="nd">@Component</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">User</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">IUser</span><span class="p">{</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;进行增加用户操作！&quot;</span><span class="p">);</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span><span class="nd">@Override</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">deleteUser</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;进行删除用户操作!&quot;</span><span class="p">);</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>自然也少不了<code>AppCtx.xml</code>的配置
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">&lt;beans</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="w"> </span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="na">xmlns:aop=</span><span class="s">&quot;http://www.springframework.org/schema/aop&quot;</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="na">xmlns:context=</span><span class="s">&quot;http://www.springframework.org/schema/context&quot;</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">  </span><span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans </span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="s">  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="s">  http://www.springframework.org/schema/aop </span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="s">  http://www.springframework.org/schema/aop/spring-aop-4.3.xsd</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="s">  http://www.springframework.org/schema/context </span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="s">  http://www.springframework.org/schema/context/spring-context-4.3.xsd&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">      </span><span class="cm">&lt;!-- 指定需要扫描的包，使注解生效 --&gt;</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">      </span><span class="nt">&lt;context:component-scan</span><span class="w"> </span><span class="na">base-package=</span><span class="s">&quot;top.cairbin.test2&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">      </span><span class="cm">&lt;!-- 启动基于注解的声明式AspectJ支持 --&gt;</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">      </span><span class="nt">&lt;aop:aspectj-autoproxy</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="nt">&lt;/beans&gt;</span>
+</code></pre></div></p>
+<p>在<code>main</code>方法中测试下，为了清楚，我这里仅调用了<code>addUser</code>一个方法
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test2</span><span class="p">;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.ApplicationContext</span><span class="p">;</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.support.ClassPathXmlApplicationContext</span><span class="p">;</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">App</span><span class="w"> </span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p">{</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="p">)</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">        </span><span class="n">ApplicationContext</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ClassPathXmlApplicationContext</span><span class="p">(</span><span class="s">&quot;AppCtx.xml&quot;</span><span class="p">);</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">        </span><span class="n">IUser</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">IUser</span><span class="p">)</span><span class="n">app</span><span class="p">.</span><span class="na">getBean</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">);</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="n">user</span><span class="p">.</span><span class="na">addUser</span><span class="p">();</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="p">}</span>
+</code></pre></div>
+<img alt="" src="http://img.cairbin.top/img/202403200318638.png" /></p>
 <p><strong>我们发现当环绕通知与前置通知和后置通知同时使用的时候，优先级如下：</strong></p>
 <ul>
 <li>环绕通知开始</li>

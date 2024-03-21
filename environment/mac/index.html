@@ -676,6 +676,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    动态SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyBatis关联映射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -797,78 +839,78 @@
 <p>Homebrew是一个包管理器，我们可以通过它来安装许多软件</p>
 <p>首先打开<a href="https://brew.sh/zh-cn/">Homebrew中文官网(brew.sh/zh-cn)</a></p>
 <p><img alt="Homebrew官网" src="http://img.cairbin.top/img/202403182345561.png" /></p>
-<p>如图所示，复制下面那行命令到你的Macbook终端</p>
-<pre><code class="language-shell">/bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
-</code></pre>
-<p>这个可能会由于网络导致失败，可以替换成以下命令</p>
-<pre><code class="language-shell">/bin/bash -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
-</code></pre>
+<p>如图所示，复制下面那行命令到你的Macbook终端
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div></p>
+<p>这个可能会由于网络导致失败，可以替换成以下命令
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/bin/bash<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div></p>
 <p>完成后使用以下命令检验是否安装成功</p>
-<pre><code class="language-shell">brew --version
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>brew<span class="w"> </span>--version
+</code></pre></div>
 <p>如果出现下图则安装成功
 <img alt="brew version" src="http://img.cairbin.top/img/202403182350228.png" /></p>
 <p>我在写这篇文章的时候是这个版本，你的版本号可能比我更高，这一般没啥问题。</p>
 <p>接下来还是因为网络问题我们更换为国内的下载源，同样在终端中执行以下命令</p>
-<pre><code class="language-shell">git -C &quot;$(brew --repo)&quot; remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>brew<span class="w"> </span>--repo<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>https://mirrors.aliyun.com/homebrew/brew.git
+</code></pre></div>
 <p>然后更换homebrew-bottles</p>
-<pre><code class="language-shell">echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' &gt;&gt; ~/.bash_profile
-</code></pre>
-<p>让配置文件生效</p>
-<pre><code class="language-shell">source ~/.bash_profile
-</code></pre>
-<p>如果是zsh就写入zsh的配置文件中（如果你不懂这是啥意思，而且没有改过Mac的终端，可以忽略这句话）</p>
-<p>最后来更新下软件包</p>
-<pre><code class="language-shell">brew update
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bash_profile
+</code></pre></div>
+<p>让配置文件生效
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">source</span><span class="w"> </span>~/.bash_profile
+</code></pre></div>
+如果是zsh就写入zsh的配置文件中（如果你不懂这是啥意思，而且没有改过Mac的终端，可以忽略这句话）</p>
+<p>最后来更新下软件包
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>brew<span class="w"> </span>update
+</code></pre></div></p>
 <h2 id="jdk">安装JDK</h2>
 <p>我选择安装并使用<strong>OpenJDK</strong>，它是JDK的开源版本。</p>
 <p>我们借助刚才安装好的<strong>homebrew</strong>包管理器来安装它，打开终端输入下面的命令</p>
-<pre><code class="language-shell">brew install openjdk
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>brew<span class="w"> </span>install<span class="w"> </span>openjdk
+</code></pre></div>
 <p>你可以指定版本，例如安装openjdk17可以使用以下命令</p>
-<pre><code class="language-shell">brew install openjdk@17
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>brew<span class="w"> </span>install<span class="w"> </span>openjdk@17
+</code></pre></div>
 <p>接下来我们会用到<strong>vim</strong>这个终端文件编辑器
 如果vim不存在我们可以用以下命令安装它</p>
-<pre><code class="language-shell">brew install vim
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>brew<span class="w"> </span>install<span class="w"> </span>vim
+</code></pre></div>
 <p>我们打开配置文件</p>
-<pre><code class="language-shell">vim ~/.bash_profile
-</code></pre>
-<p>这里要根据是<code>zsh</code>还是<code>bash</code>，一般默认<code>bash</code>（你不懂的话而去终端没有修改过的话忽略这句话）</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>vim<span class="w"> </span>~/.bash_profile
+</code></pre></div>
+这里要根据是<code>zsh</code>还是<code>bash</code>，一般默认<code>bash</code>（你不懂的话而去终端没有修改过的话忽略这句话）</p>
 <p>这里来讲下vim操作，点击键盘上的<code>i</code>来进入编辑模式。
 在文件最下方写入一行代码</p>
-<pre><code>export PATH=&quot;/opt/homebrew/opt/openjdk/bin:$PATH&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>export PATH=&quot;/opt/homebrew/opt/openjdk/bin:$PATH&quot;
+</code></pre></div>
 <p><img alt="" src="http://img.cairbin.top/img/202403190032851.png" /></p>
 <p>然后按键盘上的<code>esc</code>退出编辑模式，然后输入<code>:wq</code>保存并退出。</p>
-<p>让配置文件生效</p>
-<pre><code class="language-shell">source ~/.bash_profile
-</code></pre>
+<p>让配置文件生效
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">source</span><span class="w"> </span>~/.bash_profile
+</code></pre></div></p>
 <p>在终端中检查Java版本</p>
-<pre><code class="language-shell">java --version
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>java<span class="w"> </span>--version
+</code></pre></div>
 <p>如果出现以下提示（版本号不必与我一致），则表示安装成功
 <img alt="java version" src="http://img.cairbin.top/img/202403190056005.png" /></p>
 <h2 id="maven">安装Maven</h2>
 <p>接下来我们来安装<strong>Maven</strong>，同理还是使用<strong>homebrew</strong>。</p>
-<pre><code class="language-shell">brew install maven
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>brew<span class="w"> </span>install<span class="w"> </span>maven
+</code></pre></div>
 <p>打开配置文件，配置环境变量</p>
-<pre><code class="language-shell">vim ~/.bash_profile
-</code></pre>
-<p>这里要根据是<code>zsh</code>还是<code>bash</code>，一般默认<code>bash</code>（你不懂的话而去终端没有修改过的话忽略这句话）</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>vim<span class="w"> </span>~/.bash_profile
+</code></pre></div>
+这里要根据是<code>zsh</code>还是<code>bash</code>，一般默认<code>bash</code>（你不懂的话而去终端没有修改过的话忽略这句话）</p>
 <p>文件最下方追加一行代码</p>
-<pre><code>export PATH=&quot;/opt/homebrew/opt/maven/bin:$PATH&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>export PATH=&quot;/opt/homebrew/opt/maven/bin:$PATH&quot;
+</code></pre></div>
 <p>让配置文件生效</p>
-<pre><code class="language-shell">source ~/.bash_profile
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">source</span><span class="w"> </span>~/.bash_profile
+</code></pre></div>
 <p>最后检查maven是否安装成功，出现版本信息则成功</p>
-<pre><code class="language-shell">mvn -version
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>mvn<span class="w"> </span>-version
+</code></pre></div>
 <h2 id="eclipse-ide">安装Eclipse IDE</h2>
 <p>打开<a href="https://www.eclipse.org/downloads/">Eclipse官网的下载页面</a></p>
 <p><img alt="Eclipse Downloads" src="http://img.cairbin.top/img/202403182356305.png" /></p>
@@ -892,44 +934,44 @@
 <p>完成后，主界面就应该如下图所示。</p>
 <p><img alt="Eclipse Home" src="http://img.cairbin.top/img/202403190022169.png" /></p>
 <h3 id="tomcat">安装Tomcat</h3>
-<pre><code class="language-shell">brew install tomcat
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>brew<span class="w"> </span>install<span class="w"> </span>tomcat
+</code></pre></div>
 <p>检查是否安装成功</p>
-<pre><code class="language-shell">catalina -h
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>catalina<span class="w"> </span>-h
+</code></pre></div>
 <p>我们可以使用以下命令来启动tomcat服务</p>
-<pre><code class="language-shell">brew services start tomcat
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>brew<span class="w"> </span>services<span class="w"> </span>start<span class="w"> </span>tomcat
+</code></pre></div>
 <p>同理也可以关闭它</p>
-<pre><code class="language-shell">brew services stop tomcat
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>brew<span class="w"> </span>services<span class="w"> </span>stop<span class="w"> </span>tomcat
+</code></pre></div>
 <p>检查服务状态</p>
-<pre><code class="language-shell">brew services info tomcat
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>brew<span class="w"> </span>services<span class="w"> </span>info<span class="w"> </span>tomcat
+</code></pre></div>
 <p>当服务为开启状态的时候我们<strong>浏览器</strong>访问<code>http://localhost:8080</code>大概如下图</p>
 <p><img alt="tomcat test" src="http://img.cairbin.top/img/202403190110134.png" /></p>
 <h2 id="mysql">安装MySQL</h2>
 <p>安装MySQL数据库</p>
-<pre><code class="language-shell">brew install mysql
-</code></pre>
-<p>你可以指定版本，推荐与教程版本一致，版本较高可能会有问题</p>
-<pre><code class="language-shell">brew install mysql@5.7
-</code></pre>
-<p>配置环境变量</p>
-<pre><code class="language-shell">echo 'export PATH=&quot;/opt/homebrew/opt/mysql@5.7/bin:$PATH&quot;' &gt;&gt; ~/.bash_profile
-</code></pre>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>brew<span class="w"> </span>install<span class="w"> </span>mysql
+</code></pre></div>
+你可以指定版本，推荐与教程版本一致，版本较高可能会有问题
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>brew<span class="w"> </span>install<span class="w"> </span>mysql@5.7
+</code></pre></div></p>
+<p>配置环境变量
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;/opt/homebrew/opt/mysql@5.7/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bash_profile
+</code></pre></div></p>
 <p>让配置文件生效</p>
-<pre><code class="language-shell">source ~/.bash_profile
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">source</span><span class="w"> </span>~/.bash_profile
+</code></pre></div>
 <p>启动mysql服务</p>
-<pre><code class="language-shell">brew services start mysql
-</code></pre>
-<p>如果指定5.7版本可以用下方命令</p>
-<pre><code class="language-shell">brew services start mysql@5.7
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>brew<span class="w"> </span>services<span class="w"> </span>start<span class="w"> </span>mysql
+</code></pre></div>
+<p>如果指定5.7版本可以用下方命令
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>brew<span class="w"> </span>services<span class="w"> </span>start<span class="w"> </span>mysql@5.7
+</code></pre></div></p>
 <p>使用<code>root</code>用户登陆，默认无密码，默认端口<code>3306</code></p>
-<pre><code class="language-shell">mysql -uroot
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>mysql<span class="w"> </span>-uroot
+</code></pre></div>
 
 
 
