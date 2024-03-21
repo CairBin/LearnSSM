@@ -676,6 +676,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    动态SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mybatis/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MyBatis关联映射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -822,146 +864,146 @@
 <p>我们更关心基于注解的方式，下面用代码来了解下</p>
 <p>我们用之前的<code>top.cairbin.test3</code>项目</p>
 <p><code>app.xml</code>文件内容如下</p>
-<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; 
-  xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
-  xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot;
-  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
-  http://www.springframework.org/schema/beans/spring-beans.xsd
-  http://www.springframework.org/schema/tx
-  http://www.springframework.org/schema/tx/spring-tx.xsd
-  http://www.springframework.org/schema/context 
-  http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
-
-    &lt;!-- 指定需要扫描的包，使注解生效 --&gt;
-    &lt;context:component-scan
-        base-package=&quot;top.cairbin.test3&quot; /&gt;
-    &lt;!-- 配置dataSource --&gt;
-    &lt;bean id=&quot;dataSource&quot;
-        class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
-        &lt;!--数据库驱动 --&gt;
-        &lt;property name=&quot;driverClassName&quot;
-            value=&quot;com.mysql.jdbc.Driver&quot; /&gt;
-        &lt;!--连接数据库的url --&gt;
-        &lt;property name=&quot;url&quot;
-            value=&quot;jdbc:mysql://localhost:3306/db_javaee&quot; /&gt;
-        &lt;!--连接数据库的用户名 --&gt;
-        &lt;property name=&quot;username&quot; value=&quot;db_javaee&quot; /&gt;
-        &lt;!--连接数据库的密码 --&gt;
-        &lt;property name=&quot;password&quot; value=&quot;dbjavaeepassword&quot; /&gt;
-    &lt;/bean&gt;
-    &lt;!-- 2配置JDBC模板 --&gt;
-    &lt;bean id=&quot;jdbcTemplate&quot;
-        class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
-        &lt;!-- 默认必须使用数据源 --&gt;
-        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
-    &lt;/bean&gt;
-
-
-    &lt;bean id=&quot;transactionManager&quot; class=
-     &quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;&gt;
-        &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
-    &lt;/bean&gt; 
-    &lt;!-- 注册事务管理器驱动 --&gt;
-    &lt;tx:annotation-driven transaction-manager=&quot;transactionManager&quot;/&gt;
-&lt;/beans&gt;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">&lt;beans</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="w"> </span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="na">xmlns:context=</span><span class="s">&quot;http://www.springframework.org/schema/context&quot;</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="na">xmlns:tx=</span><span class="s">&quot;http://www.springframework.org/schema/tx&quot;</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans </span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s">  http://www.springframework.org/schema/beans/spring-beans.xsd</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="s">  http://www.springframework.org/schema/tx</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="s">  http://www.springframework.org/schema/tx/spring-tx.xsd</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="s">  http://www.springframework.org/schema/context </span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="s">  http://www.springframework.org/schema/context/spring-context.xsd&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="cm">&lt;!-- 指定需要扫描的包，使注解生效 --&gt;</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nt">&lt;context:component-scan</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">        </span><span class="na">base-package=</span><span class="s">&quot;top.cairbin.test3&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="cm">&lt;!-- 配置dataSource --&gt;</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="w">    </span><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;dataSource&quot;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="na">class=</span><span class="s">&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="w">        </span><span class="cm">&lt;!--数据库驱动 --&gt;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="w">            </span><span class="na">value=</span><span class="s">&quot;com.mysql.jdbc.Driver&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="w">        </span><span class="cm">&lt;!--连接数据库的url --&gt;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;url&quot;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="w">            </span><span class="na">value=</span><span class="s">&quot;jdbc:mysql://localhost:3306/db_javaee&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="w">        </span><span class="cm">&lt;!--连接数据库的用户名 --&gt;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;username&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;db_javaee&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="w">        </span><span class="cm">&lt;!--连接数据库的密码 --&gt;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;password&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;dbjavaeepassword&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="w">    </span><span class="nt">&lt;/bean&gt;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="w">    </span><span class="cm">&lt;!-- 2配置JDBC模板 --&gt;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="w">    </span><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;jdbcTemplate&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a><span class="w">        </span><span class="na">class=</span><span class="s">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="w">        </span><span class="cm">&lt;!-- 默认必须使用数据源 --&gt;</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;dataSource&quot;</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;dataSource&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="w">    </span><span class="nt">&lt;/bean&gt;</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a><span class="w">    </span><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;transactionManager&quot;</span><span class="w"> </span><span class="na">class=</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a><span class="w">     </span><span class="s">&quot;org.springframework.jdbc.datasource.DataSourceTransactionManager&quot;</span><span class="nt">&gt;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="w">        </span><span class="nt">&lt;property</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;dataSource&quot;</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;dataSource&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="w">    </span><span class="nt">&lt;/bean&gt;</span><span class="w"> </span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="cm">&lt;!-- 注册事务管理器驱动 --&gt;</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="w">    </span><span class="nt">&lt;tx:annotation-driven</span><span class="w"> </span><span class="na">transaction-manager=</span><span class="s">&quot;transactionManager&quot;</span><span class="nt">/&gt;</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a><span class="nt">&lt;/beans&gt;</span>
+</code></pre></div>
 <p>在<code>IAccountDao</code>中声明方法</p>
-<pre><code class="language-java">public void transfer(String outUser,String inUser,Double money);
-</code></pre>
-<p>在<code>AccountDao</code>类中添加方法及注解</p>
-<pre><code class="language-java">@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
-public void transfer(String outUser, String inUser, Double money) {
-    // 收款时，收款用户的余额=现有余额+所汇金额
-    this.jdbcTemplate.update(&quot;update account set balance = balance +? &quot;
-            + &quot;where username = ?&quot;,money, inUser);
-    // 模拟系统运行时的突发性问题
-    int i = 1/0;
-    // 汇款时，汇款用户的余额=现有余额-所汇金额
-    this.jdbcTemplate.update(&quot;update account set balance = balance-? &quot;
-            + &quot;where username = ?&quot;,money, outUser);
-}
-</code></pre>
-<p>在<code>JdbcTemplateTest</code>测试类中添加测试方法</p>
-<pre><code class="language-java">@Test
-public void transTest(){        
-    accountDao.transfer(&quot;lisi&quot;, &quot;zhangsan&quot;, 100.0);
-    // 输出提示信息
-    System.out.println(&quot;转账成功！&quot;);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">transfer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">outUser</span><span class="p">,</span><span class="n">String</span><span class="w"> </span><span class="n">inUser</span><span class="p">,</span><span class="n">Double</span><span class="w"> </span><span class="n">money</span><span class="p">);</span>
+</code></pre></div>
+<p>在<code>AccountDao</code>类中添加方法及注解
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRED</span><span class="p">,</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Isolation</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">transfer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">outUser</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">inUser</span><span class="p">,</span><span class="w"> </span><span class="n">Double</span><span class="w"> </span><span class="n">money</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="c1">// 收款时，收款用户的余额=现有余额+所汇金额</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">jdbcTemplate</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;update account set balance = balance +? &quot;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;where username = ?&quot;</span><span class="p">,</span><span class="n">money</span><span class="p">,</span><span class="w"> </span><span class="n">inUser</span><span class="p">);</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="c1">// 模拟系统运行时的突发性问题</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="c1">// 汇款时，汇款用户的余额=现有余额-所汇金额</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">jdbcTemplate</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;update account set balance = balance-? &quot;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;where username = ?&quot;</span><span class="p">,</span><span class="n">money</span><span class="p">,</span><span class="w"> </span><span class="n">outUser</span><span class="p">);</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>在<code>JdbcTemplateTest</code>测试类中添加测试方法
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@Test</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">transTest</span><span class="p">(){</span><span class="w">        </span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">accountDao</span><span class="p">.</span><span class="na">transfer</span><span class="p">(</span><span class="s">&quot;lisi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;zhangsan&quot;</span><span class="p">,</span><span class="w"> </span><span class="mf">100.0</span><span class="p">);</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="c1">// 输出提示信息</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;转账成功！&quot;</span><span class="p">);</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
+</code></pre></div></p>
 <p>运行程序前向数据库中插入两条记录，我们使用终端或者<code>sqlyog</code>连接数据库，我这里以Mac的终端为例</p>
-<pre><code class="language-sql">mysql -u db_javaee -p
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">mysql</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">db_javaee</span><span class="w"> </span><span class="o">-</span><span class="n">p</span>
+</code></pre></div>
 <p>注意这里，我们用的不再是<code>root</code>账户，而是之前创建的<code>db_javaee</code></p>
 <p>输入密码<code>dbjavaeepassword</code>，如果你之前设置的与我不一样这里换成你的密码</p>
 <p>输入密码的时候是不显示密码内容的，敲击回车，如果界面跟我下面差不多就说明成功了</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403211157300.png" /></p>
-<p>后面来写SQL语句，首先把数据库切换到<code>db_javaee</code>下面</p>
-<pre><code class="language-sql">USE db_javaee;
-</code></pre>
+<p>后面来写SQL语句，首先把数据库切换到<code>db_javaee</code>下面
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">USE</span><span class="w"> </span><span class="n">db_javaee</span><span class="p">;</span>
+</code></pre></div></p>
 <p>如果出现<code>Database changed</code>提示则表示成功。</p>
 <p>我们先来查看下之前创建的<code>Account</code>表</p>
-<pre><code class="language-sql">SELECT * FROM account;
-</code></pre>
-<p>这是我的表里面的内容，你的应该与我不太一样，不过不影响接下来的操作。</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="p">;</span>
+</code></pre></div>
+这是我的表里面的内容，你的应该与我不太一样，不过不影响接下来的操作。</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403211203501.png" /></p>
-<p>我们使用一下语句来插入两条数据</p>
-<pre><code class="language-SQL">INSERT INTO account(id,username,balance) VALUES(17,'zhangsan',100);
-INSERT INTO account(id,username,balance) VALUES(18,'lisi',200);
-</code></pre>
+<p>我们使用一下语句来插入两条数据
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">account</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">username</span><span class="p">,</span><span class="n">balance</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span><span class="s1">&#39;zhangsan&#39;</span><span class="p">,</span><span class="mi">100</span><span class="p">);</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">account</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="n">username</span><span class="p">,</span><span class="n">balance</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="s1">&#39;lisi&#39;</span><span class="p">,</span><span class="mi">200</span><span class="p">);</span>
+</code></pre></div></p>
 <p>成功的话会有提示
 <img alt="" src="http://img.cairbin.top/img/202403211208001.png" /></p>
 <p>来看下目前表里的数据</p>
-<pre><code class="language-sql">SELECT * FROM account;
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="p">;</span>
+</code></pre></div>
 <p><img alt="" src="http://img.cairbin.top/img/202403211209163.png" /></p>
 <p>接下来我们回到<strong>Eclipse IDE</strong>，运行我们的代码
 <img alt="" src="http://img.cairbin.top/img/202403211210424.png" /></p>
 <p>运行结果如下
 <img alt="" src="http://img.cairbin.top/img/202403211211898.png" /></p>
 <p>不出意外的话该出意外了，注意看左边的<code>transTest()</code>方法竟然报错，那是正常的，因为我们<code>public void transfer(String outUser, String inUser, Double money);</code>代码写了<code>int i = 1/0;</code>这种语句来模拟报错。</p>
-<p>我们到数据库中查看数据</p>
-<pre><code class="language-sql">SELECT * FROM account;
-</code></pre>
-<p><img alt="" src="http://img.cairbin.top/img/202403211213178.png" /></p>
+<p>我们到数据库中查看数据
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="p">;</span>
+</code></pre></div>
+<img alt="" src="http://img.cairbin.top/img/202403211213178.png" /></p>
 <p>很显然数据没有啥变化，我们将<code>transfer</code>方法中的<code>int i = 1/0;</code>删掉试试。注意方法名称，别搞错了。
 <img alt="" src="http://img.cairbin.top/img/202403211216318.png" /></p>
-<pre><code class="language-java">@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
-public void transfer(String outUser, String inUser, Double money) {
-    // 收款时，收款用户的余额=现有余额+所汇金额
-    this.jdbcTemplate.update(&quot;update account set balance = balance +? &quot;
-            + &quot;where username = ?&quot;,money, inUser);
-    // 模拟系统运行时的突发性问题
-    // int i = 1/0;
-    // 汇款时，汇款用户的余额=现有余额-所汇金额
-    this.jdbcTemplate.update(&quot;update account set balance = balance-? &quot;
-            + &quot;where username = ?&quot;,money, outUser);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRED</span><span class="p">,</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Isolation</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">transfer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">outUser</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">inUser</span><span class="p">,</span><span class="w"> </span><span class="n">Double</span><span class="w"> </span><span class="n">money</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span><span class="c1">// 收款时，收款用户的余额=现有余额+所汇金额</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">jdbcTemplate</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;update account set balance = balance +? &quot;</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;where username = ?&quot;</span><span class="p">,</span><span class="n">money</span><span class="p">,</span><span class="w"> </span><span class="n">inUser</span><span class="p">);</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span><span class="c1">// 模拟系统运行时的突发性问题</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span><span class="c1">// int i = 1/0;</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span><span class="c1">// 汇款时，汇款用户的余额=现有余额-所汇金额</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">jdbcTemplate</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;update account set balance = balance-? &quot;</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;where username = ?&quot;</span><span class="p">,</span><span class="n">money</span><span class="p">,</span><span class="w"> </span><span class="n">outUser</span><span class="p">);</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="p">}</span>
+</code></pre></div>
 <p>运行一下，发现控制台输出<code>转账成功！</code>。</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403211218529.png" /></p>
-<p>回到数据库查看下</p>
-<pre><code class="language-sql">SELECT * FROM account;
-</code></pre>
+<p>回到数据库查看下
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="p">;</span>
+</code></pre></div></p>
 <p>下图是操作前后两次的对比，上面是转账成功之前的，后面是转账成功之后的。</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403211219210.png" /></p>
 <p>数据显然是发生变化了！</p>
 <h2 id="_4">问题</h2>
 <p>到了这里，你可能会有疑问，敲了这么多的代码，我们还不断地进行测试、查看数据库，到底是想干什么。</p>
-<pre><code class="language-java">@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT, readOnly = false)
-public void transfer(String outUser, String inUser, Double money) {
-    // 收款时，收款用户的余额=现有余额+所汇金额
-    this.jdbcTemplate.update(&quot;update account set balance = balance +? &quot;
-            + &quot;where username = ?&quot;,money, inUser);
-    // 模拟系统运行时的突发性问题
-    int i = 1/0;
-    // 汇款时，汇款用户的余额=现有余额-所汇金额
-    this.jdbcTemplate.update(&quot;update account set balance = balance-? &quot;
-            + &quot;where username = ?&quot;,money, outUser);
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nd">@Transactional</span><span class="p">(</span><span class="n">propagation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Propagation</span><span class="p">.</span><span class="na">REQUIRED</span><span class="p">,</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Isolation</span><span class="p">.</span><span class="na">DEFAULT</span><span class="p">,</span><span class="w"> </span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">transfer</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">outUser</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">inUser</span><span class="p">,</span><span class="w"> </span><span class="n">Double</span><span class="w"> </span><span class="n">money</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span><span class="c1">// 收款时，收款用户的余额=现有余额+所汇金额</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">jdbcTemplate</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;update account set balance = balance +? &quot;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;where username = ?&quot;</span><span class="p">,</span><span class="n">money</span><span class="p">,</span><span class="w"> </span><span class="n">inUser</span><span class="p">);</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="c1">// 模拟系统运行时的突发性问题</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">    </span><span class="c1">// 汇款时，汇款用户的余额=现有余额-所汇金额</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="na">jdbcTemplate</span><span class="p">.</span><span class="na">update</span><span class="p">(</span><span class="s">&quot;update account set balance = balance-? &quot;</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;where username = ?&quot;</span><span class="p">,</span><span class="n">money</span><span class="p">,</span><span class="w"> </span><span class="n">outUser</span><span class="p">);</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="p">}</span>
+</code></pre></div>
 <p>我们看看上方的代码。<strong>在前面提到过事务的特性是原子的，也就是不可分割的。</strong>倘若我们没有事务，当<code>this.jdbcTemplate.update(...);</code>这条语句执行的时候，数据库就已经更新了，而<code>int i = 1/0;</code>却出现了一个突发性问题，按理来说我们转账<code>transfer</code>这一方法不应该成立才对，而数据库中的记录的确发生了变动。</p>
 <p>如果你是一个恶意用户，然后你发现了这一漏洞，向银行存款，每次存款失败代码异常银行都退回你钱，然后你不断重复这个操作就可以使你的账户余额不断增加，然而你实际上并没有存一分钱进去，这显然是不合理的！</p>
 <p>然而我们有了事务，就不会发生这种情况了，因为对于<code>transfer</code>这一操作是不可分割成小操作的，也就是说对于方法里面的东西要么全成功，要么全失败回滚，不可能出现部分成功部分失败这种情况。</p>

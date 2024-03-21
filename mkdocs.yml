@@ -2,6 +2,15 @@ site_name: LearnSSM
 site_description: 对JavaEE SSM框架应用简单的学习
 copyright: Copyright © 2024-Now CairBin
 theme: material
+
+# theme extension
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
 nav:
   - 主页: index.md
   - 目录: 
@@ -18,3 +27,5 @@ nav:
       - Spring事务管理: spring/ch7.md
     - MyBatis入门: 
       - 了解MyBatis: mybatis/ch1.md
+      - 动态SQL: mybatis/ch2.md
+      - MyBatis关联映射: mybatis/ch3.md

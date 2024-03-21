@@ -23,6 +23,9 @@ Spring框架采用分层架构，它的一些列功能被分为若干个模块�
 
 ![](http://img.cairbin.top/img/202403190125935.png)
 
+如果等待时间较长，还是空白，`Catalog`切换到`Internal`
+![](http://img.cairbin.top/img/202403220039748.png)
+
 接下来我们填写**Group Id**和**Artifact Id**，这里有必要说明下
 
 前者一般为域名的反写，比如`com.xxx`一般表示某商业公司；而`org.xxx`一般表示某组织。后者一般为项目名称。

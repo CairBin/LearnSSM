@@ -170,7 +170,7 @@ SELECT * FROM customer;
 
 我们创建一个`resources`文件夹，并`use as source folder`
 
-在里面创建一个`log4j.properties`
+在里面创建一个`log4j.properties`，可以让我们在控制台看到SQL语句
 
 
 ![](http://img.cairbin.top/img/202403211412967.png)
@@ -248,8 +248,8 @@ public class Customer {
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace表示命名空间 -->
 <mapper namespace="top.cairbin.test4.CustomerMapper">
-    <!--根据客户编号获取客户信息（如果使用的生成类MBGTest.java生成的映射文件，可以不用添加如下内容，直接使用里面的selectByPrimaryKey方法。） -->
-	<select id=" findCustomerById" parameterType="Integer"
+    <!--根据客户编号获取客户信息 -->
+	<select id="findCustomerById" parameterType="Integer"
 		resultType="top.cairbin.test4.Customer">
 		select * from customer where id = #{id}
 	</select>
@@ -337,12 +337,22 @@ public class MyBatisTest {
 }
 ```
 
+注意这条语句
+
+```java
+Customer customer = sqlSession.selectOne("top.cairbin.test4"  + ".CustomerMapper. findCustomerById", 1);
+```
+
+我们正是在调用刚才在`CustomerMapper.xml`里编写的方法，对应`<select>`标签的`id`属性。
+
 点击运行看到输出结果
 
 ![](http://img.cairbin.top/img/202403211446583.png)
 
 
-在`CustomerMapper.xml`映射文件中添加模糊查询,添加,更新和删除的配置,在测试类中添加对应的测试方法,然后进行测试.
+在`CustomerMapper.xml`映射文件中添加模糊查询,添加,更新和删除的配置,在测试类中添加对应的测试方法,然后进行测试。
+
+**注意每一个方法的**`parameterType`**和**`resultType`**属性对应的包**。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
