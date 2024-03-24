@@ -29,3 +29,4 @@ nav:
       - 了解MyBatis: mybatis/ch1.md
       - 动态SQL: mybatis/ch2.md
       - MyBatis关联映射: mybatis/ch3.md
+      - SqlSession以及Spring与MyBatis整合: mybatis/ch4.md
