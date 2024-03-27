@@ -25,6 +25,7 @@ brew --version
 ```
 
 如果出现下图则安装成功
+
 ![brew version](http://img.cairbin.top/img/202403182350228.png)
 
 我在写这篇文章的时候是这个版本，你的版本号可能比我更高，这一般没啥问题。
@@ -154,9 +155,9 @@ mvn -version
 
 ![启动台](http://img.cairbin.top/img/202403190002953.png)
 
-打开后选择第一项
+打开后选择第二项`Eclipse IDE for Enterprise Java and Web Developers`，注意千万别选错了，我们要开发WEB项目
 
-![Eclipse Installer Java](http://img.cairbin.top/img/202403190003495.png)
+![](http://img.cairbin.top/img/202403250133368.png)
 
 
 如图所示有两个输入框，上面那个是你的JDK路径，下面那个是你的安装目录。
@@ -171,7 +172,7 @@ mvn -version
 
 最后点击**Install**按钮进行安装即可。
 
-![install](http://img.cairbin.top/img/202403190008561.png)
+![](http://img.cairbin.top/img/202403250135403.png)
 
 安装完成并首次启动**Eclipse**会有一个工作目录的配置，默认即可，点击**Launch**按钮。
 
@@ -185,8 +186,22 @@ mvn -version
 
 ### 安装Tomcat
 
+**这里一定要指定Tomcat9版本，用10及以上的话会有大坑**
+
 ```shell
-brew install tomcat
+brew install tomcat@9
+```
+
+完成后会提示你配置环境变量
+
+```shell
+echo 'export PATH="/opt/homebrew/opt/tomcat@9/bin:$PATH"' >> ~/.bash_profile
+```
+
+让配置文件生效
+
+```shell
+source ~/.bash_profile
 ```
 
 检查是否安装成功
@@ -198,24 +213,26 @@ catalina -h
 我们可以使用以下命令来启动tomcat服务
 
 ```shell
-brew services start tomcat
+brew services start tomcat@9
 ```
 
 同理也可以关闭它
 
 ```shell
-brew services stop tomcat
+brew services stop tomcat@9
 ```
 
 检查服务状态
 
 ```shell
-brew services info tomcat
+brew services info tomcat@9
 ```
 
 当服务为开启状态的时候我们**浏览器**访问`http://localhost:8080`大概如下图
 
 ![tomcat test](http://img.cairbin.top/img/202403190110134.png)
+
+我这里的图片为了演示还是Tomcat10的
 
 ## 安装MySQL
 
@@ -256,3 +273,26 @@ brew services start mysql@5.7
 ```shell
 mysql -uroot
 ```
+
+
+## 配置Tomcat
+
+![](http://img.cairbin.top/img/202403250126199.png)
+
+如图所示，找到Eclipse工具栏 -> Settings -> 左侧选项中的Server -> Runtime Environment
+
+![](http://img.cairbin.top/img/202403250147680.png)
+
+单击Add按钮，然后在“Apache”里根据你的Tomcat版本来选择（你之前访问过Tomcat的测试页面，里面就有版本号）
+
+![](http://img.cairbin.top/img/202403280144342.png)
+
+指定Tomcat路径，如果不知道，在终端中执行`catalina -h`命令就行
+
+![](http://img.cairbin.top/img/202403280141047.png)
+
+![](http://img.cairbin.top/img/202403280145008.png)
+
+最后保存并退出。
+
+**在执行SpringMVC项目的时候，需要先关闭Tomcat！！！交给Eclipse去打开！**

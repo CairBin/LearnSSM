@@ -17,6 +17,9 @@ nav:
     - 开发环境搭建: 
       - MacOS环境搭建: environment/mac.md
       - Windows环境搭建: environment/windows.md
+    - 问题:
+      - 数据库驱动报错: error/ch1.md
+      - Tomcat10版本问题导致Servlet报错: error/ch2.md
     - Spring初步: 
       - 了解Spring: spring/ch1.md
       - 控制反转IoC与依赖注入DI: spring/ch2.md
@@ -30,3 +33,6 @@ nav:
       - 动态SQL: mybatis/ch2.md
       - MyBatis关联映射: mybatis/ch3.md
       - SqlSession以及Spring与MyBatis整合: mybatis/ch4.md
+    - Spring MVC上手:
+      - MVC模式与三层架构: mvc/ch1.md
+      - Spring MVC项目创建: mvc/ch2.md
