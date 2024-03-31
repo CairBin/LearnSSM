@@ -1,13 +1,15 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+        <meta name="description" content="JavaEE SSM框架入门">
       
+      
+        <meta name="author" content="CairBin">
       
       
       
@@ -27,6 +29,9 @@
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,7 +60,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -65,7 +75,7 @@
       
         
         <a href="#sql" class="md-skip">
-          Skip to content
+          跳转至
         </a>
       
     </div>
@@ -79,7 +89,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
   
@@ -107,8 +117,8 @@
       </div>
     </div>
     
+      
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -120,16 +130,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -140,7 +150,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -149,6 +159,18 @@
   </div>
 </div>
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -173,7 +195,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
@@ -183,6 +205,18 @@
     </a>
     LearnSSM
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -700,7 +734,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -709,7 +743,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -900,6 +934,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSP语法入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    核心类、常用注解与RESTful
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -928,7 +1004,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -937,7 +1013,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1006,16 +1082,19 @@
                 
                   
 
+  
+  
 
-<h1 id="sql">动态SQL</h1>
-<h2 id="sql_1">什么是动态SQL</h2>
+
+<h1 id="sql">动态SQL<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h1>
+<h2 id="sql_1">什么是动态SQL<a class="headerlink" href="#sql_1" title="Permanent link">&para;</a></h2>
 <p>动态SQL是MyBatis强大特性之一，MyBatis3采用了功能强大的基于OGNL的表达式来完成SQL。</p>
-<h2 id="sql_2">动态SQL主要元素</h2>
+<h2 id="sql_2">动态SQL主要元素<a class="headerlink" href="#sql_2" title="Permanent link">&para;</a></h2>
 <p>常用的动态SQL主要元素如下：</p>
 <p><img alt="动态SQL主要元素" src="http://img.cairbin.top/img/202403211730019.png" /></p>
 <p>如果单独对以上元素解释理解起来还是比较费力的，接下来还是以代码的形式展现。</p>
-<h2 id="_1">实践</h2>
-<h3 id="_2">基础部分</h3>
+<h2 id="_1">实践<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="_2">基础部分<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>我们还是用之前的项目<code>top.cairbin.test4</code>，我们把<code>src/main/java</code>目录下的<code>top.cairbin.test4</code>包中的<code>CustomerMapper.xml</code>文件里的<code>&lt;mapper namespace="top.cairbin.test4.CustomerMapper"&gt;&lt;/mapper&gt;</code>中间的内容全部删除，最终效果看上去应该与下面一致：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="cp">&lt;!DOCTYPE mapper PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span>
@@ -1113,10 +1192,10 @@
 <p>你可能对<code>static{...}</code>这段代码有所疑惑，但是你在学习Java语言的时候应该涉及过才对，这也算一种技巧吧，即然碰到了我们就讲一下。</p>
 <p>还记不记得<code>static</code>关键字的特性？被它修饰的代码不依赖于任何实例化的对象，它们的内存是固定且唯一的，并且不会被Java的垃圾回收机制回收，直至程序结束。也就是说当它们的内存一旦被确认下来，在程序需运行的过程中，所指向的内存位置都是同一地址。</p>
 <p>当你定义一个类<code>MyClass</code>，类内有个<code>public</code>静态成员<code>staticTest</code>，你并不用<code>(new MyClass()).staticTest</code>，而是直接以<code>MyClass.staticTest</code>的方式去调用。因为对于每一个<code>MyClass</code>它所指向的<code>staticTest</code>都是同一个。</p>
-<p>那么跟我们要说的<code>static</code>修饰的代码块有什么关系呢？想一想你每次调用方法，都要连接一次数据库，操作完后被Java的回收机制释放掉，当调用次数过多的时候对于连接方和被连接方开销都是巨大的。那么这时候你就会想，能不能让这个过程只执行一次而且不会被Java的回收机制释放呢？这时候就可以利用我们的<strong>静态代码块</strong>了。无论你<code>new MyBatisHelper()</code>多少次，它只会加载一次且在整个程序运行时有效！</p>
-<h3 id="_3">编写方法</h3>
+<p>那么跟我们要说的<code>static</code>修饰的代码块有什么关系呢？想一想你每次调用方法，都要连接一次数据库，操作完后被Java的回收机制释放掉，当调用次数过多的时候对于连接方和被连接方开销都是巨大的。那么这时候你就会想，能不能让这个过程只执行一次而且不会被Java的回收机制释放呢？这时候就可以利用我们的**静态代码块**了。无论你<code>new MyBatisHelper()</code>多少次，它只会加载一次且在整个程序运行时有效！</p>
+<h3 id="_3">编写方法<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>回到正题，我们来编写第一个方法，插入Customer</p>
-<p>我们在<code>CustomerMapper.xml</code>中<code>&lt;mapper&gt;&lt;/mapper&gt;</code>标签中间，在原来的基础上<strong>追加</strong>以下内容（这句话描述的很准确了）</p>
+<p>我们在<code>CustomerMapper.xml</code>中<code>&lt;mapper&gt;&lt;/mapper&gt;</code>标签中间，在原来的基础上**追加**以下内容（这句话描述的很准确了）</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">&lt;insert</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;insertSelective&quot;</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="na">parameterType=</span><span class="s">&quot;top.cairbin.test4.Customer&quot;</span><span class="nt">&gt;</span>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>insert<span class="w"> </span>into<span class="w"> </span>customer
@@ -1544,7 +1623,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>

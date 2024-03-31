@@ -1,15 +1,46 @@
 site_name: LearnSSM
-site_description: 对JavaEE SSM框架应用简单的学习
+site_author: 'CairBin'
+site_description: JavaEE SSM框架入门
 copyright: Copyright © 2024-Now CairBin
-theme: material
+
+
+# source repository
+repo_name: 'CairBin/LearnSSM'
+repo_url: 'https://github.com/CairBin/LearnSSM'
+
+# theme config
+theme: 
+  name: 'material'
+  language: 'zh'
+  palette:
+    primary: 'light blue'
+    accent: 'indigo'
+  feature:
+    tabs: true
 
 # theme extension
 markdown_extensions:
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
+  - admonition  # 提示块
+  - footnotes  # 脚注
+  - meta  # 定义元数据，通过文章上下文控制，如disqus
+  - pymdownx.caret  # 下划线上标
+  - pymdownx.tilde  # 删除线下标
+  - pymdownx.critic  # 增加删除修改高亮注释，可修饰行内或段落
+  - pymdownx.details  # 提示块可折叠
+  - pymdownx.inlinehilite  # 行内代码高亮
+  - pymdownx.mark  # 文本高亮
+  - pymdownx.smartsymbols  # 符号转换
+  - pymdownx.superfences  # 代码嵌套在列表里
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.highlight:    # 代码高亮，显示行号
+      anchor_linenums: true
+  - toc:  # 锚点
+      permalink: true
+  - pymdownx.arithmatex  # 数学公式
+  - pymdownx.betterem:  # 对加粗和斜体更好的检测
+      smart_enable: all
+  - pymdownx.magiclink  # 自动识别超链接
+
 
 nav:
   - 主页: index.md
@@ -36,3 +67,5 @@ nav:
     - Spring MVC上手:
       - MVC模式与三层架构: mvc/ch1.md
       - Spring MVC项目创建: mvc/ch2.md
+      - JSP语法入门: mvc/ch3.md
+      - 核心类、常用注解与RESTful: mvc/ch4.md

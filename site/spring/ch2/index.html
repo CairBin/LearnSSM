@@ -1,13 +1,15 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+        <meta name="description" content="JavaEE SSM框架入门">
       
+      
+        <meta name="author" content="CairBin">
       
       
       
@@ -27,6 +29,9 @@
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,7 +60,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -65,7 +75,7 @@
       
         
         <a href="#iocdi" class="md-skip">
-          Skip to content
+          跳转至
         </a>
       
     </div>
@@ -79,7 +89,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
   
@@ -107,8 +117,8 @@
       </div>
     </div>
     
+      
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -120,16 +130,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -140,7 +150,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -149,6 +159,18 @@
   </div>
 </div>
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -173,7 +195,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
@@ -183,6 +205,18 @@
     </a>
     LearnSSM
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -510,7 +544,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -519,7 +553,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -969,6 +1003,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSP语法入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    核心类、常用注解与RESTful
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -997,7 +1073,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -1006,7 +1082,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1144,20 +1220,23 @@
                 
                   
 
+  
+  
 
-<h1 id="iocdi">控制反转IoC与依赖注入DI</h1>
-<h2 id="_1">概念</h2>
-<p>提到Spring首先想到的肯定是Spring的IoC容器了。在了解Spring的用法之前我们必须了解什么是<strong>控制反转IoC</strong>和<strong>依赖注入DI</strong>。</p>
-<p><strong>控制反转（Inversion of Control）</strong>是面向对象编程中的一种设计原则，它建议将不需要的职责移出类，让类专注于核心职责，从而提供松散耦合，提高优化软件程序设计。</p>
+
+<h1 id="iocdi">控制反转IoC与依赖注入DI<a class="headerlink" href="#iocdi" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>提到Spring首先想到的肯定是Spring的IoC容器了。在了解Spring的用法之前我们必须了解什么是**控制反转IoC**和**依赖注入DI**。</p>
+<p>**控制反转（Inversion of Control）**是面向对象编程中的一种设计原则，它建议将不需要的职责移出类，让类专注于核心职责，从而提供松散耦合，提高优化软件程序设计。</p>
 <p>简单一点来说，我原来需要一个对象需要自己手动去new，我必须知道哪些类实现了相应的接口，而有了控制反转，我只需要向框架的容器要一个，由它实现装配，对对象组件的控制权也就由代码转移到了外部容器。</p>
 <p>控制反转有多种实现方式：</p>
 <ul>
 <li>依赖注入（Dependency Injection）</li>
 <li>依赖查找（Dependency Lookup）</li>
 </ul>
-<p>其中依赖查找又可以分为<strong>依赖拖拽</strong>和<strong>上下文依赖查找</strong>。</p>
-<h2 id="_2">依赖注入</h2>
-<p>我们这里主要来探讨<strong>依赖注入</strong>，它的基本原则是<strong>应用组件不应该负责查找资源或者其他依赖对象，配置对象的工作由IoC容器负责，即组件不做定位查询，只提供常规的Java方法让容器去决定依赖关系。</strong></p>
+<p>其中依赖查找又可以分为**依赖拖拽**和**上下文依赖查找**。</p>
+<h2 id="_2">依赖注入<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>我们这里主要来探讨**依赖注入**，它的基本原则是**应用组件不应该负责查找资源或者其他依赖对象，配置对象的工作由IoC容器负责，即组件不做定位查询，只提供常规的Java方法让容器去决定依赖关系。**</p>
 <p>Spring实现DI有四种方式：构造器注入、setter注入、接口注入和属性注入。接口注入Spring3.x的特性，Spring4.x已经被废弃掉了，我们就着重探讨另外三者。</p>
 <p>我们还是在原来的test1项目上进行演示。首先，我们创建一个接口，其名称<code>ITest</code>。</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403190240774.png" /></p>
@@ -1239,8 +1318,8 @@
 <a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="p">}</span>
 </code></pre></div>
-<h3 id="_3">构造器注入</h3>
-<p>构造器注入是<strong>SpringFramework</strong>推荐的一种方式，它要求提供有参数的构造方法。</p>
+<h3 id="_3">构造器注入<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>构造器注入是**SpringFramework**推荐的一种方式，它要求提供有参数的构造方法。</p>
 <p>我们对类<code>User</code>进行改造</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test1</span><span class="p">;</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
@@ -1272,9 +1351,9 @@
 <a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="nt">&lt;/beans&gt;</span>
 </code></pre></div>
 在这个xml文件中，我们告诉Spring类<code>User</code>构造器所需参数类型。这里的<code>user</code>对应<code>top.cairbin.test1.User</code>，而且与<code>Main</code>函数中的<code>getBean("user")</code>参数一致。</p>
-<p>点击<strong>运行</strong>，发现控制台能够正常输出了</p>
+<p>点击**运行**，发现控制台能够正常输出了</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403190339683.png" /></p>
-<h3 id="setter">Setter注入</h3>
+<h3 id="setter">Setter注入<a class="headerlink" href="#setter" title="Permanent link">&para;</a></h3>
 <p>类<code>User</code>内容
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">top.cairbin.test1</span><span class="p">;</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
@@ -1306,7 +1385,7 @@
 <a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
 <a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="nt">&lt;/beans&gt;</span>
 </code></pre></div></p>
-<h3 id="_4">属性注入</h3>
+<h3 id="_4">属性注入<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>属性注入，又或者说是字段注入，实际上并不是新的注入类型，它实际上通过注解实现，底层利用反射机制来设置值。</p>
 <p>我们在<code>AppCtx.xml</code>文件中修改内容如下
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
@@ -1340,9 +1419,9 @@
 <a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="p">}</span>
 </code></pre></div>
-点击<strong>运行</strong>按钮我们能看到控制台能够正常输出。</p>
-<h3 id="_5">属性注入与自动扫描</h3>
-<p>我们想扔掉讨厌的setter方法，并且不再写这么麻烦的XML文件，有一个好方法那就是<strong>自动扫描</strong>。</p>
+点击**运行**按钮我们能看到控制台能够正常输出。</p>
+<h3 id="_5">属性注入与自动扫描<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>我们想扔掉讨厌的setter方法，并且不再写这么麻烦的XML文件，有一个好方法那就是**自动扫描**。</p>
 <p>我们修改<code>AppCtx.xml</code>里开启自动扫描。
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nt">&lt;beans</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
@@ -1379,10 +1458,10 @@
 <a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="p">}</span>
 </code></pre></div>
-<p>保存后，点击<strong>运行</strong>就能看到控制台输出。</p>
-<p>这里对<code>@Component</code>注解进行说明，它就相当于我们在<code>AppCtx.xml</code>里添加了一个<code>&lt;bean&gt;&lt;/bean&gt;</code>标签，其id为<strong>首字母小写的类名</strong>，例如类名为<code>TestDi</code>，则对应id就是<code>testDi</code>。</p>
+<p>保存后，点击**运行**就能看到控制台输出。</p>
+<p>这里对<code>@Component</code>注解进行说明，它就相当于我们在<code>AppCtx.xml</code>里添加了一个<code>&lt;bean&gt;&lt;/bean&gt;</code>标签，其id为**首字母小写的类名**，例如类名为<code>TestDi</code>，则对应id就是<code>testDi</code>。</p>
 <p>如果你想要自定义这个id，只需要这样写注解即可<code>@Component("testDi")</code>。</p>
-<h3 id="_6">属性注入与其它注入混合使用</h3>
+<h3 id="_6">属性注入与其它注入混合使用<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
 <p>问题来了，当属性注入和其它注入方式混合使用会怎么样。</p>
 <p>在Spring4.3之前，需要添加<code>@Autowired</code>注解在构造函数上；在Spring4.3之后，如果只存在一个构造函数，则不用添加<code>@Autowired</code>，如果存在多个构造函数，则必须指定哪个来注入以来项，即在上面添加<code>@Autowired</code>。</p>
 <p>当属性注入与Setter注入同时使用时，例如下方代码：</p>
@@ -1399,16 +1478,16 @@
 </code></pre></div>
 <p><strong>Spring会优先使用Setter注入！！！</strong></p>
 <p><strong>上述只是举例，在实际项目编写不要使用混合的注入方式，因为这会降低代码可读性！！</strong></p>
-<h2 id="di">对比几种DI的方式</h2>
-<h3 id="_7">构造器注入</h3>
+<h2 id="di">对比几种DI的方式<a class="headerlink" href="#di" title="Permanent link">&para;</a></h2>
+<h3 id="_7">构造器注入<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
 <p>对于构造器注入，类的依赖关系在构造器中很明显，所有的依赖项在构造方法中，所以所有的依赖项都第一时间被注入到类中，且无法更改，即构造的对象是不可变的。</p>
 <p><strong>为什么Spring推荐这种方式？因为它可以使代码更健壮，可以防止空指针异常。</strong></p>
 <p>但是构造器注入也并不完美，它缺乏灵活性，不可能更改对象的依赖关系，在重构代码的时候比较麻烦。甚至有可能产生循环依赖。</p>
-<h3 id="setter_1">Setter注入</h3>
+<h3 id="setter_1">Setter注入<a class="headerlink" href="#setter_1" title="Permanent link">&para;</a></h3>
 <p>Setter注入是一种灵活的方式，但是在多线程环境中可能变得不安全。另外Setter注入需要进行Null检查，否则可能报错，这影响了代码的健壮性。</p>
-<h3 id="_8">属性注入</h3>
+<h3 id="_8">属性注入<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>快速方便，与IoC容器耦合，但会带来额外的性能开销和兼容问题，同时也打破了封装这一特性，不利于面向对象编程。同时它也可能存在空指针异常，不利于代码的健壮性。</p>
-<h2 id="_9">结束</h2>
+<h2 id="_9">结束<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <p>本文到此结束，看完这一章你对依赖注入应该有了一个大致的了解，但是也应该会有很多疑问。Bean是什么？注解到底帮助我们实现了什么？我们将在下一节来探究这个问题。</p>
 
 
@@ -1460,7 +1539,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>

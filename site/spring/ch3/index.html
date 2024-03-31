@@ -1,13 +1,15 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+        <meta name="description" content="JavaEE SSM框架入门">
       
+      
+        <meta name="author" content="CairBin">
       
       
       
@@ -27,6 +29,9 @@
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,7 +60,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -65,7 +75,7 @@
       
         
         <a href="#spring-bean" class="md-skip">
-          Skip to content
+          跳转至
         </a>
       
     </div>
@@ -79,7 +89,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
   
@@ -107,8 +117,8 @@
       </div>
     </div>
     
+      
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -120,16 +130,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -140,7 +150,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -149,6 +159,18 @@
   </div>
 </div>
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -173,7 +195,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
@@ -183,6 +205,18 @@
     </a>
     LearnSSM
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -531,7 +565,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -540,7 +574,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1059,6 +1093,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSP语法入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    核心类、常用注解与RESTful
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1087,7 +1163,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -1096,7 +1172,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1324,10 +1400,13 @@
                 
                   
 
+  
+  
 
-<h1 id="spring-bean">工厂模式、核心容器与Spring Bean</h1>
-<h2 id="_1">工厂模式</h2>
-<p><strong>工厂模式</strong>是Java中常用的一种设计模式，这种类型的设计模式属于创建型模式。说白了在代码层面就是取消了new的使用。</p>
+
+<h1 id="spring-bean">工厂模式、核心容器与Spring Bean<a class="headerlink" href="#spring-bean" title="Permanent link">&para;</a></h1>
+<h2 id="_1">工厂模式<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>**工厂模式**是Java中常用的一种设计模式，这种类型的设计模式属于创建型模式。说白了在代码层面就是取消了new的使用。</p>
 <p>工厂模式有三种：</p>
 <ul>
 <li>简单工厂模式</li>
@@ -1335,8 +1414,8 @@
 <li>抽象工厂模式</li>
 </ul>
 <p>举个例子，我们去买手机，假设手机品牌有两种，分别是Xphone和Luwei，你显然不用关心手机是怎么生产的，手机零件怎么组装的，这都是工厂干的活。下面我们以这个例子来讲解三种工厂模式。</p>
-<h3 id="_2">简单工厂模式</h3>
-<p><strong>简单工厂模式</strong>示意图如下：</p>
+<h3 id="_2">简单工厂模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>**简单工厂模式**示意图如下：</p>
 <p><img alt="简单工厂模式示意图" src="http://img.cairbin.top/img/202403192017957.png" /></p>
 <p>我们用Java代码来表示，首先需要定义一个接口，来表示手机(Phone)，不妨声明一个方法，用来获取品牌名称。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Phone</span><span class="p">{</span>
@@ -1382,9 +1461,9 @@
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
 </code></pre></div>
-<p>但是细心观察你可能会发现，我们目前只有两个手机品牌，但是当品牌增多的时候，工厂内部的代码也需要修改，我们不得不面临一个麻烦——内部代码也会增加。这违反了设计模式的一个原则，即<strong>对扩展开放，对修改关闭</strong>。</p>
-<h3 id="_3">工厂方法模式</h3>
-<p>为了解决简单工厂模式的问题，聪明的你可能会想到，干脆将工厂也变为抽象的接口，我们让每个手机厂商去实现它们各自的工厂不久行啦！没错，这正是<strong>工厂方法模式</strong>。</p>
+<p>但是细心观察你可能会发现，我们目前只有两个手机品牌，但是当品牌增多的时候，工厂内部的代码也需要修改，我们不得不面临一个麻烦——内部代码也会增加。这违反了设计模式的一个原则，即**对扩展开放，对修改关闭**。</p>
+<h3 id="_3">工厂方法模式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>为了解决简单工厂模式的问题，聪明的你可能会想到，干脆将工厂也变为抽象的接口，我们让每个手机厂商去实现它们各自的工厂不久行啦！没错，这正是**工厂方法模式**。</p>
 <p><img alt="工厂方法模式示意图" src="http://img.cairbin.top/img/202403192039953.png" /></p>
 <p>我们在上文的基础上将<code>PhoneFactory</code>从类变为接口</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">PhoneFactory</span><span class="p">{</span>
@@ -1416,8 +1495,8 @@
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="p">}</span>
 </code></pre></div></p>
 <p>这样我们就不必去更改Factory的代码就能增加品牌了，但工厂方法模式会带来另外一个问题，当我们增加品牌的时候就需要增加工厂，而且我们如果新增一款产品，那么每个工厂就必须增加相应的方法，这大大降低了代码的可维护性。</p>
-<h3 id="_4">抽象工厂模式</h3>
-<p><strong>抽象工厂模式</strong>相对来讲比较复杂，在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显式指定它们的类。每个生成的工厂都能按照工厂模式提供对象。</p>
+<h3 id="_4">抽象工厂模式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>**抽象工厂模式**相对来讲比较复杂，在抽象工厂模式中，接口是负责创建一个相关对象的工厂，不需要显式指定它们的类。每个生成的工厂都能按照工厂模式提供对象。</p>
 <p>假设我们前面提到的两个品牌都新增了一样产品——个人电脑。</p>
 <p>我们来定义手机接口和电脑接口。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">Phone</span><span class="p">{</span>
@@ -1491,7 +1570,7 @@
 <a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="p">}</span>
 </code></pre></div>
-<p>我们为了统一它们的工厂，还需要一个<strong>超级工厂</strong>，即工厂的工厂，者有些类似于供应商与代理商之间的关系，供应商有自己的品牌和工厂生产自己的产品，然后交给代理商售卖给客户，同时代理商可以代理多家供应商的产品。</p>
+<p>我们为了统一它们的工厂，还需要一个**超级工厂**，即工厂的工厂，者有些类似于供应商与代理商之间的关系，供应商有自己的品牌和工厂生产自己的产品，然后交给代理商售卖给客户，同时代理商可以代理多家供应商的产品。</p>
 <p>为了方便，我们直接在工厂接口里定义一个静态方法来完成这个“代理商”</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">IFactory</span><span class="p">{</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">IFactory</span><span class="w"> </span><span class="nf">createFactory</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">factoryName</span><span class="p">){</span>
@@ -1510,14 +1589,14 @@
 </code></pre></div>
 <p>这样我们就完成了多个品牌多个产品统一对客户的供应。</p>
 <p>当然这个模型还可以更复杂一些，比如每个品牌每个商品都有自己的工厂，然后这些品牌创建自己商品工厂的工厂来对外，与客户之间还有一个超级工厂来创建大工厂，不过我们仅是演示原理没必要这么麻烦。</p>
-<h2 id="spring">Spring核心容器</h2>
+<h2 id="spring">Spring核心容器<a class="headerlink" href="#spring" title="Permanent link">&para;</a></h2>
 <p>Spring容器会负责控制程序之间的关系，而不是由程序代码直接控制。</p>
 <p>我们在上一节中，我们提到了IoC，而Spring的Ioc依赖于Spring的核心容器。</p>
 <p>框架为我们提供了两种核心容器——<code>BeanFactory</code>和<code>ApplicationContext</code>。</p>
 <p>前者位于<code>spring-beans</code>模块中，后者位于<code>spring-context</code>模块。（我们曾在<code>pom.xml</code>里引入过后者）</p>
 <p><code>BeanFactory</code>的<code>Bean</code>都是懒加载的方式，也就是说只有你去调用的时候才被实例化，而<code>ApplicationContext</code>容器启动时<code>Bean</code>就被实例化了。如果不是性能要求特别苛刻或者有其它限制，一般会用后者。</p>
-<h3 id="beanfactoryfactorybean">BeanFactory与FactoryBean</h3>
-<p>看到<code>BeanFactory</code>与<code>FactoryBean</code>，你是不是就明白我们刚才为什么要花这么大的篇幅来讲解<strong>工厂模式</strong>了。</p>
+<h3 id="beanfactoryfactorybean">BeanFactory与FactoryBean<a class="headerlink" href="#beanfactoryfactorybean" title="Permanent link">&para;</a></h3>
+<p>看到<code>BeanFactory</code>与<code>FactoryBean</code>，你是不是就明白我们刚才为什么要花这么大的篇幅来讲解**工厂模式**了。</p>
 <p><code>BeanFactory</code>的重要程度我们用框架源代码中的一句话来讲——<strong>IoC的根接口！！！</strong></p>
 <p>但是我们只是个简单版本的教程，<code>BeanFactory</code>创建<code>Bean</code>的流程以及生命周期非常复杂，我们篇幅有限，而且并非是框架的文档，所以这里仅会简单描述一下它。</p>
 <p>对于<code>BeanFactory</code>的主要作用就是：处理的<code>BeanDefinition</code>经过<code>BeanFactory</code>来生成<code>Bean</code>。</p>
@@ -1544,7 +1623,7 @@
 <p>可以看到我们是用的<code>ApplicationContext</code>来加载的<code>AppCtx.xml</code>文件，现在我们可以使用<code>BeanFactory</code>来加载它（不过我们一般不这么做），不要忘记导入相应的包。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="n">BeanFactory</span><span class="w"> </span><span class="n">beanFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BeanFactory</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">FileSystemResource</span><span class="p">(</span><span class="s">&quot;这里写AppCtx.xml的绝对路径&quot;</span><span class="p">));</span>
 </code></pre></div>
-<h3 id="applicationcontext">ApplicationContext</h3>
+<h3 id="applicationcontext">ApplicationContext<a class="headerlink" href="#applicationcontext" title="Permanent link">&para;</a></h3>
 <p><code>BeanFactory</code>相对<code>ApplicationContext</code>比较低层，后者是前者的一个子接口，在开发中我们经常用后者。</p>
 <p>获取<code>ApplicationContext</code>的方法这里举两个例子，分别是<code>ClassPathXmlApplicationContext</code>创建和<code>FileSystemXmlApplicationContext</code>创建。</p>
 <p>前者形式如下
@@ -1554,21 +1633,21 @@
 <p>如果你想要使用绝对路径来寻找可以使用<code>FileSystemXmlApplicationContext</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="n">ApplicationContext</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileSystemXmlApplicationContext</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">configLocation</span><span class="p">);</span>
 </code></pre></div>
-<p>什么，你问我啥是<strong>相对路径</strong>和<strong>绝对路径</strong>？前者是相对于你当前位置的；后者是目标文件在文件系统下真实路径，比如Windows中以盘符开始（例如<code>C:\\</code>），在Mac/Linux下以<code>/</code>开始。</p>
-<h2 id="spring-bean_1">Spring Bean</h2>
+<p>什么，你问我啥是**相对路径**和**绝对路径**？前者是相对于你当前位置的；后者是目标文件在文件系统下真实路径，比如Windows中以盘符开始（例如<code>C:\\</code>），在Mac/Linux下以<code>/</code>开始。</p>
+<h2 id="spring-bean_1">Spring Bean<a class="headerlink" href="#spring-bean_1" title="Permanent link">&para;</a></h2>
 <p>Bean是被实例化的、组装的以及被Spring容器接管的Java对象。听起来很费解，但是没关系我们往下看。</p>
 <p>我们在编写<code>AppCtx.xml</code>文件的时候就注意到，根元素为<code>&lt;beans&gt;&lt;/beans&gt;</code>，其中又包含了若干个子元素<code>&lt;bean&gt;</code>，这些子元素通常携带一些属性来帮助Spring实现依赖注入。</p>
-<h3 id="bean">Bean的实例化</h3>
+<h3 id="bean">Bean的实例化<a class="headerlink" href="#bean" title="Permanent link">&para;</a></h3>
 <p>Bean的实例化方法大致有三种：</p>
 <ul>
 <li>构造器实例化（最常用）</li>
 <li>静态工厂实例化</li>
 <li>实例工厂实例化</li>
 </ul>
-<h4 id="_5">构造器实例化</h4>
-<p>构造器实例化需要类中拥有一个<strong>默认构造方法</strong>来实例化Bean，实际上你如果不写构造方法也会有一个默认的构造方法。</p>
+<h4 id="_5">构造器实例化<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>构造器实例化需要类中拥有一个**默认构造方法**来实例化Bean，实际上你如果不写构造方法也会有一个默认的构造方法。</p>
 <p>你只要创建符合条件的类，然后在<code>AppCtx.xml</code>文件里配置下就行了。我们之前章节就是使用构造器实例化的，所以这里不给出代码。</p>
-<h4 id="_6">静态工厂实例化</h4>
+<h4 id="_6">静态工厂实例化<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>我们要自己创建一个工厂，并实现一个用于实例化的静态方法，假设我们的Bean对应类名为<code>MyBean</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyBeanStaticFactory</span><span class="p">{</span>
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">MyBean</span><span class="w"> </span><span class="nf">createBean</span><span class="p">(){</span>
@@ -1580,8 +1659,8 @@
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;myBean&quot;</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;top.cairbin.test1.MyBean&quot;</span><span class="w"> </span><span class="na">factory-method=</span><span class="s">&quot;createBean&quot;</span><span class="nt">/&gt;</span>
 </code></pre></div>
 这个标签的<code>factory-method</code>属性指定了工厂实例化Bean的静态方法。</p>
-<h4 id="_7">实例工厂实例化</h4>
-<p>实例工厂实例化Bean使用的是非静态方法，即<strong>没有</strong><code>static</code>关键字修饰的方法。</p>
+<h4 id="_7">实例工厂实例化<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>实例工厂实例化Bean使用的是非静态方法，即**没有**<code>static</code>关键字修饰的方法。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyBeanFactory</span><span class="p">{</span>
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">MyBean</span><span class="w"> </span><span class="nf">createBean</span><span class="p">(){</span>
 <a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MyBean</span><span class="p">();</span>
@@ -1591,7 +1670,7 @@
 <p>只不过这种情况下，配置文件的标签要配置两个属性，除了指定工厂的方法外还要通过<code>factory-bean</code>指定实例化后的工厂。</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nt">&lt;bean</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;myBean&quot;</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;top.cairbin.test1.MyBean&quot;</span><span class="w"> </span><span class="na">factory-bean=</span><span class="s">&quot;myBeanFactory&quot;</span><span class="w"> </span><span class="na">factory-method=</span><span class="s">&quot;createBean&quot;</span><span class="nt">/&gt;</span>
 </code></pre></div>
-<h3 id="bean_1">Bean的属性</h3>
+<h3 id="bean_1">Bean的属性<a class="headerlink" href="#bean_1" title="Permanent link">&para;</a></h3>
 <p>我们来介绍下之前涉及的几个属性：</p>
 <ul>
 <li><code>id</code>：Bean的唯一标识符。</li>
@@ -1599,12 +1678,12 @@
 <li><code>class</code>：指定Bean对应的类，它必须是一个完整的类名，从包名一直到类。</li>
 <li><code>scope</code>：用来设置Bean的作用域，至于作用域有哪些我们之后讲。</li>
 </ul>
-<h3 id="bean_2">Bean的作用域与生命周期</h3>
+<h3 id="bean_2">Bean的作用域与生命周期<a class="headerlink" href="#bean_2" title="Permanent link">&para;</a></h3>
 <p>Bean的作用域用下图来描述</p>
 <p><img alt="Bean的作用域" src="http://img.cairbin.top/img/202403192232454.png" /></p>
 <p>至于Bean的生命周期，可讲解的点太多了，这里仅放一张部分的示意图</p>
 <p><img alt="Bean声明周期" src="http://img.cairbin.top/img/202403192241085.png" /></p>
-<h3 id="bean_3">Bean的装配方式</h3>
+<h3 id="bean_3">Bean的装配方式<a class="headerlink" href="#bean_3" title="Permanent link">&para;</a></h3>
 <p>Bean的装配方式对应我们前面的Spring实现DI的几种方式。Spring Bean的方式有以下几种：</p>
 <ul>
 <li>基于XML装配</li>
@@ -1612,21 +1691,21 @@
 <li>自动装配</li>
 </ul>
 <p>看完这里你就应该明白IoC、DI、工厂、Bean以及Bean的装配它们之间的关系了。</p>
-<h4 id="xml">基于XML装配</h4>
-<p><strong>基于XML装配</strong>主要常用于两种注入方式——<strong>Setter注入</strong>和<strong>构造器注入</strong>。</p>
-<p>Setter注入要求有Setter和<strong>一个无参的构造方法</strong>，在XML配置文件中用<code>&lt;property&gt;</code>来为每个属性注入值。</p>
-<p>构造器注入<strong>必须提供有参数的构造方法</strong>，在XML配置文件中使用<code>&lt;constructor-arg&gt;</code>来为参数注入值。</p>
-<h4 id="_8">基于注解的装配</h4>
+<h4 id="xml">基于XML装配<a class="headerlink" href="#xml" title="Permanent link">&para;</a></h4>
+<p><strong>基于XML装配**主要常用于两种注入方式——**Setter注入**和**构造器注入</strong>。</p>
+<p>Setter注入要求有Setter和**一个无参的构造方法**，在XML配置文件中用<code>&lt;property&gt;</code>来为每个属性注入值。</p>
+<p>构造器注入**必须提供有参数的构造方法**，在XML配置文件中使用<code>&lt;constructor-arg&gt;</code>来为参数注入值。</p>
+<h4 id="_8">基于注解的装配<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <p>用于装配的注解主要有以下几种</p>
 <p><img alt="" src="http://img.cairbin.top/img/202403192309060.png" /></p>
-<h4 id="_9">自动装配</h4>
+<h4 id="_9">自动装配<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
 <p>自动装配要求属性有对应的Setter方法，在XML文件里进行属性设置，实际上是在<code>&lt;bean&gt;</code>元素标签上添加属性<code>autowire</code>，其值可以如下。
 <img alt="" src="http://img.cairbin.top/img/202403192327045.png" /></p>
-<h3 id="autowiredresource">@Autowired注解与@Resource注解</h3>
+<h3 id="autowiredresource">@Autowired注解与@Resource注解<a class="headerlink" href="#autowiredresource" title="Permanent link">&para;</a></h3>
 <p><code>@Resource</code>的作用相当于<code>@Autowired</code>，只不过<code>@Autowired</code>按<code>byType</code>自动注入，而<code>@Resource</code>默认按 <code>byName</code>自动注入。</p>
 <p>Spring将<code>@Resource</code>的<code>name</code>属性解析为<code>bean</code>的名字，而<code>type</code>属性则解析为bean的类型。如果既不指定<code>name</code>也不指定<code>type</code>属性，这时将通过反射机制使用<code>byName</code>自动注入策略。</p>
 <p>另外需要注意<code>@Resource</code>这个注解不属于Spring，它是属于J2EE的。</p>
-<h2 id="_10">自动扫描与装配的关系</h2>
+<h2 id="_10">自动扫描与装配的关系<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
 <p>自动扫描主要用到了后面两种装配方式，按照基于注解的装配方式将相应的注解转换成Bean纳入Spring容器后，会继续扫描<code>@Resource</code>和<code>@Autowired</code>注解，然后按自动装配的方式进行关系建立。</p>
 <p>然而后两种装配方式本身就是对XML的一种自动化处理，可能借助了Java的某些机制，例如反射，但实际上这几种装配方式在根本上还是一样的，不要将它们割裂来看。</p>
 
@@ -1679,7 +1758,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
