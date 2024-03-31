@@ -1,13 +1,15 @@
 
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="zh" class="no-js">
   <head>
     
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="对JavaEE SSM框架应用简单的学习">
+        <meta name="description" content="JavaEE SSM框架入门">
       
+      
+        <meta name="author" content="CairBin">
       
       
       
@@ -27,6 +29,9 @@
     
     
       <link rel="stylesheet" href="../../assets/stylesheets/main.10ba22f1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -55,7 +60,12 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="indigo">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -65,7 +75,7 @@
       
         
         <a href="#sql" class="md-skip">
-          Skip to content
+          跳转至
         </a>
       
     </div>
@@ -79,7 +89,7 @@
   
 
 <header class="md-header md-header--shadow" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
     <a href="../.." title="LearnSSM" class="md-header__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
   
@@ -107,8 +117,8 @@
       </div>
     </div>
     
+      
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -120,16 +130,16 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
         
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
+      <nav class="md-search__options" aria-label="查找">
         
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
           
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
@@ -140,7 +150,7 @@
       <div class="md-search__scrollwrap" data-md-scrollfix>
         <div class="md-search-result" data-md-component="search-result">
           <div class="md-search-result__meta">
-            Initializing search
+            正在初始化搜索引擎
           </div>
           <ol class="md-search-result__list" role="presentation"></ol>
         </div>
@@ -149,6 +159,18 @@
   </div>
 </div>
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -173,7 +195,7 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
     <a href="../.." title="LearnSSM" class="md-nav__button md-logo" aria-label="LearnSSM" data-md-component="logo">
       
@@ -183,6 +205,18 @@
     </a>
     LearnSSM
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CairBin/LearnSSM" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CairBin/LearnSSM
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -573,7 +607,7 @@
       
         
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -582,7 +616,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1056,6 +1090,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSP语法入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mvc/ch4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    核心类、常用注解与RESTful
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1084,7 +1160,7 @@
                   <div class="md-sidebar__inner">
                     
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+<nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
   
@@ -1093,7 +1169,7 @@
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
-      Table of contents
+      目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
@@ -1318,12 +1394,15 @@
                 
                   
 
+  
+  
 
-<h1 id="sql">SQL语句入门</h1>
-<h2 id="_1">概述</h2>
+
+<h1 id="sql">SQL语句入门<a class="headerlink" href="#sql" title="Permanent link">&para;</a></h1>
+<h2 id="_1">概述<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
 <p>我们接下来要学习Spring的数据库开发，在此之前请让我们回顾下标准的SQL语句。</p>
 <p>文章摘自 <a href="https://cairbin.top/index.php/archives/147/">CairBin's Blog——SQL语句入门</a></p>
-<h2 id="sql_1">SQL介绍</h2>
+<h2 id="sql_1">SQL介绍<a class="headerlink" href="#sql_1" title="Permanent link">&para;</a></h2>
 <p>SQL最早版本是由IBM开发的，一直发展到至今。</p>
 <p>SQL语言有如下几个部分：</p>
 <ul>
@@ -1346,9 +1425,9 @@
 <li>double 双精度</li>
 <li>float(n) 精度至少为n的浮点数</li>
 </ul>
-<h2 id="sql_2">SQL语句入门</h2>
+<h2 id="sql_2">SQL语句入门<a class="headerlink" href="#sql_2" title="Permanent link">&para;</a></h2>
 <p>首先说明一下，SQL语句后面的分号是可选的。</p>
-<h3 id="_2">创建关系</h3>
+<h3 id="_2">创建关系<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">student</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">(</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="n">Sname</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
@@ -1371,7 +1450,7 @@
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p">);</span>
 </code></pre></div>
 <p>此时Sname的取值必须是student关系的Sname中的的一个取值。</p>
-<h3 id="_3">删除关系</h3>
+<h3 id="_3">删除关系<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <p>删除操作有两种：</p>
 <p>下方这条语句会删除名为course的关系</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">course</span><span class="p">;</span>
@@ -1381,7 +1460,7 @@
 </code></pre></div>
 <p>则会删除course关系中的所有元组（数据），但该关系保留</p>
 <p>说白一点就是前者连表带数据一块删除，后者只剩一个空表</p>
-<h3 id="_4">增加与删除属性</h3>
+<h3 id="_4">增加与删除属性<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
 <p>有时候会向关系中添加一个新的属性，则需要用到以下语句</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">Sage</span><span class="w"> </span><span class="nb">INT</span><span class="p">;</span>
 </code></pre></div>
@@ -1391,7 +1470,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="n">Sage</span><span class="p">;</span>
 </code></pre></div>
 <p><strong>但是注意，很多数据库都不支持这一点，执行该语句可能会报错。</strong></p>
-<h3 id="_5">查询</h3>
+<h3 id="_5">查询<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
 <p>SQL查询结构由三个子居构成<code>select</code>，<code>from</code>，<code>where</code></p>
 <p>查询以在<code>from</code>子句列出的关系作为输入，并在这些关系上进行<code>where</code>和<code>select</code>子句中的指定运算，然后产生一个关系作为结果。</p>
 <p>为方便演示，先向student表中插入如下几条数据</p>
@@ -1405,7 +1484,7 @@
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">course</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;CairBin&#39;</span><span class="p">,</span><span class="s1">&#39;chemistry&#39;</span><span class="p">);</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">course</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span><span class="s1">&#39;chemistry&#39;</span><span class="p">);</span>
 </code></pre></div>
-<h4 id="_6">单关系查询</h4>
+<h4 id="_6">单关系查询<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>我们现在想要获取student关系中的所有学生的姓名，也就是Sname属性列下的所有数据，则可以使用如下语句</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="p">;</span>
 </code></pre></div>
@@ -1501,11 +1580,11 @@
 <p>这里应当注意，以下语句是不符合SQL标准的，对于一些数据库或者它们的早期版本会报错（例如MySQL，尽管在后来版本进行了支持，<strong>但是不要这样做</strong>）</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="o">&lt;</span><span class="n">Sid</span><span class="p">;</span>
 </code></pre></div>
-<h4 id="_7">多关系查询</h4>
+<h4 id="_7">多关系查询<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
 <p>例如我们要输出course中Sname属性与student的Sname属性取值相同的课程名和学生名：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Cname</span><span class="p">,</span><span class="n">student</span><span class="p">.</span><span class="n">Sname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">course</span><span class="p">,</span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">course</span><span class="p">.</span><span class="n">Sname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">student</span><span class="p">.</span><span class="n">Sname</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_8">更名运算</h3>
+<h3 id="_8">更名运算<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
 <p>更名运算用到了<code>as</code>子句，它既可以出现在<code>from</code>中也可以出现在<code>select</code>中，作用是重新命名</p>
 <p>（由于早期SQL没有<code>as</code>关键字，在像Oracle这样的数据库中，不允许form出现<code>as</code>关键字，如果要做别名，则需将<code>oldName as newName</code>改成<code>oldName newName</code>）</p>
 <p>我们先看看原语句效果</p>
@@ -1529,7 +1608,7 @@
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">T</span>
 <a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="k">WHERE</span><span class="w"> </span><span class="n">T</span><span class="p">.</span><span class="n">id</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_9">字符串运算</h3>
+<h3 id="_9">字符串运算<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <p>SQL标准是对字符串大小写敏感的，但是在一些数据库系统如MySQL、SQL Server中是不区分大小写的。</p>
 <p>SQL还允许对字符串进行函数操作，如<code>upper()</code>将字符串转大写，<code>lower()</code>转小写，<code>trim()</code>去掉字符串后面的空格。不同数据库系统提供的函数可能会不同。</p>
 <p>在字符串上可使用<code>like</code>运算符来实现模式匹配，模式是大小写敏感的（但MySQL中，或在PostgreSQL中使用<code>ilike</code>时例外）</p>
@@ -1546,7 +1625,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sname</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Sname</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;C/%%&#39;</span><span class="w"> </span><span class="k">ESCAPE</span><span class="w"> </span><span class="s1">&#39;/&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p>该语句会用<code>/</code>来表示转义字符，作用是查找以C和百分号开头的数据。在语句中<code>/%%</code>应当分成<code>/%</code>和<code>%</code>来看，前者是个转义字符，表示普通的百分号，后者是个通配符表示后面的任意位为任意数字。</p>
-<h3 id="_10">排序</h3>
+<h3 id="_10">排序<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>SQL为用户提供了对关系中元组显示次序的一些控制，<code>order by</code>子句可以让查询结果中的元组按排列顺序显示。</p>
 <p>例如，升序输出student关系中的学生id</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Sid</span><span class="p">;</span>
@@ -1555,20 +1634,20 @@
 <p>接下来进行降序输出</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="between">between谓词</h3>
+<h3 id="between">between谓词<a class="headerlink" href="#between" title="Permanent link">&para;</a></h3>
 <p><code>X between a and b</code>表示X属性列中取大于等于a小于等于b的值</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 <p>该语句相当于下方语句</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
-<h3 id="_11">集合运算</h3>
+<h3 id="_11">集合运算<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
 <p>SQL的<code>union</code>、<code>intersect</code>、<code>except</code>对应数学上集合的交集、并集、差集运算</p>
 <p>例如student表中学号小于2与学号大于3的学生信息元组组成的集合的并集</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="o">&lt;</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">union</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">Sid</span><span class="o">&gt;</span><span class="mi">3</span><span class="p">);</span>
 </code></pre></div>
 <p>注意：MySQL不支持<code>except</code></p>
-<h3 id="_12">聚集函数</h3>
+<h3 id="_12">聚集函数<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <p>聚集函数是以值集为输入并返回单个值的函数。SQL标准提供了五个固有的聚集函数：</p>
 <ul>
 <li>平均值 <code>avg()</code></li>
@@ -1585,18 +1664,18 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sname</span><span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Sname</span><span class="p">;</span>
 </code></pre></div>
 <p>在有些时候，某属性的取值可能为空，但需要对该属性列进行聚集，但SQL聚集函数并不认为结果为<code>null</code>，而是认为应该跳过该值。</p>
-<p>另外，在SQL:1999中引入了布尔类型，它可以取<code>true</code>、<code>false</code>、<code>unknown</code>，聚集函数<code>some()</code>和<code>every()</code>可应用于布尔值的集合，并分别计算这些值的<strong>析取(or)</strong>和<strong>合取(and)</strong></p>
-<h3 id="having">having子句</h3>
+<p>另外，在SQL:1999中引入了布尔类型，它可以取<code>true</code>、<code>false</code>、<code>unknown</code>，聚集函数<code>some()</code>和<code>every()</code>可应用于布尔值的集合，并分别计算这些值的**析取(or)<strong>和**合取(and)</strong></p>
+<h3 id="having">having子句<a class="headerlink" href="#having" title="Permanent link">&para;</a></h3>
 <p>有些时候我们对分组有限定条件要求，例如求student中每组同名学生的id之和，但是要求和在5以上的，这种操作需要利用<code>having</code>子句</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="n">Sname</span><span class="p">,</span><span class="k">SUM</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">Sname</span><span class="w"> </span><span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 <p>注意，任何出现在having子句中但是没被聚集的属性都需要出现在<code>group by</code>子句中</p>
-<h3 id="_13">数据库修改</h3>
-<h4 id="_14">删除</h4>
+<h3 id="_13">数据库修改<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<h4 id="_14">删除<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
 <p>删除与查询类似，例如删除student中id为1的学生信息</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
-<h4 id="_15">插入</h4>
+<h4 id="_15">插入<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
 <p>例如我们向student插入一个名为<code>Alex</code>且id为<code>5</code>的一条数据，最简单的一条<code>insert</code>语句如下：</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;Alex&#39;</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
 </code></pre></div>
@@ -1605,7 +1684,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">student</span><span class="p">(</span><span class="n">Sid</span><span class="p">,</span><span class="n">Sname</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s1">&#39;Alex&#39;</span><span class="p">);</span>
 </code></pre></div>
 <p>该语句指定了两个属性，第一个值对应的属性为id，第二个值对应的属性为学生名。</p>
-<h4 id="_16">更新</h4>
+<h4 id="_16">更新<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
 <p>某些情况下，我们不想改变元组的所有值，但是要改变元组的局部值，这就需要用到<code>update</code>语句</p>
 <p>如我们将之前插入的名为<code>Alex</code>id为<code>5</code>的学生姓名改为<code>CairBin</code></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">UPDATE</span><span class="w"> </span><span class="n">student</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">Sname</span><span class="o">=</span><span class="s1">&#39;CairBin&#39;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">Sid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
@@ -1627,7 +1706,7 @@
 <a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a><span class="w">    </span><span class="s1">&#39;English&#39;</span>
 <a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a><span class="k">END</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="_17">结束</h2>
+<h2 id="_17">结束<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <p>本文章并没有给出专门介绍SQL嵌套子查询相关的部分，这是因为我认为嵌套子查询基本上是原有语句的组合并且在举例的时候也用到过。</p>
 
 
@@ -1679,7 +1758,7 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
     
     
       <script src="../../assets/javascripts/bundle.bd41221c.min.js"></script>
